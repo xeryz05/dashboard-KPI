@@ -1,0 +1,263 @@
+/**
+ * Style-sheet for dtpicker
+ * https://github.com/mugifly/jquery-simple-datetimepicker
+ */
+
+.datepicker {
+    display: inline-block;
+    font: 15px/1.5 "Helvetica Neue", mplus-2c, Helvetica, Arial, "Hiragino Kaku Gothic Pro", Meiryo, sans-serif;
+    font-weight: 300;
+    border: 1px solid $border;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    box-shadow: 0.5px 0.5px 0px $background;
+    -webkit-box-shadow: 0.5px 0.5px 3px $background;
+    -moz-box-shadow: 0.5px 0.5px 3px $background;
+
+    > {
+        .datepicker_header {
+            background-color: $background;
+            color: $default-color;
+            text-align: center;
+            font-size: 9pt;
+            font-weight: bold;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+
+            > {
+                a {
+                    user-select: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: $default-color;
+                        background-color: $background;
+                    }
+
+                    &:active {
+                        color: $white;
+                        background-color: $background;
+                    }
+                }
+
+                span {
+                    margin-inline-start: 20px;
+                    margin-inline-end: 20px;
+                    user-select: none;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                }
+
+                .icon-home {
+                    position: absolute;
+                    float: $float-left;
+                    margin-block-start: 2px;
+                    margin-inline-start: 5px;
+                    width: 11pt;
+                    height: 11pt;
+
+                    > svg > g > path {
+                        fill: $default-color;
+                    }
+                }
+
+                a:hover > svg > g > path {
+                    fill: $default-color;
+
+                    /* Icon button hover color */
+                }
+            }
+        }
+
+        .datepicker_inner_container {
+            margin: -2px 0px -2px 0px;
+            background-color: $background;
+            border: 1px solid $border;
+            border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            box-shadow: 0.5px 0px 3px $background;
+            -webkit-box-shadow: 0.5px 0px 3px $background;
+            -moz-box-shadow: 0.5px 0px 3px $background;
+
+            &:after {
+                content: ".";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden;
+            }
+
+            > {
+                .datepicker_calendar {
+                    float: $float-left;
+                    width: auto;
+                    margin-block-start: -0.5px;
+                    margin-inline-start: -1px;
+                    margin-block-end: -2px;
+                    background-color: $white;
+                    border: 1px solid $border;
+                    border-block-start: none;
+                    border-start-start-radius: 3px;
+                    border-end-start-radius: 3px;
+                    -webkit-border-start-start-radius: 3px;
+                    -webkit-border-end-start-radius: 3px;
+                    -moz-border-radius-topinset-inline-start: 3px;
+                    -moz-border-radius-bottominset-inline-start: 3px;
+
+                    > {
+                        table {
+                            padding: 10px;
+                        }
+
+                        .datepicker_table > tbody > tr > {
+                            th {
+                                color: #646464;
+                                width: 18px;
+                                font-size: small;
+                                font-weight: normal;
+                                text-align: center;
+                            }
+
+                            td {
+                                color: #000000;
+                                font-size: small;
+                                text-align: center;
+                                user-select: none;
+                                -webkit-user-select: none;
+                                -moz-user-select: none;
+                                cursor: pointer;
+
+                                &.today {
+                                    border-block-end: #bfbfbf solid 2px;
+                                    margin-block-end: -2px;
+                                }
+
+                                &.wday_sat {
+                                    color: #0044aa;
+                                }
+
+                                &.wday_sun {
+                                    color: #e13b00;
+                                }
+
+                                &.day_another_month {
+                                    color: #cccccc;
+                                }
+
+                                &.day_in_past,
+                                &.day_in_unallowed,
+                                &.out_of_range {
+                                    cursor: default;
+                                    color: #cccccc;
+                                }
+
+                                &.active {
+                                    color: $white;
+                                    background-color: $background;
+                                }
+
+                                &.hover {
+                                    color: #000000;
+                                    background-color: $background;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .datepicker_timelist {
+                    float: $float-left;
+                    width: 4.2em;
+                    height: 118px;
+                    margin-block-start: -0.5px;
+                    padding: 5px;
+                    padding-inline-start: 0px;
+                    padding-inline-end: 0px;
+                    overflow: auto;
+                    overflow-x: hidden;
+                    background-color: $white;
+                    border-start-end-radius: 3px;
+                    border-end-end-radius: 3px;
+                    -webkit-border-start-end-radius: 3px;
+                    -webkit-border-end-end-radius: 3px;
+                    -moz-border-radius-topinset-inline-end: 3px;
+                    -moz-border-radius-bottominset-inline-end: 3px;
+
+                    &::-webkit-scrollbar {
+                        overflow: hidden;
+                        width: 6px;
+                        background: #fafafa;
+                        border-start-end-radius: 3px;
+                        border-end-end-radius: 3px;
+                        -webkit-border-start-end-radius: 3px;
+                        -webkit-border-end-end-radius: 3px;
+                        -moz-border-radius-topinset-inline-end: 3px;
+                        -moz-border-radius-bottominset-inline-end: 3px;
+
+                        &:horizontal {
+                            height: 1px;
+                        }
+                    }
+
+                    &::-webkit-scrollbar-button {
+                        display: none;
+                    }
+
+                    &::-webkit-scrollbar-piece {
+                        background: #eee;
+
+                        &:start {
+                            background: #eee;
+                        }
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #aaaaaa;
+                        border-radius: 3px;
+                        -webkit-border-radius: 3px;
+                        -moz-border-radius: 3px;
+                    }
+
+                    &::-webkit-scrollbar-corner {
+                        background: #333;
+                    }
+
+                    > div.timelist_item {
+                        padding-block-start: 1px;
+                        padding-block-end: 1px;
+                        padding-inline-start: 7px;
+                        padding-inline-end: 25px;
+                        margin-block-start: 5px;
+                        margin-block-end: 2px;
+                        font-size: small;
+                        user-select: none;
+                        -webkit-user-select: none;
+                        -moz-user-select: none;
+                        cursor: pointer;
+
+                        &.time_in_past,
+                        &.out_of_range {
+                            cursor: default;
+                            color: #cccccc;
+                        }
+
+                        &.active {
+                            color: $white;
+                            background-color: $background;
+                        }
+
+                        &.hover {
+                            color: #000000;
+                            background-color: $background;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

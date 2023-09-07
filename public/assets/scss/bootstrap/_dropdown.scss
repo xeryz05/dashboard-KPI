@@ -1,0 +1,338 @@
+/* ######  Dropdown ###### */
+.dropup, .dropend, .dropdown, .dropstart {
+  position: relative;
+}
+
+.dropdown-toggle {
+  white-space: nowrap;
+
+  &::after {
+    display: inline-block;
+    margin-inline-start: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-block-start: 0.3em solid;
+    border-inline-end: 0.3em solid transparent;
+    border-block-end: 0;
+    border-inline-start: 0.3em solid transparent;
+  }
+
+  &:empty::after {
+    margin-inline-start: 0;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 0;
+  z-index: 98;
+  display: none;
+  float: $float-left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 0.875rem;
+  color: $default-color;
+  text-align: start;
+  list-style: none;
+  background-color: $white;
+  background-clip: padding-box;
+  border: 1px solid rgba(138, 153, 191, 0.125);
+  border-radius: 6px;
+}
+
+.dropdown-menu-start  {
+  inset-inline-end: auto;
+  inset-inline-start: 0;
+}
+
+@media (min-width: 576px) {
+  .dropdown-menu-sm-start {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+
+  .dropdown-menu-sm-end {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .dropdown-menu-md-start {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+
+  .dropdown-menu-md-end {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .dropdown-menu-lg-start {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+
+  .dropdown-menu-lg-end {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .dropdown-menu-xl-start {
+    inset-inline-end: auto;
+    inset-inline-start: 0;
+  }
+
+  .dropdown-menu-xl-end {
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+  }
+}
+
+.dropup {
+  .dropdown-menu {
+    top: auto;
+    bottom: 100%;
+    margin-block-start: 0;
+    margin-block-end: 0.125rem;
+  }
+
+  .dropdown-toggle {
+    &::after {
+      display: inline-block;
+      margin-inline-start: 0.255em;
+      vertical-align: 0.255em;
+      content: "";
+      border-block-start: 0;
+      border-inline-end: 0.3em solid transparent;
+      border-block-end: 0.3em solid;
+      border-inline-start: 0.3em solid transparent;
+    }
+
+    &:empty::after {
+      margin-inline-start: 0;
+    }
+  }
+}
+
+.dropend {
+  .dropdown-menu {
+    top: 0;
+    inset-inline-end: auto;
+    inset-inline-start: 100%;
+    margin-block-start: 0;
+    margin-inline-start: 0.16rem !important; 
+  }
+
+  .dropdown-toggle {
+    &::after {
+      display: inline-block;
+      margin-inline-start: 0.255em;
+      vertical-align: 0.255em;
+      content: "";
+      border-block-start: 0.3em solid transparent;
+      border-inline-end: 0;
+      border-block-end: 0.3em solid transparent;
+      border-inline-start: 0.3em solid;
+    }
+
+    &:empty::after {
+      margin-inline-start: 0;
+    }
+
+    &::after {
+      vertical-align: 0;
+    }
+  }
+}
+
+.dropstart {
+  .dropdown-menu {
+    top: 0;
+    inset-inline-end: 100%;
+    inset-inline-start: auto;
+    margin-block-start: 0;
+    margin-inline-end: -0.45rem !important;
+  }
+
+  .dropdown-toggle {
+    &::after {
+      display: inline-block;
+      margin-inline-start: 0.255em;
+      vertical-align: 0.255em;
+      content: "";
+      display: none;
+    }
+
+    &::before {
+      display: inline-block;
+      margin-inline-end: 0.255em;
+      vertical-align: 0.255em;
+      content: "";
+      border-block-start: 0.3em solid transparent;
+      border-inline-end: 0.3em solid;
+      border-block-end: 0.3em solid transparent;
+    }
+
+    &:empty::after {
+      margin-inline-start: 0;
+    }
+
+    &::before {
+      vertical-align: 0;
+    }
+  }
+}
+.dropdown-toggle-inset-inline-start::before{
+  display: inline-block;
+  margin-inline-end: 0.255em;
+  vertical-align: 0;
+  content: "";
+  border-block-start: 0.3em solid transparent;
+  border-inline-end: 0.3em solid;
+  border-block-end: 0.3em solid transparent;
+}
+
+.dropdown-menu {
+  &[x-placement^="top"], &[x-placement^="right"], &[x-placement^="bottom"], &[x-placement^="left"] {
+    inset-inline-end: auto;
+    bottom: auto;
+  }
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-block-start: 1px solid $gray-200;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: $gray-900;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+
+  &:hover, &:focus {
+    color: #141c2b;
+    text-decoration: none;
+    background-color: $gray-100;
+  }
+
+  &.active, &:active {
+    color: $white;
+    text-decoration: none;
+    background-color: $primary;
+  }
+
+  &.disabled, &:disabled {
+    color: $gray-600;
+    pointer-events: none;
+    background-color: transparent;
+  }
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-header {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  margin-block-end: 0;
+  font-size: 0.76562rem;
+  color: $gray-600;
+  white-space: nowrap;
+}
+
+.dropdown-item-text {
+  display: block;
+  padding: 0.25rem 1.5rem;
+  color: $gray-900;
+}
+
+.dropdown-toggle-split {
+  padding-inline-end: 0.5625rem;
+  padding-inline-start: 0.5625rem;
+
+  &::after {
+    margin-inline-start: 0;
+  }
+}
+
+.dropup .dropdown-toggle-split::after, .dropend .dropdown-toggle-split::after {
+  margin-inline-start: 0;
+}
+
+.dropstart .dropdown-toggle-split::before {
+  margin-inline-end: 0;
+}
+
+.dropend button{
+  color: $white;
+  background-color: $info;
+  border-color: $info;
+}
+.dropend button:focus , .dropdown button:focus{
+  color: $white !important;
+}
+
+/* ###### 3.5 Dropdown ###### */
+
+.dropdown-menu {
+  padding: 0;
+  border-width: 1px;
+}
+
+.dropdown-item {
+  padding: 8px 15px;
+  font-size: 13px;
+}
+
+.dropdown-header {
+  padding-inline-start: 15px;
+  padding-inline-end: 15px;
+}
+
+@media (min-width: 768px) {
+  .dropdown {
+    &.d-cart .dropdown-menu, &.message .dropdown-menu {
+      width: 20.5rem !important;
+    }
+  }
+}
+
+.main-dropdown-form-demo {
+
+  .dropdown-menu {
+    padding: 20px;
+  }
+
+  .dropdown-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $gray-900;
+    margin-block-end: 5px;
+  }
+}
+
+@media (min-width: 576px) {
+  .main-dropdown-form-demo .dropdown-menu {
+    width: 300px;
+    padding: 30px 25px;
+  }
+}
+
+/* ######  Dropdown End ###### */

@@ -1,0 +1,272 @@
+
+/* ###### Chart  ###### */
+.morris-hover.morris-default-style {
+  border-radius: 0;
+}
+
+
+
+.main-donut-chart {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+
+  .slice {
+    position: absolute;
+    top: 0;
+    inset-inline-start: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-center {
+    position: absolute;
+    border-radius: 50%;
+
+    span {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+#ecom-chart {
+  height: 200px !important;
+}
+
+.legend {
+  width: 8px;
+  height: 8px;
+  display: block;
+  border-radius: 0;
+  margin-inline-end: 10px;
+  margin-block-start: 6px;
+}
+
+.list-unstyled {
+  .legend-content {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  li {
+    display: flex;
+    margin-block-end: 20px;
+  }
+}
+
+.dot-label {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: ani 1s linear infinite;
+  inset-inline-start: 9px;
+  bottom: -12px;
+  position: relative;
+}
+
+#summary-chart {
+  height: 204px;
+  width: 100%;
+}
+
+.summary.chart-legend {
+  top: 169px;
+}
+
+.morris-wrapper-demo {
+  height: 200px;
+  position: relative;
+  margin-inline-start: -15px;
+  margin-inline-end: -15px;
+  overflow: hidden;
+}
+
+@media (min-width: 576px) {
+  .morris-wrapper-demo {
+    height: 300px;
+  }
+}
+
+.morris-donut-wrapper-demo {
+  height: 200px;
+}
+
+@media (min-width: 576px) {
+  .morris-donut-wrapper-demo {
+    height: 250px;
+  }
+}
+
+.chartjs-wrapper-demo {
+  height: 250px;
+}
+
+@media (min-width: 992px) {
+  .chartjs-wrapper-demo {
+    height: 300px;
+  }
+}
+
+.chartist-wrapper-demo {
+  height: 200px;
+}
+
+@media (min-width: 768px) {
+  .chartist-wrapper-demo {
+    height: 300px;
+  }
+}
+
+.flotChart6 {
+  width: 100%;
+  height: 180px;
+}
+
+.chart-icons {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.sales-flot {
+  .flot-chart .flot-x-axis > div span {
+    &:first-child {
+      display: block;
+      text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-weight: 500;
+      font-size: 10px;
+      color: $gray-600;
+      top: 10px;
+      position: relative;
+    }
+
+    &:last-child {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      color: $gray-900;
+      line-height: 1;
+      top: 15px;
+      position: relative;
+    }
+  }
+
+  position: relative;
+}
+
+.sales-bar-chart {
+  position: relative;
+  width: auto;
+  height: 160px;
+}
+.chart-legend {
+  margin-block-end: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 5px;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  z-index: 10;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  div {
+    display: flex;
+    align-items: center;
+
+    + div {
+      margin-inline-start: 15px;
+    }
+  }
+
+  span {
+    width: 10px;
+    height: 4px;
+    display: block;
+    margin-inline-end: 5px;
+  }
+}
+
+@media (min-width: 576px) {
+  .chart-legend div + div {
+    margin-inline-start: 30px;
+  }
+}
+
+@media (min-width: 576px) {
+  .chart-legend span {
+    width: 40px;
+    margin-inline-end: 10px;
+  }
+}
+
+.chart-wrapper {
+  position: relative;
+  margin-inline-start: -13px;
+  margin-inline-end: -13px;
+}
+
+@media (min-width: 576px) {
+  .chart-wrapper {
+    margin-inline-start: -10px;
+    margin-inline-end: -15px;
+  }
+}
+
+.card-dashboard-twelve .flot-chart {
+  width: 100%;
+  height: 200px;
+  position: relative;
+
+  .flot-x-axis > div span {
+    &:first-child {
+      display: block;
+      text-transform: uppercase;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-weight: 500;
+      font-size: 10px;
+      color: $muted;
+    }
+
+    &:last-child {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      color: #1c273c;
+      line-height: 1;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .card-dashboard-twelve .flot-chart {
+    height: 250px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-dashboard-twelve .flot-chart {
+    height: 300px;
+  }
+}
+
+#echart5, #echart6, #echart1, #echart3, #echart2, #echart4, #echart7, #echart8, #index {
+  overflow: hidden;
+}
+
+#morrisDonut1, #morrisDonut2 {
+  svg text {
+    font-size: 9px !important;
+    font-weight: 400 !important;
+  }
+}
+/* ###### Chart End ###### */

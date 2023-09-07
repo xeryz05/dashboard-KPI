@@ -1,0 +1,250 @@
+/* ###### Invoice  ###### */
+
+.main-content-left-invoice {
+  display: block;
+  padding: 0;
+
+  .main-content-breadcrumb, .main-content-title {
+    padding-inline-start: 20px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .main-content-left-invoice {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-content-left-invoice {
+    border-inline-end: 1px solid $border;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-content-left-invoice {
+    .main-content-breadcrumb, .main-content-title {
+      padding-inline-start: 0;
+    }
+  }
+}
+
+.main-invoice-list {
+  position: relative;
+  border-block-start: 1px solid $border;
+
+  .media {
+    align-items: center;
+    border: 1px solid transparent;
+    border-right-width: 0;
+    padding: 10px 20px;
+    position: relative;
+
+    &:hover, &:focus {
+      cursor: pointer;
+      background-color: $gray-100;
+    }
+
+    + .media {
+      margin-block-start: -1px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        inset-inline-start: 55px;
+        inset-inline-end: 0;
+        border-block-start: 1px dotted $gray-300;
+      }
+    }
+  }
+
+  .media-icon {
+    width: 24px;
+    text-align: center;
+    font-size: 32px;
+    color: $gray-500;
+  }
+
+  .media-body {
+    margin-inline-start: 15px;
+
+    h6 {
+      font-weight: 500;
+      color: $gray-900;
+      margin-block-end: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span:last-child {
+        color: $primary;
+      }
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    p {
+      margin-block-end: 0;
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+      color: $gray-800;
+
+      span {
+        color: $gray-600;
+      }
+    }
+  }
+
+  .selected {
+    background-color: $gray-100;
+    border-block-start-color:$border;
+    border-block-end-color:$border;
+   border-inline-start-color: $primary;
+
+    &:first-child {
+      border-block-start-color: transparent;
+    }
+  }
+}
+.card-invoice hr{
+	border-block-start:0 !important;
+}
+@media (min-width: 992px) {
+  .main-invoice-list {
+    height: calc(100% - 65px);
+  }
+}
+
+@media (min-width: 992px) {
+  .main-invoice-list .media {
+    padding: 10px 15px;
+  }
+}
+
+.main-content-body-invoice {
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .main-content-body-invoice {
+    display: block;
+  }
+}
+
+.card-invoice {
+  border-width: 0;
+
+  .card-body {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+  }
+}
+
+.invoice-title {
+  margin-block-end: 0;
+  text-transform: uppercase;
+  color: $gray-300;
+  font-weight: 700;
+}
+
+.billed-from {
+  margin-block-start: 25px;
+  margin-block-end: 25px;
+
+  h6 {
+    color: $gray-900;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 13px;
+    margin-block-end: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .billed-from {
+    margin-block-start: 0;
+  }
+}
+
+.billed-to {
+  h6 {
+    color: $gray-900;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 13px;
+    margin-block-end: 0;
+  }
+}
+
+.invoice-info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  margin-block-end: 0;
+  font-size: 13px;
+
+  + .invoice-info-row {
+    border-block-start: 1px dotted $gray-300;
+  }
+
+  span:first-child {
+    color: $gray-700;
+  }
+}
+
+.table-invoice {
+  thead > tr > {
+    th, td {
+      font-size: 11px;
+      font-weight: 700;
+      color: $gray-600;
+    }
+  }
+
+  tbody > tr > {
+    th:first-child, td:first-child {
+      color: $gray-900;
+      font-weight: 500;
+    }
+
+    th:first-child .invoice-notes, td:first-child .invoice-notes {
+      margin-inline-end: 20px;
+    }
+
+    th:first-child .invoice-notes .section-label-sm, td:first-child .invoice-notes .section-label-sm {
+      font-weight: 600;
+    }
+
+    th:first-child .invoice-notes p, td:first-child .invoice-notes p {
+      font-size: 13px;
+      font-weight: 400;
+      color: $default-color;
+    }
+  }
+
+  &.table thead {
+    th, td {
+      padding: 9px 15px;
+    }
+  }
+}
+
+/* ###### Invoice End ###### */

@@ -1,0 +1,54 @@
+// stylelint-disable-next-line selector-max-id
+#carbonads {
+  max-width: 28rem;
+  padding: .75rem;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  overflow: auto;
+  background-color: $gray-100;
+  border-radius: .25rem;
+
+  @media (min-width: 992px) {
+    margin-inline-end: 0;
+    margin-inline-start: 0;
+  }
+}
+
+.carbon-img {
+  float: $float-left;
+  margin-inline-end: .75rem;
+
+  @media (min-width: 768px) {
+    margin-block-end: .5rem;
+  }
+
+  @media (min-width: 992px) {
+    margin-block-end: 0;
+  }
+}
+
+.carbon-text,
+.carbon-poweredby {
+  display: block;
+  color: #6c757d;
+
+  &:hover,
+  &:focus {
+    color: #343a40;
+    text-decoration: none;
+  }
+}
+
+.carbon-text {
+  margin-block-end: .5rem;
+  text-decoration: none;
+
+  @media (min-width: 768px) {
+    font-size: .875rem;
+  }
+}
+
+.carbon-poweredby {
+  margin-block-start: .75rem;
+  font-size: .875rem;
+}

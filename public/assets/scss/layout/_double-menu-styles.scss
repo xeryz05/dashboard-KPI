@@ -1,0 +1,630 @@
+/* ###### Double-menu-styles ###### */
+// ----- Double-menu -------//
+.double-menu {
+  @media (min-width:992px) {
+    .app-sidebar__user {
+      padding: 12px 0px 10px 0;
+    }
+
+    &.app {
+      .slide .side-menu__item:hover+.slide-menu {
+        visibility: hidden;
+      }
+
+      .avatar-xl {
+        width: 55px !important;
+        height: 55px !important;
+        line-height: 3rem;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .side-menu__item .badge {
+        display: none;
+      }
+
+      .app-sidebar {
+        position: fixed !important;
+        overflow: visible !important;
+        inset-inline-start: 0;
+        width: 70px !important;
+      }
+
+      &.sidebar-mini .profile-status {
+        inset-inline-end: 8px;
+        top: 44px;
+      }
+
+      .main-content {
+        min-height: 1300px;
+      }
+
+      .side-menu__label {
+        display: none !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+        display: block;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        inset-inline-start: 0;
+        color: $default-color;
+        opacity: 1;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .side-menu__label1 {
+        display: block !important;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 5px 15px !important;
+        padding-inline-start: 0 !important;
+        width: 200px;
+
+        a {
+          color: $default-color !important;
+        }
+      }
+
+      .side-menu__icon {
+        margin-inline-end: 0;
+        margin-inline-start: 0;
+        margin: 0 auto !important;
+      }
+
+      .app-sidebar__toggle .close-toggle {
+        display: none;
+      }
+
+      .main-header {
+        padding-inline-start: 334px !important;
+      }
+
+      .main-sidebar-header {
+        width: 70px !important;
+        padding: 15px 10px;
+
+        .desktop-logo,
+        .mobile-logo.icon-dark {
+          display: none !important;
+        }
+
+        .mobile-logo.icon-light  {
+          display: block !important;
+          text-align: center;
+        }
+      }
+
+
+      .app-content {
+        margin-inline-start: 340px;
+      }
+
+      .app-sidebar__overlay {
+        visibility: hidden;
+      }
+
+      .slide.is-expanded .slide-menu {
+        display: none;
+      }
+
+      .slide .slide-menu {
+        position: absolute;
+        inset-inline-start: 70px;
+        min-width: 268px;
+        opacity: 1;
+        z-index: 9999;
+        visibility: hidden;
+        inset-block-start: 0;
+        display: block;
+        max-height: inherit;
+      }
+
+      &.sidenav-toggled .slide .slide-menu {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      .ps>.ps__rail-y {
+        display: none !important;
+      }
+
+      .slide-menu {
+        padding-inline-start: 0 !important;
+        position: absolute;
+        background: $white;
+        opacity: 1;
+        visibility: hidden;
+        z-index: 999; 
+        inset-inline-start: 80px;
+        width: 268px;
+        transition: none !important;
+        display: block !important;
+        box-shadow: none;
+        inset-block-start: 0;
+      }
+
+      .slide .slide-menu.double-menu-active {
+        visibility: visible !important;
+        display: block !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        padding: 20px 20px !important;
+        border-radius: 0 !important;
+        border-block-start: 0;
+        overflow:hidden scroll;
+        border-inline-end: 1px solid $border;
+      }
+
+      .side-item.side-item-category {
+        display: none !important;
+      }
+
+      .side-menu .slide .side-menu__item.active {
+        display: block;
+        margin: 0 auto !important;
+        padding: 12px !important;
+        text-align: center;
+      }
+
+      .side-menu .slide .side-menu__item {
+        display: block;
+        padding: 12px !important;
+        text-align: center;
+        i.angle {
+          display: none;
+        }
+      }
+
+      .sub-slide a {
+        text-decoration: none;
+      }
+
+      .slide-item {
+        padding-block: 10px;
+        padding-inline-start: 15px;
+        padding-inline-end: 15px;
+      }
+
+      .sub-side-menu__item {
+        padding-block: 10px;
+        padding-inline-end: 15px !important;
+      }
+
+      .sub-slide-item {
+        padding-block: 10px;
+        padding-inline-start: 35px !important;
+        padding-inline-end: 15px !important;
+      }
+
+      .sub-slide-menu1 .sub-slide-item2 {
+        padding-block: 10px;
+        padding-inline-start: 55px !important;
+        padding-inline-end: 15px !important;
+      }
+
+      .app-sidebar .slide {
+        position: inherit;
+        display: block;
+      }
+
+      &.sidenav-toggled {
+        .main-header {
+          padding-inline-start: 70px !important;
+        }
+
+        .app-content {
+          margin-inline-start: 70px;
+        }
+
+        .app-sidebar__toggle .close-toggle {
+          display: block;
+        }
+      }
+
+      .app-sidebar .slide-menu .side-menu__label1 a:before {
+        content: none;
+      }
+
+      .slide-menu .tabs-menu ul li a {
+        padding: 6px 7px;
+        margin: 3px;
+        text-align: center;
+        border: 1px solid $border;
+        color: $default-color;
+        display: block;
+      }
+
+      .tabs-menu, .side-account, .latest-timeline {
+        a:before{
+          content: none
+        }
+      }
+
+      .slide-menu .sidetab-menu .panel-tabs li a {
+        &.active, &:hover {
+          background: $primary;
+          color: $white !important;
+          border: 1px solid $primary;
+          position: relative;
+          p {
+            color: $white;
+          }
+        }
+        p {
+          margin-block-end: 0;
+          font-size: 12px;
+        }
+        
+      }
+
+      .side-account li {
+        padding: 7px 0;
+        font-size: 14px;
+        a {
+          color: $default-color;
+        }
+      }
+
+      .sidemenu-list {
+        padding-inline-start: 0;
+      }
+
+      .sidetab-menu .panel-tabs li a.active:before,
+      .sidetab-menu .panel-tabs li a:hover:before {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 6px;
+        bottom: -1px;
+        margin: 0 auto;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        z-index: 1;
+        display: block;
+        border-start-start-radius: 50px;
+        border-start-end-radius: 50px;
+        background: $white;
+        opacity: 1;
+      }
+    }
+  }
+}
+// -----! Double-menu -------//
+
+
+// ----- Double-menu-tabs -------//
+.double-menu-tabs {
+  @media (min-width:992px) {
+    .app-sidebar__user {
+      padding: 12px 0px 10px 0;
+    }
+
+    &.app {
+      .avatar-xl {
+        width: 55px !important;
+        height: 55px !important;
+        line-height: 3rem;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .side-menu__item .badge {
+        display: none;
+      }
+
+      .slide .side-menu__item:hover+.slide-menu {
+        visibility: hidden;
+      }
+
+      .app-sidebar {
+        position: fixed !important;
+        overflow: visible !important;
+        inset-inline-start: 0;
+        width: 70px !important;
+      }
+
+      &.sidebar-mini .profile-status {
+        inset-inline-end: 8px;
+        top: 44px;
+      }
+
+      .main-content {
+        min-height: 1300px;
+      }
+
+      .side-menu__label {
+        display: none !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+        display: block;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        inset-inline-start: 0;
+        color: $default-color;
+        opacity: 1;
+        background: transparent;
+        box-shadow: none;
+      }
+
+      .side-menu__label1 {
+        display: block !important;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 5px 15px !important;
+        padding-inline-start: 0 !important;
+        width: 200px;
+
+        a {
+          color: $default-color !important;
+        }
+      }
+
+      .side-menu__icon {
+        margin-inline-end: 0;
+        margin-inline-start: 0;
+        margin: 0 auto !important;
+      }
+
+      .app-sidebar__toggle .close-toggle {
+        display: none;
+      }
+
+      .main-header {
+        padding-inline-start: 334px !important;
+      }
+
+      .main-sidebar-header {
+        width: 70px !important;
+        padding: 15px 10px;
+
+        .desktop-logo,
+        .mobile-logo.icon-dark {
+          display: none !important;
+        }
+
+        .mobile-logo.icon-light  {
+          display: block !important;
+          text-align: center;
+        }
+      }
+
+      .app-content {
+        margin-inline-start: 340px;
+      }
+
+      .app-sidebar__overlay {
+        visibility: hidden;
+      }
+
+      .slide.is-expanded .slide-menu {
+        display: none;
+      }
+
+      .slide .slide-menu {
+        position: absolute;
+        inset-inline-start: 70px;
+        min-width: 268px;
+        opacity: 1;
+        z-index: 9999;
+        visibility: hidden;
+        inset-block-start: 0;
+        display: block;
+        max-height: inherit;
+      }
+
+      &.sidenav-toggled .slide .slide-menu {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      .ps>.ps__rail-y {
+        display: none !important;
+      }
+
+      .slide-menu {
+        padding-inline-start: 0 !important;
+        position: absolute;
+        background: $white;
+        opacity: 1;
+        visibility: hidden;
+        z-index: 999; 
+        inset-inline-start: 70px;
+        width: 268px;
+        transition: none !important;
+        display: block !important;
+        box-shadow: none;
+        inset-block-start: 0;
+      }
+
+      .slide .slide-menu.double-menu-active {
+        visibility: visible !important;
+        display: block !important;
+        height: 100% !important;
+        position: absolute;
+        top: 0;
+        padding: 20px 20px !important;
+        border-radius: 0 !important;
+        border-block-start: 0;
+        overflow:hidden scroll;
+        border-inline-end: 1px solid $border;
+      }
+
+      .side-item.side-item-category {
+        display: none !important;
+      }
+
+      .side-menu .slide .side-menu__item.active {
+        display: block;
+        margin: 0 auto !important;
+        padding: 12px !important;
+        text-align: center;
+      }
+
+      .side-menu .slide .side-menu__item {
+        display: block;
+        padding: 12px !important;
+        text-align: center;
+        i.angle {
+          display: none;
+        }
+      }
+
+      .sub-slide a {
+        text-decoration: none;
+      }
+
+      .slide-item {
+        padding-block: 10px;
+        padding-inline-start: 15px;
+        padding-inline-end: 15px;
+      }
+
+      .sub-side-menu__item {
+        padding-block: 10px;
+        padding-inline-end: 15px !important;
+      }
+
+      .sub-slide-item {
+        padding-block: 10px;
+        padding-inline-start: 35px !important;
+        padding-inline-end: 15px !important;
+      }
+
+      .sub-slide-menu1 .sub-slide-item2 {
+        padding-block: 10px;
+        padding-inline-start: 55px !important;
+        padding-inline-end: 15px !important;
+      }
+
+      .app-sidebar .slide {
+        position: inherit;
+        display: block;
+      }
+
+      &.sidenav-toggled {
+        .main-header {
+          padding-inline-start: 70px !important;
+        }
+
+        .app-content {
+          margin-inline-start: 70px;
+        }
+
+        .app-sidebar__toggle .close-toggle {
+          display: block;
+        }
+      }
+
+      .app-sidebar .slide-menu .side-menu__label1 a:before {
+        content: none;
+      }
+
+      .slide-menu .tabs-menu ul li a {
+        padding: 6px 13px;
+        margin-block: 3px;
+        margin-inline: 5px;
+        text-align: center;
+        border: 1px solid $border;
+        color: $default-color;
+        display: block;
+        border-radius: 5px;
+      }
+
+      .tabs-menu, .side-account, .latest-timeline {
+        a:before{
+          content: none
+        }
+      }
+
+      .slide-menu .sidetab-menu .panel-tabs li a {
+        &.active, &:hover {
+          background: $primary;
+          color: $white !important;
+          border: 1px solid $primary;
+          position: relative;
+          display: block;
+          p {
+            color: $white;
+          }
+        }
+        p {
+          margin-block-end: 0;
+          font-size: 12px;
+        }
+      }
+      
+      .sidetab-menu{
+        .menutabs-content, .tab-menu-heading {
+          display: block;
+          padding-inline: 15px;
+        }
+      }
+
+      .side-account li {
+        padding: 7px 0;
+        font-size: 14px;
+        a {
+          color: $default-color;
+        }
+      }
+
+      .sidemenu-list {
+        padding-inline-start: 0;
+      }
+
+      .tab-content {
+        .sidemenu-list {
+          padding-block-start: 9px;
+        }
+        h5 {
+          font-weight: 600;
+        }
+      }
+
+    }
+
+    .app-sidebar {
+      .main-sidemenu {
+
+        .tab-content>.tab-pane {
+          display: none !important;
+        }
+        .tab-content>.tab-pane.active {
+          display: block !important;
+        }
+      }
+    }
+
+    .activity {
+      border-inline-start: 1px dotted #d1d4e4;
+      margin-inline-start: 20px;
+      .img-activity {
+        inset-inline-start: -20px;
+      }
+      .item-activity {
+        margin-inline-start: 40px !important;
+    }
+    }
+    
+  }
+}
+// -----! Double-menu-tabs -------//
+
+.sidetab-menu .menutabs-content, .sidetab-menu .tab-menu-heading
+{
+  display: none;
+}
+
+.sidemenu-list {
+  padding-inline-start: 0;
+  list-style: none;
+}
+/* ###### Double-menu-styles End ###### */

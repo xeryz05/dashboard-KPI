@@ -1,0 +1,408 @@
+/*!
+ * Datetimepicker for Amaze UI
+ *
+ * Copyright 2012 Stefan Petre
+ * Improvements by Andrew Rowls
+ * Improvements by Sébastien Malot
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+.datetimepicker {
+	margin-block-start: 10px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 0 6px $shadow;
+	box-shadow: 0 0 6px $shadow;
+	text-align: center;
+	overflow: initial;
+
+	&:before {
+		content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		border-block-end: 7px solid $primary;
+		border-inline-end: 7px solid transparent;
+		border-inline-start: 7px solid transparent;
+		border-block-start: 0 dotted;
+		-webkit-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+		transform: rotate(360deg);
+		position: absolute;
+		inset-block-start: -7px;
+	}
+
+	&.datetimepicker-rtl {
+		direction: rtl;
+
+		table tr td span {
+			float: $float-right;
+		}
+	}
+
+	> div {
+		display: none;
+	}
+
+	table {
+		background: transparent;
+		border-radius: 2px;
+
+		th {
+			-webkit-transition: background-color 300ms ease-out;
+			transition: background-color 300ms ease-out;
+
+			&.next,
+			&.prev {
+				-webkit-transition: background-color 300ms ease-out;
+				transition: background-color 300ms ease-out;
+			}
+
+			width: 34px;
+			height: 40px;
+			text-align: center;
+			font-weight: 400;
+
+			&.switch {
+				width: 170px;
+				background: transparent;
+				cursor: pointer;
+			}
+
+			&.next:hover,
+			&.prev:hover,
+			&.switch:hover {
+				color: $white;
+			}
+
+			&.next,
+			&.prev {
+				background: transparent;
+				color: $white;
+				cursor: pointer;
+			}
+
+			&.next i,
+			&.prev i {
+				width: 34px;
+				height: 34px;
+				display: inline-block;
+			}
+
+			&.next {
+				border-start-end-radius: 2px;
+			}
+
+			&.prev {
+				border-start-start-radius: 2px;
+			}
+
+			&.dow {
+				color: $primary;
+				background: $white;
+			}
+
+			&.today {
+				background: $white;
+				color: $primary;
+				cursor: pointer;
+
+				&:hover {
+					background: $background;
+				}
+			}
+		}
+	}
+}
+
+.datetimepicker-days td:hover {
+	background: $background;
+}
+
+.datetimepicker-hours span {
+	&.hour:hover,
+	&.minute:hover,
+	&.month:hover,
+	&.year:hover {
+		background: $background;
+	}
+}
+
+.datetimepicker-minutes span {
+	&.hour:hover,
+	&.minute:hover,
+	&.month:hover,
+	&.year:hover {
+		background: $background;
+	}
+}
+
+.datetimepicker-months span {
+	&.hour:hover,
+	&.minute:hover,
+	&.month:hover,
+	&.year:hover {
+		background: $background;
+	}
+}
+
+.datetimepicker-years span {
+	&.hour:hover,
+	&.minute:hover,
+	&.month:hover,
+	&.year:hover {
+		background: $background;
+	}
+}
+
+.datetimepicker table {
+	.icon-arrow-inset-inline-start:before {
+		display: inline-block;
+		font: 1.6rem/1 "FontAwesome", sans-serif;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		transform: translate(0, 0);
+		content: "\f053";
+		vertical-align: bottom;
+	}
+
+	.icon-arrow-inset-inline-end:before {
+		display: inline-block;
+		font: 1.6rem/1 "FontAwesome", sans-serif;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		transform: translate(0, 0);
+		content: "\f053";
+		vertical-align: bottom;
+		content: "\f054";
+	}
+
+	td {
+		width: 34px;
+		height: 34px;
+		cursor: pointer;
+		font-size: 0.8rem;
+		color: $default-color;
+		background: $white;
+
+		&.today {
+			background: $primary-hover;
+			color: $white;
+		}
+	}
+
+	span.active,
+	td.active {
+		background: $background;
+		color: $primary;
+	}
+
+	.new,
+	.old {
+		color: $primary-8;
+	}
+
+	.disabled {
+		background: $background;
+		color: $default-color;
+		cursor: not-allowed;
+	}
+}
+
+.datetimepicker-hours table td,
+.datetimepicker-minutes table td,
+.datetimepicker-months table td,
+.datetimepicker-years table td {
+	height: auto;
+	background: $white;
+}
+
+.datetimepicker-hours table td {
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+}
+
+.datetimepicker-minutes table td {
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+}
+
+.datetimepicker-months table td {
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+}
+
+.datetimepicker-years table td {
+	&:after,
+	&:before {
+		content: " ";
+		display: table;
+	}
+}
+
+.datetimepicker-hours table td:after,
+.datetimepicker-minutes table td:after,
+.datetimepicker-months table td:after,
+.datetimepicker-years table td:after {
+	clear: both;
+}
+
+.datetimepicker-hours span {
+	&.hour,
+	&.minute,
+	&.month,
+	&.year {
+		float: $float-left;
+		height: 38px;
+		width: 59.5px;
+		line-height: 38px;
+	}
+}
+
+.datetimepicker-minutes span {
+	&.hour,
+	&.minute,
+	&.month,
+	&.year {
+		float: $float-left;
+		height: 38px;
+		width: 59.5px;
+		line-height: 38px;
+	}
+}
+
+.datetimepicker-months span {
+	&.hour,
+	&.minute,
+	&.month,
+	&.year {
+		float: $float-left;
+		height: 38px;
+		width: 59.5px;
+		line-height: 38px;
+	}
+}
+
+.datetimepicker-years span {
+	&.hour,
+	&.minute,
+	&.month,
+	&.year {
+		float: $float-left;
+		height: 38px;
+		width: 59.5px;
+		line-height: 38px;
+	}
+}
+
+.datetimepicker-hours {
+	fieldset,
+	legend {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.datetimepicker-minutes {
+	fieldset,
+	legend {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.datetimepicker-inline {
+	width: 238px;
+
+	&:before {
+		content: none;
+	}
+}
+
+.datetimepicker-dropdown-bottom-inset-inline-end:before {
+	top: -7px;
+	inset-inline-start: 10px;
+}
+
+.datetimepicker-dropdown-bottom-inset-inline-start:before {
+	top: -7px;
+	inset-inline-end: 10px;
+}
+
+.datetimepicker-dropdown-top-left,
+.datetimepicker-dropdown-top-right {
+	margin-block-start: 0;
+}
+
+.datetimepicker-dropdown-top-inset-inline-start:before,
+.datetimepicker-dropdown-top-inset-inline-end:before {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	border-block-start: 7px solid $white;
+	border-inline-end: 7px solid transparent;
+	border-inline-start: 7px solid transparent;
+	border-block-end: 0 dotted;
+	-webkit-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
+	bottom: -7px;
+	inset-inline-end: 10px;
+}
+
+.am-input-group.date span.add-on {
+	cursor: pointer;
+}
+
+.dropdown-menu {
+	position: absolute;
+	display: none;
+}
+
+@media only screen and (max-width: 640px) {
+	.datetimepicker {
+		width: 100%;
+		inset-inline-start: 0 !important;
+
+		table {
+			width: 100%;
+		}
+
+		td span {
+			&.hour,
+			&.minute,
+			&.month,
+			&.year {
+				width: 25%;
+			}
+		}
+
+		&:before {
+			content: none;
+		}
+	}
+
+	.next,
+	.prev {
+		width: 44px;
+		height: 44px;
+	}
+}

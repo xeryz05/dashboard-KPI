@@ -1,0 +1,91 @@
+/* ###### Footer  ###### */
+
+.main-footer {
+  background-color: $white;
+  border-block-start: 1px solid $border;
+  margin-block-start: auto;
+  padding: 1rem 0;
+}
+
+@media (min-width: 992px) {
+  .main-footer {
+    display: block;
+  }
+
+  .sticky-pin {
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .sticky {
+    width: 100%;
+  }
+}
+
+.side-header {
+  position: sticky;
+  width: 100%;
+  z-index: 10 !important;
+  border-block-end: 1px solid #e7ebf5;
+}
+
+.main-footer {
+  .container {
+    font-size: 12px;
+    padding: 38px 20px 0;
+    align-items: center;
+    justify-content: space-between;
+    color: $gray-600;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .container-fluid {
+    font-size: 12px;
+    padding: 38px 20px 0;
+    align-items: center;
+    justify-content: space-between;
+    color: $gray-600;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-footer .container {
+    padding: 10px 0 0;
+  }
+}
+
+.main-footer-app {
+  .container,
+  .container-fluid {
+    border-top-width: 0;
+  }
+}
+
+.main-footer-demo {
+  background-color: #0c025b;
+  color: $white-4;
+  height: 60px;
+
+  .container {
+    border-top-width: 0;
+  }
+
+  a {
+    color: $white-5;
+
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
+}
+
+/* ###### Footer End  ###### */

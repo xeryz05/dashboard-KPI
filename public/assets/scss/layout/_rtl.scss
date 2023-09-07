@@ -1,0 +1,239 @@
+
+/* ###### Rtl  ###### */
+.rtl{
+   [type=email], [type=number], [type=tel], [type=url]{
+    direction: rtl;
+   }
+  .carousel-control-next {
+    transform: rotate(180deg);
+  }
+  .carousel-control-prev {
+    transform: rotate(180deg);
+  }
+	.slider-wrap {
+		.thumb-carousel-control-next {
+			transform: rotate(180deg) translateY(50%) !important;
+		}
+		.thumb-carousel-control-prev {
+			transform: rotate(180deg) translateY(50%) !important;
+		}
+	}
+  .ui-datepicker .ui-datepicker-header .ui-datepicker-next:before {
+    content: "\f3cf";
+  }
+  .ui-datepicker .ui-datepicker-header .ui-datepicker-prev:before {
+    content: "\f3d1";
+  }
+  .fc-icon-chevron-inset-inline-end:before {
+    content: "\e901";
+  }
+  .fc-icon-chevron-inset-inline-start:before {
+    content: "\e900";
+  }
+  .lg-actions .lg-next:before {
+    content: "\e094" !important;
+  }
+  .lg-actions .lg-prev:after {
+    content: "\e095" !important;
+  }
+  @media (min-width: 564px){
+    .daterangepicker.ltr {
+      direction: rtl;
+      text-align: end;
+      inset-inline-end: 70rem !important;
+    }
+  }
+
+  .si-arrow-right-circle:before {
+    content: "\e07a";
+  }
+
+  .tab_wrapper .content_wrapper .accordian_header.active .arrow {
+    transform: rotate(-45deg);
+  }
+
+  .tab_wrapper .content_wrapper .accordian_header .arrow {
+    transform: rotate(135deg);
+  }
+
+  @media (min-width: 992px) {
+    &.horizontal .main-sidemenu .slide-left, &.horizontal .main-sidemenu .slide-right {
+        transform: rotate(180deg);
+    }
+  }
+  .lg-actions .lg-next:before {
+    content: "\e92e";
+  }
+  .lg-actions .lg-prev:after {
+    content: "\e92f";
+  }
+  .tooltip.tooltip-left .tooltip-inner:before, .tooltip.bs-tether-element-attached-right .tooltip-inner:before {
+    border-width: 5px 5px 5px 0;
+    border-inline-end-color: $black;
+  }
+  .tooltip.tooltip-right .tooltip-inner:before, .tooltip.bs-tether-element-attached-left .tooltip-inner:before {
+    border-width: 5px 0 5px 5px;
+    border-inline-start-color: $black;
+  }
+  .btn-group-toolbar .btn-group:first-child .btn:first-child {
+    border-radius:0 5px  5px 0;
+  }
+  .btn-group-toolbar .btn-group:last-child .btn:last-child {
+    border-radius: 5px 0 0 5px;
+  }
+  .slick-next:before {
+    content: "\e92e";
+  }
+   .slick-prev:before {
+      content: "\e92f";
+  }
+    .ion-ios-arrow-forward:before {
+      content: "";
+  }
+    .ion-ios-arrow-back:before {
+      content: "";
+  }
+
+  @media (min-width: 576px) {
+    .main-header .countries .dropdown-menu:before {
+        transform: rotate(-45deg);
+    }
+  }
+
+  .fc-icon-chevron-right:before {
+    content: "\e900";
+  }
+  .fc-icon-chevron-left:before {
+    content: "\e901";
+  }
+  
+  .la-angle-right:before {
+    content: "\f104";
+  }
+  .app-sidebar .slide-menu a:before {
+    transform: rotate(180deg);
+  }
+
+  .breadcrumb-header .breadcrumb-item+.breadcrumb-item::before {
+    content: "\e932";
+  }
+
+  .leaflet-pane,
+  .leaflet-tile,
+  .leaflet-marker-icon,
+  .leaflet-marker-shadow,
+  .leaflet-tile-container {
+      inset-inline-end: 0;
+      inset-inline-start: auto;
+  }
+  
+}
+[dir=rtl] .irs-from, [dir=rtl] .irs-to, [dir=rtl] .irs-single {
+    inset-inline-start: auto;
+}
+[dir=rtl] .sidebar.sidebar-right, [dir=rtl] .fm-sidebar {
+  transform: translate(-100%, 0);
+}
+
+[dir=rtl] {
+	.fc-direction-ltr {
+		direction: ltr;
+		.fc-button .fc-icon {
+			transform: rotate(180deg);
+		}
+	}
+	.fc-direction-rtl {
+		direction: ltr;
+	}
+
+  .twentytwenty-container {
+    direction: ltr;
+  }
+
+  .irs {
+    direction: ltr;
+  }
+
+  .smartphoto {
+    direction: ltr;
+  }
+
+  .dTree .plus,
+  .dTree .minus,
+  .join {
+      transform: rotate(180deg);
+  }
+
+  .sweet-alert .sa-icon {
+    direction: ltr;
+  }
+
+  .folder-group {
+      background: none;
+  }
+
+  .breadcrumb-style2 .breadcrumb-item+.breadcrumb-item::before {
+    content: "\e92e";
+  }
+
+  .bs-popover-end>.popover-arrow,
+  .bs-popover-auto[data-popper-placement^="end"]>.popover-arrow, 
+  .bs-popover-start>.popover-arrow, 
+  .bs-popover-auto[data-popper-placement^="start"]>.popover-arrow {
+    direction: ltr;
+  }
+
+  .tooltip-static-demo .tooltip {
+    direction: ltr;
+  }
+  .tooltip.show {
+    direction: ltr;
+  }
+
+  #accordion11 .accordion-toggle i {
+    transform: rotate(180deg);
+  }
+
+  .pcr-app {
+    direction: ltr;
+  }
+
+  .datetimepicker {
+    direction: ltr;
+  }
+
+  .select2-dropdown {
+    direction: ltr !important;
+    text-align: end;
+    .select2-search__field {
+      text-align: end;
+    }
+  }
+
+  .was-validated .form-control:invalid, .form-control.is-invalid, input.form-control.parsley-error, textarea.form-control.parsley-error {
+    background-position: center left calc(0.375em + 0.1875rem);
+  }
+
+  .was-validated .form-control:valid, .form-control.is-valid, input.form-control.parsley-success, textarea.form-control.parsley-success {
+    background-position: center left calc(0.375em + 0.1875rem);
+  }
+  
+  .was-validated textarea.form-control:valid {
+    background-position: top calc(0.375em + 0.1875rem) left calc(0.375em + 0.1875rem);
+  }
+  .was-validated textarea.form-control:invalid {
+    padding-inline-end: calc(1.5em + 0.75rem);
+    background-position: top calc(0.375em + 0.1875rem) left calc(0.375em + 0.1875rem);
+  }
+  .nice-select:after {
+    transform: rotate(-45deg);
+  }
+  .nice-select.open:after {
+    transform: rotate(135deg);
+  }
+  
+  .MS-content {
+    direction: ltr;
+  }
+}
+/* ###### Rtl End ###### */
