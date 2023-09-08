@@ -31,6 +31,24 @@ class CorpVIController extends Controller
                 ->get();
         // @dd($virevs);
 
+        $semesterSums = [];
+        $semester = $virevs->chunk(6);
+
+                foreach ($semester as $index => $chunk) {
+                $chunkSum = $chunk->sum('total_value'); // Menghitung total_value untuk setiap bagian
+                $chunkProfitSum = $chunk->sum('total_profit'); // Menghitung total_profit untuk setiap bagian
+                $chunkAgingsSum = $chunk->sum('total_agings'); // Menghitung total_agings untuk setiap bagian
+
+                $semesterSums[$index] = [
+                        'semester' => $index + 1, // Menambahkan field "semester" dengan nilai indeks + 1
+                        'total_value' => $chunkSum,
+                        'total_profit' => $chunkProfitSum,
+                        'total_agings' => $chunkAgingsSum,
+                ];
+        }
+        
+        // @dd($semesterSums);
+
         $records = DB::table('virevs')
                 ->selectRaw('virevs.job_id as job_id, 
                             SUM(virevs.value) as total_value, 
@@ -42,7 +60,7 @@ class CorpVIController extends Controller
         // @dd($records);
         // @dd($records);
 
-        return view('internaldashboard.dashboardcorp_vi', compact('virevs','records'));
+        return view('internaldashboard.dashboardcorp_vi', compact('virevs','records','semesterSums'));
 
     }
 }
