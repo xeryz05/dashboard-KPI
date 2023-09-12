@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('verevs', function (Blueprint $table) {
+        Schema::table('physicalavailabilitys', function (Blueprint $table) {
             $table->unsignedBigInteger('event_id')->after('id');
  
             $table->foreign('event_id')->references('id')->on('events');
@@ -27,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('verevs', function (Blueprint $table) {
+        Schema::table('physicalavailabilitys', function (Blueprint $table) {
             $table->dropForeign(['event_id']);
             $table->dropColumn('events');
         });

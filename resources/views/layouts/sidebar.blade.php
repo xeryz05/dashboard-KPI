@@ -1,8 +1,8 @@
 <!-- main-sidebar -->
             <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
             <div class="sticky">
-                <aside class="app-sidebar sidebar-scroll" style="background: #9e9d95">
-                    <div class="main-sidebar-header active" style="background: #9e9d95">
+                <aside class="app-sidebar sidebar-scroll" style="background: rgb(167, 162, 149)">
+                    <div class="main-sidebar-header active" style="background: rgb(167, 162, 149)">
                         <a class="desktop-logo logo-light active" href=""><img class="main-logo"
                                 src="{{ asset('assets/img/logo/verdanco-removebg-preview.png') }}" width="130"
                                 alt="logo"></a>
@@ -98,7 +98,7 @@
                             @endrole
                             <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
                             <li class="slide">
-                                <a class="{{ Request::routeIs('CorpVI.index') ? 'active' : '' }} side-menu__item" href="{{ route('CorpVI') }}">
+                                <a class="{{ Request::routeIs('CorpVI') ? 'active' : '' }} side-menu__item" href="{{ route('CorpVI') }}">
                                     <i class="fas fa-columns" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Verdanco Indonesia</span></a>
                             </li>

@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('verevs', function (Blueprint $table) {
             $table->id();
-            $table->string('type_job');
             $table->bigInteger('value');
+            $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('job_id');
             $table->timestamps();
+            
+            $table->foreign('event_id')->references('id')->on('events');
+            $table->foreign('job_id')->references('id')->on('jobs');
         });
     }
 

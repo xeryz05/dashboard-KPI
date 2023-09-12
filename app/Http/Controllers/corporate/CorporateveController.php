@@ -5,7 +5,7 @@ namespace App\Http\Controllers\corporate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\corporate\Verev;
-
+use App\Models\corporate\Profitve;
 use Illuminate\Support\Facades\DB;
 
 class CorporateveController extends Controller
@@ -15,59 +15,60 @@ class CorporateveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $data = Verev::get();
+    public function index(){
+        
+        $verevs = Verev::selectRaw('events.start as event, 
+                            SUM(verevs.value) as total_value, 
+                            SUM(profitves.value) as total_profit')
+                ->join('events', 'events.id', '=', 'verevs.event_id')
+                ->leftJoin('profitves', 'events.id', '=', 'profitves.event_id')
+                ->groupBy('event')
+                ->get();
 
-        $groupedData = DB::table(function ($query) {
-            $query->select(
-                DB::raw('(ROW_NUMBER() OVER (ORDER BY event_id) - 1) DIV 6 + 1 AS semester'),
-                'value','profit'
-            )
-            ->from('verevs');
-        }, 'subquery')
-        ->select('semester',DB::raw('SUM(value) as total_value'), 
-                            DB::raw('SUM(profit) as total_profit'))
-        ->groupBy('semester')
-        ->get();
+        // @dd($verevs);
 
-        // @dd($groupedData);
+        // foreach ($verevs as $item) {
+        //     echo $item->total_value;
+        // }
+        // @dd($item);
 
-        foreach ($groupedData as $item) {
-            # code...
-            $totalNilaiAkhir = 0;
-            $bobot = 40;
-            $target =  21000000000;
-            $pencapaian = $item->total_value;
-            $nilai = ($pencapaian / $target) * 100;
-            $nilai_akhir = ($nilai * $bobot) / 100;
+            $semesterSums = [];
+            $semester = $verevs->chunk(6);
 
-            $bobot_profit = 30;
-            $target_profit = 7;
-            $pencapaian_profit = $item->total_profit;
-            $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-            if ($nilai_profit < 0) { 
-                $nilai_profit = 0;
-            }
-            $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+                    foreach ($semester as $index => $chunk) {
+                    $chunkSum = $chunk->sum('total_value'); // Menghitung total_value untuk setiap bagian
+                    $chunkProfitSum = $chunk->sum('total_profit'); // Menghitung total_profit untuk setiap bagian
+                    $chunkAgingsSum = $chunk->sum('total_agings'); // Menghitung total_agings untuk setiap bagian
 
-            if ($nilai_akhir_profit < 0) {
-                $nilai_akhir_profit = 0;
+                    $semesterSums[$index] = [
+                            'semester' => $index + 1, // Menambahkan field "semester" dengan nilai indeks + 1
+                            'total_value' => $chunkSum,
+                            'total_profit' => $chunkProfitSum,
+                            'total_agings' => $chunkAgingsSum,
+                    ];
             }
 
-            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+
+            // @dd($semesterSums);
+
+            $records = DB::table('verevs')
+                            ->selectRaw('verevs.job_id as job_id, 
+                                    jobs.name as job_name,
+                                    SUM(verevs.value) as total_value, 
+                                    (SUM(verevs.value) / (SELECT SUM(value) FROM verevs)) * 100 as percentage')
+                            ->leftJoin('jobs', 'verevs.job_id',      '=', 'jobs.id')
+                            ->groupBy('job_id')
+                            ->orderByDesc('total_value') // Menyusun data berdasarkan total_value secara descending
+                            ->take(3) // Mengambil 2 data teratas
+                            ->get();
+
+            // @dd($records);
+            // @dd($records);
+
+            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums'));
 
         }
-        // @dd($totalNilaiAkhir);
-
-        return view('internaldashboard.dashboardcor', compact(
-            'data',
-            'groupedData',
-            'bobot','target','pencapaian','nilai','nilai_akhir',
-            'bobot_profit','target_profit','pencapaian_profit','nilai_profit','nilai_akhir_profit',
-            'totalNilaiAkhir',
-        ));
-    }
+    
 
     /**
      * Store a newly created resource in storage.

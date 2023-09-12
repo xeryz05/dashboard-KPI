@@ -29,4 +29,8 @@ class Event extends Model
     {
         return $this->hasMany(Profit::class);
     }
+    public function Profitve()
+    {
+        return $this->hasMany(Profitve::class);
+    }
 }

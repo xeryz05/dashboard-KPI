@@ -107,25 +107,32 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                             <div class="breadcrumb-header justify-content-center">
                                 <h4 class="page-title">Verdanco Engineering 2023</h4>
                             </div>
+                            {{-- @foreach ($resultArray as $item)
+                                    
+                            @endforeach --}}
                             <section class="splide" aria-label="Splide Basic HTML Example">
                                 <div class="splide__track">
                                     <ul class="splide__list">
-                                        @forelse ($data as $item)
-
-                                        {{-- @dd($item) --}}
-                                        <li class="splide__slide">
+                                        @foreach ($verevs as $item)
+                                            <li class="splide__slide">
                                             <div class="col-md mg-md-t-0">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         {{-- revenue VI Januari--}}
                                                         <div class="my-3">
-                                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center">{{ $item->event['start'] }}<span class="badge bg-success">Data Final</span></h3>
-                                                            <h6 class="card-text bd-t">Revenue</h6>
+                                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center" style="font-size: 16px">{{ $item->event }}
+                                                                @if ($loop->last)
+                                                                    <span class="badge bg-warning">Ongoing</span>
+                                                                @else
+                                                                    <span class="badge bg-success">Data Final</span>
+                                                                @endif
+                                                            </h3>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
                                                                     {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
-                                                                <span class="card-text">Tercapai :Rp. {{ number_format($item->value) }}</span><br>
+                                                                <span class="card-text">Tercapai :Rp. {{ number_format($item->total_value) }}</span><br>
                                                                 @php
-                                                                    $pendapatan =   $item->value; //total perbulan
-                                                                    $target =     3500000000; //target perbulan
+                                                                    $pendapatan =   $item->total_value; //total perbulan
+                                                                    $target =       3500000000 ; //target perbulan ve  4,000,000,000  ve  7,000,000,000
                                                                     $persentase = ceil(($pendapatan / $target) * 100);
                                                                 @endphp
                                                             <span class="">Persentasi: {{ $persentase }}%</span>
@@ -144,36 +151,34 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                         {{-- end revenue VI januari --}}
                                                         {{-- Net Profit VI januari --}}
                                                         <div class="my-3">
-                                                            <h6 class="card-text bd-t">Net Profit</h6>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
                                                             <span class="card-text">
-                                                                <span class="">Profit/Loss : {{ $item->profit }}</span><br>
+                                                                <span class="">Profit/Loss : {{ $item->total_profit }}</span><br>
                                                                 @php
-                                                                    $pendapatan =   $item->value; //total perbulan
-                                                                    $profit =  $item->profit;
-                                                                    $persen = ceil(($profit / $pendapatan) * 100);
+                                                                    $total_profit =   $item->total_profit; //total perbulan
+                                                                    $total_revenue =  $item->total_value; //target perbulan vi  4,000,000,000  ve  7,000,000,000
+                                                                    $persentase = ceil(($total_profit / $total_revenue) * 100);
                                                                 @endphp
-                                                                <span class="">Persentasi: {{ $persen }}%</span>
-                                                                {{-- @dd($pendapatan,$total, $persen) --}}
+                                                                <span class="">Persentasi: {{ $persentase }}%</span>
                                                             </span><br>
                                                             <div class="container">
                                                                 <div class="row mt-3 text-center">  
                                                                     <div class="col-12">
-                                                                        @if ($persen < 6)
-                                                                            <progress class="w-100" style="accent-color: red;" value="{{ $persen }}" max="7"></progress>
-                                                                        {{-- @elseif ($item->persentase < 8) --}}
-                                                                        @elseif ($persen < 7)
-                                                                            <progress class="w-100" style="accent-color: yellow;" value="{{ $persen }}" max="7"></progress>
+                                                                        @if ($persentase < 6)
+                                                                            <progress class="w-100" style="accent-color: red;" value="{{ $persentase }}" max="7"></progress>
+                                                                        @elseif ($persentase < 7)
+                                                                            <progress class="w-100" style="accent-color: yellow;" value="{{ $persentase }}" max="7"></progress>
                                                                         @else
-                                                                            <progress class="w-100" style="accent-color: green;" value="{{ $persen }}" max="7"></progress>
+                                                                            <progress class="w-100" style="accent-color: green;" value="{{ $persentase }}" max="7"></progress>
                                                                         @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         {{-- end Net Profit VI januari--}}
-                                                        {{-- Aging VI januari--}}
+                                                        {{-- physical availability VI januari--}}
                                                         <div class="my-3">
-                                                            <h6 class="card-text bd-t">Aging</h6>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical Availability</h6>
                                                             <span class="">Persentasi : 0%</span>
                                                             <div class="container">
                                                                 <div class="row mt-3 text-center">
@@ -185,14 +190,13 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- end Aging VI januari --}}
+                                                        {{-- end physical availability VI januari --}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        @empty
-                                        <div>Tidak ada data</div>
-                                        @endforelse
+                                        @endforeach
+                                        {{-- @dd($item) --}}
                                     </ul>
                                 </div>
                             </section>
@@ -203,75 +207,100 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                         <div class="splide" id="ss">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                @foreach ($groupedData as $item)
-                                    <li class="splide__slide">
-                                        <div class="row" >
-                                            <div class="col-md-8">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="table-responsive" style="margin-bottom: 36px">
-                                                            <h4>KPI Corporate Semester {{ $item->semester }}</h4>
-                                                            <table  class="table table-sm" style="width:100%">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Item KPI</th>
-                                                                        <th>Bobot</th>
-                                                                        <th>Target</th>
-                                                                        <th>Pencapaian</th>
-                                                                        <th>Nilai</th>
-                                                                        <th>Hasil Akhir</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>Revenue Perusahaan</td>
-                                                                        <td>{{ $bobot . '%' }}</td>
-                                                                        <td>{{ number_format($target) }}</td>
-                                                                        <td>Rp.{{ number_format($item->total_value) }}</td>
-                                                                        <td>{{ ceil($nilai) . '%' }}</td>
-                                                                        <td>{{ ceil($nilai_akhir) .'%' }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Net Profit</td>
-                                                                        <td>{{ $bobot_profit . '%' }}</td>
-                                                                        <td>{{ $target_profit .'%' }}</td>
-                                                                        <td>Rp.{{ number_format($item->total_profit) }}</td>
-                                                                        <td>{{ ceil($nilai_profit) .'%'}}</td>
-                                                                        <td>{{ ceil($nilai_akhir_profit) .'%'}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Aging</td>
-                                                                        <td>30%</td>
-                                                                        <td>30%</td>
-                                                                        <td></td>
-                                                                        <td>Belum di hitung</td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                                <tfoot>
-                                                                    <tr>
-                                                                        <th colspan="5">Total</th>
-                                                                        <th>{{ ceil($totalNilaiAkhir) }}%</th>
-                                                                    </tr>
-                                                                </tfoot>
-                                                            </table>
+                                    @foreach ($semesterSums as $item)
+                                        {{-- @dd($item) --}}
+                                         @php
+                                            $totalNilaiAkhir = 0;
+                                            $bobot = 40;
+                                            $target =  21000000000; //target per semester
+                                            $revenue = $item['total_value'];
+                                            $profit = $item['total_profit'];
+                                            $nilai = ($revenue / $target) * 100;
+                                            $nilai_akhir = ($nilai * $bobot) / 100;
+
+                                            $bobot_profit = 30;
+                                            $target_profit = 7;
+                                            $pencapaian_profit = $item['total_profit'];
+                                            $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                                            if ($nilai_profit < 0) { 
+                                                $nilai_profit = 0;
+                                            }
+                                            $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+
+                                            if ($nilai_akhir_profit < 0) {
+                                                $nilai_akhir_profit = 0;
+                                            }
+
+                                            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                                        @endphp
+                                        
+                                        <li class="splide__slide">
+                                            <div class="row" >
+                                                <div class="col-md-8">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="table-responsive" style="margin-bottom: 36px">
+                                                                <h4 class="d-flex justify-content-center">KPI Corporate Semester {{ $item['semester'] }}</h4>
+                                                                <table  class="table table-sm table table-striped mg-b-0 text-md-nowrap" style="width:100%">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="font-size: 13px;">Item KPI</th>
+                                                                            <th style="font-size: 13px;">Bobot</th>
+                                                                            <th style="font-size: 13px;">Target</th>
+                                                                            <th style="font-size: 13px;">Pencapaian</th>
+                                                                            <th style="font-size: 13px;">Nilai</th>
+                                                                            <th style="font-size: 13px;">Hasil Akhir</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td style="font-size: 13px;">Revenue Perusahaan</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ $bobot . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ 'Rp'. number_format($target) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ 'Rp'. number_format($item['total_value']) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ ceil($nilai) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_akhir) . '%' }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-size: 13px;">Net Profit</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ $bobot . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ number_format($target_profit) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ 'Rp'. number_format($item['total_profit']) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_profit) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_akhir_profit) . '%' }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-size: 13px;">Physical Availability</td>
+                                                                            <td class="text-center" style="font-size: 13px;">30%</td>
+                                                                            <td class="text-center" style="font-size: 13px;">30%</td>
+                                                                            <td class="text-center" style="font-size: 13px;"></td>
+                                                                            <td class="text-center" style="font-size: 13px;">N/A</td>
+                                                                            <td class="text-center" style="font-size: 13px;"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th colspan="5">Total</th>
+                                                                            <th class="text-center">{{ ceil($totalNilaiAkhir) . '%' }}</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div>
+                                                            <figure class="highcharts-figure">
+                                                                <div id="corporate{{ $item['semester'] }}"></div>
+                                                            </figure>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="card">
-                                                    <div>
-                                                        <figure class="highcharts-figure">
-                                                            <div id="corporate{{ $item->semester }}"></div>
-                                                        </figure>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                @endforeach
-                                
+                                        </li>
+                                    @endforeach
                                 ...
                                 </ul>
                             </div>
@@ -322,82 +351,20 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
                 <script src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"></script>
                 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-                <button class="splide__toggle" type="button">
-                    <script>
-                        // Set up the chart
-                        const chart = new Highcharts.Chart({
-                            chart: {
-                                renderTo: 'tipe_pekerjaan',
-                                type: 'column',
-                                options3d: {
-                                    enabled: true,
-                                    alpha: 15,
-                                    beta: 15,
-                                    depth: 50,
-                                    viewDistance: 25
-                                }
-                            },
-                            xAxis: {
-                                categories: ['Genset','Solahart','Other']
-                            },
-                            yAxis: {
-                                title: {
-                                    enabled: false
-                                }
-                            },
-                            tooltip: {
-                                headerFormat: '<b>{point.key}</b><br>',
-                                pointFormat: 'Pendapatan: {point.y}%'
-                            },
-                            title: {
-                                text: 'Diagram Tipe Pekerjaan',
-                                align: 'left'
-                            },
-                            
-                            legend: {
-                                enabled: false
-                            },
-                            plotOptions: {
-                                column: {
-                                    depth: 25
-                                }
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [{
-                                data: [61.8,19.9,18.3,],
-                                colorByPoint: true
-                            }]
-                        });
-
-                        function showValues() {
-                            document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
-                            document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
-                            document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
-                        }
-
-                        // Activate the sliders
-                        document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
-                            chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
-                            showValues();
-                            chart.redraw(false);
-                        }));
-
-                        showValues();
-                    </script>
-                @foreach ($groupedData as $item)
+                <button class="splide__toggle" type="button"></button>
+                @foreach ($semesterSums as $item)
                     @php
                         $totalNilaiAkhir = 0;
                         $bobot = 40;
-                        $target =  21000000000;
-                        $pencapaian = $item->total_value;
-                        $nilai = ($pencapaian / $target) * 100;
+                        $target =  21000000000; //target per semester
+                        $revenue = $item['total_value'];
+                        $profit = $item['total_profit'];
+                        $nilai = ($revenue / $target) * 100;
                         $nilai_akhir = ($nilai * $bobot) / 100;
 
                         $bobot_profit = 30;
                         $target_profit = 7;
-                        $pencapaian_profit = $item->total_profit;
+                        $pencapaian_profit = $item['total_profit'];
                         $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
                         if ($nilai_profit < 0) { 
                             $nilai_profit = 0;
@@ -410,101 +377,178 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
                         $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
                     @endphp
-                <script>
-                    Highcharts.chart('corporate{{ $item->semester }}', {
+                    <script>
+                        Highcharts.chart('corporate{{ $item['semester'] }}', {
 
-                            chart: {
-                                type: 'gauge',
-                                plotBackgroundColor: null,
-                                plotBackgroundImage: null,
-                                plotBorderWidth: 0,
-                                plotShadow: false,
-                                height: '80%'
-                            },
+                                chart: {
+                                    type: 'gauge',
+                                    plotBackgroundColor: null,
+                                    plotBackgroundImage: null,
+                                    plotBorderWidth: 0,
+                                    plotShadow: false,
+                                    height: '80%'
+                                },
 
-                            title: {
-                                text: 'Corporate'
-                            },
+                                title: {
+                                    text: 'Corporate'
+                                },
 
-                            pane: {
-                                startAngle: -90,
-                                endAngle: 89.9,
-                                background: null,
-                                center: ['50%', '75%'],
-                                size: '110%'
-                            },
+                                pane: {
+                                    startAngle: -90,
+                                    endAngle: 89.9,
+                                    background: null,
+                                    center: ['50%', '75%'],
+                                    size: '110%'
+                                },
 
-                            // the value axis
-                            yAxis: {
-                                min: 0,
-                                max: 100,
-                                tickPixelInterval: 72,
-                                tickPosition: 'inside',
-                                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
-                                tickLength: 20,
-                                tickWidth: 2,
-                                minorTickInterval: null,
-                                labels: {
-                                    distance: 20,
-                                    style: {
-                                        fontSize: '14px'
+                                // the value axis
+                                yAxis: {
+                                    min: 0,
+                                    max: 100,
+                                    tickPixelInterval: 72,
+                                    tickPosition: 'inside',
+                                    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+                                    tickLength: 20,
+                                    tickWidth: 2,
+                                    minorTickInterval: null,
+                                    labels: {
+                                        distance: 20,
+                                        style: {
+                                            fontSize: '14px'
+                                        }
+                                    },
+                                    lineWidth: 0,
+                                    plotBands: [{
+                                        from: 0,
+                                        to: 59,
+                                        color: '#DF5353', // red
+                                        thickness: 20
+                                    }, {
+                                        from: 60,
+                                        to: 79,
+                                        color: '#DDDF0D', // yellow
+                                        thickness: 20
+                                    }, {
+                                        from: 80,
+                                        to: 100,
+                                        color: '#55BF3B', // green
+                                        thickness: 20
+                                    }]
+                                },
+
+                                series: [{
+                                    name: 'Speed',
+                                    data: [{{ ceil($totalNilaiAkhir) }}],
+                                    tooltip: {
+                                        valueSuffix: '%'
+                                    },
+                                    dataLabels: {
+                                        format: '{y} %',
+                                        borderWidth: 0,
+                                        color: (
+                                            Highcharts.defaultOptions.title &&
+                                            Highcharts.defaultOptions.title.style &&
+                                            Highcharts.defaultOptions.title.style.color
+                                        ) || '#333333',
+                                        style: {
+                                            fontSize: '16px'
+                                        }
+                                    },
+                                    dial: {
+                                        radius: '80%',
+                                        backgroundColor: 'gray',
+                                        baseWidth: 12,
+                                        baseLength: '0%',
+                                        rearLength: '0%'
+                                    },
+                                    pivot: {
+                                        backgroundColor: 'gray',
+                                        radius: 6
                                     }
-                                },
-                                lineWidth: 0,
-                                plotBands: [{
-                                    from: 0,
-                                    to: 59,
-                                    color: '#DF5353', // red
-                                    thickness: 20
-                                }, {
-                                    from: 60,
-                                    to: 79,
-                                    color: '#DDDF0D', // yellow
-                                    thickness: 20
-                                }, {
-                                    from: 80,
-                                    to: 100,
-                                    color: '#55BF3B', // green
-                                    thickness: 20
-                                }]
-                            },
-
-                            series: [{
-                                name: 'Speed',
-                                data: [{{ ceil($totalNilaiAkhir) }}],
-                                tooltip: {
-                                    valueSuffix: '%'
-                                },
-                                dataLabels: {
-                                    format: '{y} %',
-                                    borderWidth: 0,
-                                    color: (
-                                        Highcharts.defaultOptions.title &&
-                                        Highcharts.defaultOptions.title.style &&
-                                        Highcharts.defaultOptions.title.style.color
-                                    ) || '#333333',
-                                    style: {
-                                        fontSize: '16px'
-                                    }
-                                },
-                                dial: {
-                                    radius: '80%',
-                                    backgroundColor: 'gray',
-                                    baseWidth: 12,
-                                    baseLength: '0%',
-                                    rearLength: '0%'
-                                },
-                                pivot: {
-                                    backgroundColor: 'gray',
-                                    radius: 6
+                                }],
+                                credits: {
+                                    enabled: false
                                 }
-                            }],
-                            credits: {
-                                enabled: false
-                            }
-                        });
-                </script>
+                            });
+                    </script>
                 @endforeach
+                    
+                    @foreach ($records as $item)
+                        <script>
+                            // Set up the chart
+                            var records = <?php echo json_encode($records); ?>;
+                            const chart = new Highcharts.Chart({
+                                chart: {
+                                    renderTo: 'tipe_pekerjaan',
+                                    type: 'column',
+                                    options3d: {
+                                        enabled: true,
+                                        alpha: 15,
+                                        beta: 15,
+                                        depth: 50,
+                                        viewDistance: 25
+                                    }
+                                },
+                                xAxis: {
+                                    categories: {!! json_encode($records->pluck('job_name')) !!}
+                                },
+                                yAxis: {
+                                    title: {
+                                        enabled: false
+                                    }
+                                },
+                                tooltip: {
+                                    headerFormat: '<b>{point.key}</b><br>',
+                                    pointFormat: 'Pendapatan: {point.y}%'
+                                },
+                                title: {
+                                    text: 'Diagram Top 3 Tipe Pekerjaan (Revenue)',
+                                    align: 'center'
+                                },
+                                
+                                legend: {
+                                    enabled: false
+                                },
+                                plotOptions: {
+                                    column: {
+                                        depth: 25,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.y:.2f}%',
+                                            outside: true
+                                        },
+                                        colorByPoint: true,
+                                        colors: ['#52575D', '#FDDB3A', '#F6F4E6'] // Ganti warna kolom sesuai kebutuhan Anda
+                                    }
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    data: records.map(function(record) {
+                                        return parseFloat(record.percentage);
+                                    }),
+                                    colorByPoint: true
+                                }]
+                            });
+
+                            function showValues() {
+                                document.getElementById('alpha-value').innerHTML = chart.options.chart.options3d.alpha;
+                                document.getElementById('beta-value').innerHTML = chart.options.chart.options3d.beta;
+                                document.getElementById('depth-value').innerHTML = chart.options.chart.options3d.depth;
+                            }
+
+                            // Activate the sliders
+                            document.querySelectorAll('#sliders input').forEach(input => input.addEventListener('input', e => {
+                                chart.options.chart.options3d[e.target.id] = parseFloat(e.target.value);
+                                showValues();
+                                chart.redraw(false);
+                            }));
+
+                            showValues();
+                        </script>
+                    @endforeach
+                
                 <script>
                     var splide = new Splide( '#ss' );
                     var bar    = splide.root.querySelector( '.my-carousel-progress-bar' );
@@ -522,7 +566,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     var splide = new Splide( '.splide', {
                     type   : 'loop',
                     perPage: 3,
-                    autoplay : true,
+                    autoplay : false,
                     } );
 
                     splide.mount();
@@ -579,107 +623,5 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                         } );
                     } );
                 </script>
-                
-                {{-- <script>
-                    Highcharts.chart('typejob', {
-                    chart: {
-                        type: 'column',
-                        alignTicks: false,
-                        marginLeft: 100,
-                        marginRight: 100
-        
-                    },
-                    title: {
-                        text: 'Tipe pekerjaan'
-                    },
-                    subtitle: {
-                        text: ''
-                    },
-                    xAxis: {
-                        labels: {
-                            enabled: false
-                        },
-                        crosshair: false,
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: '(%)'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
-                        footerFormat: '</table>',
-                        // shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0,
-                            groupPadding: 0,
-                            dataLabels: {
-                                enabled: true,
-                                outside: true,
-                                formatter: function() {
-                                    return this.y.toFixed(1) + '%';
-                                }
-                            }
-                        }
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        series: [{
-                            name: 'Genset',
-                            data: [61.76],
-                        }, {
-                            name: 'Solahart',
-                            data: [19.93],
-                        },{
-                            name: 'other',
-                            data: [18.29],
-                        }]
-                    });
-                </script>
-
-
-                <script>
-                    Highcharts.chart('typejobb', {
-                        chart: {
-                            type: 'pie',
-                            options3d: {
-                                enabled: true,
-                                alpha: 35,
-                                beta: 0
-                            }
-                        },
-                        title: {
-                            text: 'Revenue Verdanco Indonesia'
-                        },
-                        series: [{
-                            name: '',
-                            colorByPoint: true,
-                            data:
-                        }],
-                        plotOptions: {
-                            pie: {
-                                allowPointSelect: true,
-                                cursor: 'pointer',
-                                depth: 35,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.name}: Rp.{point.y:,.0f}'
-                                },
-                                showInLegend: true,
-                            }
-                        },
-                        credits: {
-                            enabled: false
-                        }
-                    });
-                </script> --}}
             @endsection
 @endsection

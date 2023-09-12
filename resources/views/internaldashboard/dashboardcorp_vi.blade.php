@@ -91,7 +91,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     }
 
 </style>
-
+    {{-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> --}}
 @endsection
 @section('content')
     <!-- main-content -->
@@ -105,7 +105,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                         <div class="col-lg-12 mt-2">
                             <!-- breadcrumb -->
                             <div class="breadcrumb-header justify-content-center">
-                                <h4 class="page-title">Verdanco Engineering 2023</h4>
+                                <h4 class="page-title">Verdanco Indonesia 2023</h4>
                             </div>
                             {{-- @foreach ($resultArray as $item)
                                     
@@ -120,8 +120,14 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                     <div class="card-body">
                                                         {{-- revenue VI Januari--}}
                                                         <div class="my-3">
-                                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center">{{ $item->event }}<span class="badge bg-success">Data Final</span></h3>
-                                                            <h6 class="card-text bd-t">Revenue</h6>
+                                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center" style="font-size: 16px">{{ $item->event }}
+                                                                @if ($loop->last)
+                                                                    <span class="badge bg-warning">Ongoing</span>
+                                                                @else
+                                                                    <span class="badge bg-success">Data Final</span>
+                                                                @endif
+                                                            </h3>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
                                                                     {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
                                                                 <span class="card-text">Tercapai :Rp. {{ number_format($item->total_value) }}</span><br>
                                                                 @php
@@ -145,15 +151,15 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                         {{-- end revenue VI januari --}}
                                                         {{-- Net Profit VI januari --}}
                                                         <div class="my-3">
-                                                            <h6 class="card-text bd-t">Net Profit</h6>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
                                                             <span class="card-text">
-                                                                <span class="">Profit/Loss : {{ $item->total_profit }}</span><br>
-                                                                <span class="">Persentasi: {{ $persentase }}%</span>
+                                                                <span class="">Profit/Loss : {{ 'Rp.' . number_format($item->total_profit) }}</span><br>
                                                                 @php
                                                                     $total_profit =   $item->total_profit; //total perbulan
                                                                     $total_revenue =  $item->total_value; //target perbulan vi  4,000,000,000  ve  7,000,000,000
                                                                     $persentase = ceil(($total_profit / $total_revenue) * 100);
                                                                 @endphp
+                                                                <span class="">Persentasi: {{ $persentase }}%</span>
                                                             </span><br>
                                                             <div class="container">
                                                                 <div class="row mt-3 text-center">  
@@ -172,7 +178,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                         {{-- end Net Profit VI januari--}}
                                                         {{-- Aging VI januari--}}
                                                         <div class="my-3">
-                                                            <h6 class="card-text bd-t">Aging</h6>
+                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
                                                             <span class="">Persentasi : 0%</span>
                                                             <div class="container">
                                                                 <div class="row mt-3 text-center">
@@ -231,52 +237,52 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                         
                                         <li class="splide__slide">
                                             <div class="row" >
-                                                <div class="col-md-8">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="table-responsive" style="margin-bottom: 36px">
-                                                                <h4>KPI Corporate Semester {{ $item['semester'] }}</h4>
-                                                                <table  class="table table-sm" style="width:100%">
+                                                <div class="col-md-8" data-aos="fade-right" data-aos-duration="1000">
+                                                    <div class="card" style="">
+                                                        <div class="card-body" style="margin-bottom: 50px">
+                                                            <div class="" style="">
+                                                                <h4 class="d-flex justify-content-center">KPI Corporate Semester {{ $item['semester'] }}</h4>
+                                                                <table  class="table table-sm table table-striped mg-b-0 text-md-nowrap" style="width:100%">
                                                                     <thead>
-                                                                        <tr>
-                                                                            <th>Item KPI</th>
-                                                                            <th>Bobot</th>
-                                                                            <th>Target</th>
-                                                                            <th>Pencapaian</th>
-                                                                            <th>Nilai</th>
-                                                                            <th>Hasil Akhir</th>
+                                                                        <tr> 
+                                                                            <th style="font-size: 13px;">Item KPI</th>
+                                                                            <th style="font-size: 13px;">Bobot</th>
+                                                                            <th style="font-size: 13px;">Target</th>
+                                                                            <th style="font-size: 13px;">Pencapaian</th>
+                                                                            <th style="font-size: 13px;">Nilai</th>
+                                                                            <th style="font-size: 13px;">Hasil Akhir</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
+                                                                    <tbody class="text-center">
                                                                         <tr>
-                                                                            <td>Revenue Perusahaan</td>
-                                                                            <td>{{ $bobot . '%' }}</td>
-                                                                            <td>{{ 'Rp'. number_format($target) }}</td>
-                                                                            <td>{{ 'Rp'. number_format($item['total_value']) }}</td>
-                                                                            <td>{{ ceil($nilai) . '%' }}</td>
-                                                                            <td>{{ ceil($nilai_akhir) . '%' }}</td>
+                                                                            <td style="font-size: 13px">Revenue Perusahaan</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ $bobot . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ 'Rp'. number_format($target) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ 'Rp'. number_format($item['total_value']) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ ceil($nilai) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ ceil($nilai_akhir) . '%' }}</td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Net Profit</td>
-                                                                            <td>{{ $bobot . '%' }}</td>
-                                                                            <td>{{ number_format($target_profit) . '%' }}</td>
-                                                                            <td>{{ 'Rp'. number_format($item['total_profit']) }}</td>
-                                                                            <td>{{ ceil($nilai_profit) . '%' }}</td>
-                                                                            <td>{{ ceil($nilai_akhir_profit) . '%' }}</td>
+                                                                            <td style="font-size: 13px">Net Profit</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ $bobot . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ number_format($target_profit) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ 'Rp'. number_format($item['total_profit']) }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ ceil($nilai_profit) . '%' }}</td>
+                                                                            <td class="text-center" style="font-size: 13px">{{ ceil($nilai_akhir_profit) . '%' }}</td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Aging</td>
-                                                                            <td>30%</td>
-                                                                            <td>30%</td>
-                                                                            <td></td>
-                                                                            <td>Belum di hitung</td>
-                                                                            <td></td>
+                                                                            <td style="font-size: 13px">Aging</td>
+                                                                            <td class="text-center" style="font-size: 13px">30%</td>
+                                                                            <td class="text-center" style="font-size: 13px">30%</td>
+                                                                            <td class="text-center" style="font-size: 13px"></td>
+                                                                            <td class="text-center" style="font-size: 13px">N/A</td>
+                                                                            <td class="text-center" style="font-size: 13px"></td>
                                                                         </tr>
                                                                     </tbody>
                                                                     <tfoot>
                                                                         <tr>
                                                                             <th colspan="5">Total</th>
-                                                                            <th>{{ ceil($totalNilaiAkhir) . '%' }}</th>
+                                                                            <th class="text-center">{{ ceil($totalNilaiAkhir) . '%' }}</th>
                                                                         </tr>
                                                                     </tfoot>
                                                                 </table>
@@ -285,7 +291,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <div class="card">
+                                                    <div class="card" data-aos="fade-left" data-aos-duration="1500">
                                                         <div>
                                                             <figure class="highcharts-figure">
                                                                 <div id="corporate{{ $item['semester'] }}"></div>
@@ -307,7 +313,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     </div>
                     <div class="row">
                         <div class="col-lg-12 mt-2">
-                            <div class="card">
+                            <div class="card" data-aos="zoom-in-up" data-aos-duration="2000">
                             <div class="card-body">
                                 <div id="tipe_pekerjaan"></div>
                             <div id="sliders">
@@ -347,6 +353,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <script src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"></script>
                 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
                 <button class="splide__toggle" type="button"></button>
+                {{-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
+                <script>
+                    gsap.from('.selection card')
+                </script>
                 @foreach ($semesterSums as $item)
                     @php
                         $totalNilaiAkhir = 0;
@@ -486,7 +496,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                     }
                                 },
                                 xAxis: {
-                                    categories: ['Genset','Solahart','Other']
+                                    categories: {!! json_encode($records->pluck('job_name')) !!}
                                 },
                                 yAxis: {
                                     title: {
@@ -498,8 +508,8 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                     pointFormat: 'Pendapatan: {point.y}%'
                                 },
                                 title: {
-                                    text: 'Diagram Tipe Pekerjaan',
-                                    align: 'left'
+                                    text: 'Diagram Top 3 Tipe Pekerjaan (Revenue)',
+                                    align: 'center'
                                 },
                                 
                                 legend: {
@@ -507,7 +517,14 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 },
                                 plotOptions: {
                                     column: {
-                                        depth: 25
+                                        depth: 25,
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '{point.y:.2f}%',
+                                            outside: true
+                                        },
+                                        colorByPoint: true,
+                                        colors: ['#FF9642', '#FFE05D', '#FFF8CD'] // Ganti warna kolom sesuai kebutuhan Anda
                                     }
                                 },
                                 credits: {
@@ -515,8 +532,8 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 },
                                 series: [{
                                     data: records.map(function(record) {
-                                    return parseFloat(record.percentage);
-                                }),
+                                        return parseFloat(record.percentage);
+                                    }),
                                     colorByPoint: true
                                 }]
                             });

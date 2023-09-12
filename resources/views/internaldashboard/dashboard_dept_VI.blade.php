@@ -142,8 +142,8 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Company</th>
-                                        <th scope="col">Director</th>
+                                        <th scope="col" style="font-weight: bold; font-size: 14px">Company</th>
+                                        <th scope="col" style="font-weight: bold; font-size: 14px">Director</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,14 +157,14 @@
                                                 <thead>
                                                     <tr>
                                                         <th>&nbsp;</th>
-                                                        <th colspan="1" class="d-flex justify-content-center">Departement Rank</th>
+                                                        <th colspan="1" class="d-flex justify-content-center" style="font-weight: bold; font-size: 14px">Departement Rank</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr data-toggle="collapse" data-target="#rankDept" class="accordion-toggle">
                                                         <td><button class="btn btn-default btn-xs"><i class="fa fa-low-vision"></i></button></td>
-                                                        <td>Departement</td>
-                                                        <td>Persentase</td>
+                                                        <td style="font-weight: bold; font-size: 14px">Departement</td>
+                                                        <td style="font-weight: bold; font-size: 14px">Persentase</td>
                                                         
                                                     </tr>
                                                     <tr>

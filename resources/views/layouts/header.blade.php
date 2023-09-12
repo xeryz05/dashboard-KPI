@@ -1,6 +1,6 @@
 <!-- main-header -->
             <div class="main-header side-header nav nav-item sticky"
-                style="background: rgb(158,157,149); background: linear-gradient(85deg, rgba(158,157,149,1) 25%, rgba(241,231,19,1) 100%);">
+                style="background:radial-gradient(circle at 20% 20%, rgb(167, 162, 149) 0%, rgb(249, 252, 84) 90%);">
                 <div class="container-fluid main-container">
                     <div class="main-header-left">
                         <div class="responsive-logo">

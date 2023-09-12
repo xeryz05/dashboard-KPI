@@ -12,13 +12,6 @@ use Illuminate\Support\Facades\DB;
 class CorpVIController extends Controller
 {
     public function index(){
-                // @dd($profitsAndVirevs);
-        // $virevs = Virev::selectRaw('events.start as event, SUM(virevs.value) as total_value')
-        //         ->join('events', 'events.id', '=', 'virevs.event_id')
-        //         ->groupBy('event')
-        //         ->get();
-        // Query untuk mengambil total value dari tabel virevs
-
         $virevs = Virev::selectRaw('events.start as event, 
                                         SUM(virevs.value) as total_value, 
                                         SUM(profits.value) as total_profit,
@@ -50,12 +43,15 @@ class CorpVIController extends Controller
         // @dd($semesterSums);
 
         $records = DB::table('virevs')
-                ->selectRaw('virevs.job_id as job_id, 
-                            SUM(virevs.value) as total_value, 
-                            (SUM(virevs.value) / (SELECT SUM(value) FROM virevs)) * 100 as percentage')
-                ->groupBy('job_id')
-                ->get()
-                ->toArray();
+                        ->selectRaw('virevs.job_id as job_id, 
+                                jobs.name as job_name,
+                                SUM(virevs.value) as total_value, 
+                                (SUM(virevs.value) / (SELECT SUM(value) FROM virevs)) * 100 as percentage')
+                        ->leftJoin('jobs', 'virevs.job_id',      '=', 'jobs.id')
+                        ->groupBy('job_id')
+                        ->orderByDesc('total_value') // Menyusun data berdasarkan total_value secara descending
+                        ->take(3) // Mengambil 2 data teratas
+                        ->get();
 
         // @dd($records);
         // @dd($records);
