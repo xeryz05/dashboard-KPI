@@ -25,76 +25,12 @@
                             </svg></div>
                         <ul class="side-menu">
                             @role('admin')
-                                <li class="side-item side-item-category text-dark">Admin</li>
-                                <li class="slide">
-                                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                        <i class="fas fa-user-shield" style="color: #000000;"></i>
-                                        <span class="side-menu__label" style="margin-left: 20px">Admin Pages</span><i
-                                            class="angle fe fe-chevron-down"></i>
-                                    </a>
-                                    <ul class="slide-menu">
-                                        <li class="panel sidetab-menu">
-                                            <div class="panel-body tabs-menu-body border-0 p-0">
-                                                <div class="tab-content">
-                                                    <div class="tab-pane tab-content-show active" id="side41">
-                                                        <ul class="sidemenu-list">
-                                                            <li class="side-menu__label1"><a
-                                                                    href="javascript:void(0);">Admin Pages</a></li>
-                                                            <li><a class="slide-item"
-                                                                    href="{{ route('users.index') }}">User Management</a>
-                                                            </li>
-                                                            <li class="sub-slide">
-                                                            <a class="slide-item"
-                                                                href="{{ route('departements.index') }}">Departement
-                                                                Management</a>
-                                                            </li>
-                                                            <li><a class="slide-item" href="">Company
-                                                                    Management</a></li>
-                                                            <li><a class="slide-item" href="">Role Management</a>
-                                                            </li>
-                                                            <li><a class="slide-item" href="">Revenue Verdanco
-                                                                    Indonesia</a></li>
-                                                            <li><a class="slide-item" href="">Revenue Verdanco
-                                                                    Engineering</a></li>
-                                                            <li><a class="slide-item" href="">Periode</a></li>
-                                                            <!--<li><a class="slide-item" href="">Tipe Pekerjaan</a>-->
-                                                            </li>
-                                                            <!--<li><a class="slide-item" href="">Physical-->
-                                                            <!--        Availability</a></li>-->
-                                                            <li><a class="slide-item"
-                                                                    href="{{ route('role.index') }}">Roles</a></li>
-                                                            <li><a class="slide-item"
-                                                                    href="{{ route('permission.index') }}">Permissions</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="side-item side-item-category text-dark">WEB APPS</li>
-                                <li class="slide">
-                                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                        <i class="fas fa-palette" style="color: #000000;"></i>
-                                        <span class="side-menu__label" style="margin-left: 20px">Advanced UI</span><i
-                                            class="angle fe fe-chevron-down"></i></a>
-                                    <ul class="slide-menu">
-                                        <li class="panel sidetab-menu">
-                                            <div class="panel-body tabs-menu-body border-0 p-0">
-                                                <div class="tab-content">
-                                                    <div class="tab-pane tab-content-show active" id="side23">
-                                                        <ul class="sidemenu-list">
-                                                            <li class="side-menu__label1"><a
-                                                                    href="javascript:void(0);">Advanced Ui</a></li>
-                                                            <!--<li><a class="slide-item" href="/switcher">Switcher</a></li>-->
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
+                            <li class="slide">
+                                <a class="side-menu__item" href="{{ route('admin') }}">
+                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <span class="side-menu__label" style="margin-left: 20px">Page Admin</span></a>
+                            </li>
                             @endrole
                             <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
                             <li class="slide">

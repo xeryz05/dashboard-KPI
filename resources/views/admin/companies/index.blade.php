@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('content')
     <!-- main-content -->

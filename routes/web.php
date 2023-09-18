@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\VerevenueController; //controller untuk admin cru
 use App\Http\Controllers\Admin\PAController; //controller untuk admin crud PA VI
 use App\Http\Controllers\Admin\TypeJobController; //controller untuk admin crud type job VI|VE
 use App\Http\Controllers\Admin\VirevController; //controller untuk admin crud
-
+use App\Http\Controllers\Admin\DashboardController;
 
 use App\Http\Controllers\Internal\DashboardUserController; //controller untuk dashboard VI
 // use App\Http\Controllers\Internal\DashboardUserVEController; //controller untuk dashboard VE
@@ -55,6 +55,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth','role:admin'])->group(function () {
+
+    // Route::get('/Admin', DashboardController::class)->name('admin');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin');
+
+
     Route::resource('/companies', CompanyController::class);
     Route::resource('/periods', PeriodController::class);
     Route::resource('/PA', PAController::class);

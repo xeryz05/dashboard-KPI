@@ -1,0 +1,101 @@
+.header {
+    margin-bottom: 65px;
+}
+
+.img-fluid{
+    width: 110px;
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: #007bff; /* Ganti dengan warna yang Anda inginkan */
+    transition: background-color 0.3s ease; /* Efek animasi */
+    border-radius: 5px; /* Agar sudut tampilan lebih halus */
+    position: fixed;
+}
+.navbar-nav .nav-item:hover .nav-link {
+    color: #fff; /* Ganti dengan warna teks yang Anda inginkan */
+    transition: color 0.3s ease; /* Efek animasi */
+}
+.position-sticky{
+    height: 100vh; /* Tinggi penuh viewport */
+    position: fixed; /* Agar tetap tetap di posisi, tidak scroll bersama konten */
+    overflow-y: auto; /* Aktifkan scrolling jika isi melebihi tinggi viewport */
+}
+/* .navbar-brand{
+    width: 10px;
+} */
+
+/* Mengatur gaya untuk minibar */
+.minibar {
+    position: fixed; /* Membuat minibar tetap di tempat */
+    top: 0; /* Menempatkan minibar di bagian atas */
+    left: 0; /* Menempatkan minibar di bagian kiri */
+    width: 100px; /* Lebar minibar */
+    height: 100%; /* Tinggi minibar sesuai tinggi layar */
+    background-color: #333; /* Warna latar belakang minibar */
+    color: #fff; /* Warna teks di minibar */
+}
+
+/* Mengatur gaya untuk tautan di minibar */
+.minibar a {
+    display: block; /* Membuat tautan menempati seluruh lebar minibar */
+    padding: 10px; /* Padding di dalam tautan */
+    color: #fff; /* Warna teks tautan */
+    text-decoration: none; /* Menghapus garis bawah pada tautan */
+    transition: background-color 0.3s; /* Efek transisi saat tautan dihover */
+}
+
+/* Mengatur gaya saat tautan dihover */
+.minibar a:hover {
+    background-color: #555; /* Warna latar belakang saat dihover */
+}
+
+/* Add your CSS styles here */
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Style the sidebar */
+#sidebar {
+    transition: all 0.3s;
+}
+
+#sidebar.closed {
+    width: 0;
+    overflow: hidden;
+}
+
+/* Style the toggle button */
+#sidebar-toggle {
+    display: none;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 0;
+    }
+
+    #sidebar-toggle {
+        display: block;
+    }
+
+    #sidebar.closed ul {
+        display: none;
+    }
+}
+

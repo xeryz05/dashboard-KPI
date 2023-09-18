@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('style')
     <link

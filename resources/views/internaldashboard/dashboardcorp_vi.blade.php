@@ -3,34 +3,13 @@
     Dashboard VI
 @endsection
 @extends('layouts.app')
-{{-- @extends('admin.dashboard') --}}
 @section('style')
-    <!-- Add the slick-theme.css if you want default styling -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick-theme.css"/>
 
-<script src="
-https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
-"></script>
-<link href="
-https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
-" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 <style>
-    .slick-prev:before, .slick-next:before{
-        color:rgba(99, 97, 97, 0.285);
-    }
-    .slick-prev, .slick-next {
-        top: 240px;
-        bottom: 100px;
-        right: 35px;
-        z-index: 10;
-    }
-    .slick-prev {
-        left: 5px;
-    
-    }
-    .slick-next {
-        right: 5px;
-    }
-    <!-- Style the bar as you like -->
     .my-slider-progress {
         background: #ccc;
     }
@@ -91,7 +70,6 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     }
 
 </style>
-    {{-- <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> --}}
 @endsection
 @section('content')
     <!-- main-content -->
@@ -104,102 +82,98 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     <div class="row">
                         <div class="col-lg-12 mt-2">
                             <!-- breadcrumb -->
-                            <div class="breadcrumb-header justify-content-center">
+                            <div class="breadcrumb-header d-flex justify-content-center">
                                 <h4 class="page-title">Verdanco Indonesia 2023</h4>
                             </div>
                             {{-- @foreach ($resultArray as $item)
                                     
                             @endforeach --}}
-                            <section class="splide" aria-label="Splide Basic HTML Example">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                        @foreach ($virevs as $item)
-                                            <li class="splide__slide">
-                                            <div class="col-md mg-md-t-0">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        {{-- revenue VI Januari--}}
-                                                        <div class="my-3">
-                                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center" style="font-size: 16px">{{ $item->event }}
-                                                                @if ($loop->last)
-                                                                    <span class="badge bg-warning">Ongoing</span>
-                                                                @else
-                                                                    <span class="badge bg-success">Data Final</span>
-                                                                @endif
-                                                            </h3>
-                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
-                                                                    {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
-                                                                <span class="card-text">Tercapai :Rp. {{ number_format($item->total_value) }}</span><br>
-                                                                @php
-                                                                    $pendapatan =   $item->total_value; //total perbulan
-                                                                    $target =      4000000000; //target perbulan vi  4,000,000,000  ve  7,000,000,000
-                                                                    $persentase = ceil(($pendapatan / $target) * 100);
-                                                                @endphp
-                                                            <span class="">Persentasi: {{ $persentase }}%</span>
-                                                            <div class="container">
-                                                                <div class="row mt-3 text-center">
-                                                                    <div class="col-12">
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar bg-{{ $persentase > 60 ? $persentase > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: {{ $persentase > 100 ? 100 : $persentase }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
-                                                                                <span>{{ $persentase }}%</span>
-                                                                            </div>
+                            <div class="slick-list">
+                                @foreach ($virevs as $item)
+                                    <div class="">
+                                        <div class="col-md mg-md-t-0">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    {{-- revenue VI Januari--}}
+                                                    <div class="my-3">
+                                                        <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center" style="font-size: 16px">{{ $item->event }}
+                                                            @if ($loop->last)
+                                                                <span class="badge bg-warning">Ongoing</span>
+                                                            @else
+                                                                <span class="badge bg-success">Data Final</span>
+                                                            @endif
+                                                        </h3>
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
+                                                                {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
+                                                            <span class="card-text">Tercapai :Rp. {{ number_format($item->total_value) }}</span><br>
+                                                            @php
+                                                                $pendapatan =   $item->total_value; //total perbulan
+                                                                $target =      4000000000; //target perbulan vi  4,000,000,000  ve  7,000,000,000
+                                                                $persentase = ceil(($pendapatan / $target) * 100);
+                                                            @endphp
+                                                        <span class="">Persentasi: {{ $persentase }}%</span>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">
+                                                                <div class="col-12">
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-{{ $persentase > 60 ? $persentase > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: {{ $persentase > 100 ? 100 : $persentase }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                                            <span>{{ $persentase }}%</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        {{-- end revenue VI januari --}}
-                                                        {{-- Net Profit VI januari --}}
-                                                        <div class="my-3">
-                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
-                                                            <span class="card-text">
-                                                                <span class="">Profit/Loss : {{ 'Rp.' . number_format($item->total_profit) }}</span><br>
-                                                                @php
-                                                                    $total_profit =   $item->total_profit; //total perbulan
-                                                                    $total_revenue =  $item->total_value; //target perbulan vi  4,000,000,000  ve  7,000,000,000
-                                                                    $persentase = ceil(($total_profit / $total_revenue) * 100);
-                                                                @endphp
-                                                                <span class="">Persentasi: {{ $persentase }}%</span>
-                                                            </span><br>
-                                                            <div class="container">
-                                                                <div class="row mt-3 text-center">  
-                                                                    <div class="col-12">
-                                                                        @if ($persentase < 6)
-                                                                            <progress class="w-100" style="accent-color: red;" value="{{ $persentase }}" max="7"></progress>
-                                                                        @elseif ($persentase < 7)
-                                                                            <progress class="w-100" style="accent-color: yellow;" value="{{ $persentase }}" max="7"></progress>
-                                                                        @else
-                                                                            <progress class="w-100" style="accent-color: green;" value="{{ $persentase }}" max="7"></progress>
-                                                                        @endif
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {{-- end Net Profit VI januari--}}
-                                                        {{-- Aging VI januari--}}
-                                                        <div class="my-3">
-                                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
-                                                            <span class="">Persentasi : 0%</span>
-                                                            <div class="container">
-                                                                <div class="row mt-3 text-center">
-                                                                    <div class="col-12">
-                                                                        {{-- <div class="progress-bar bg-{{ $persen > 60 ? $persen > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                                            <span>0%</span>
-                                                                        </div> --}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        {{-- end Aging VI januari --}}
                                                     </div>
+                                                    {{-- end revenue VI januari --}}
+                                                    {{-- Net Profit VI januari --}}
+                                                    <div class="my-3">
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
+                                                        <span class="card-text">
+                                                            <span class="">Profit/Loss : {{ 'Rp.' . number_format($item->total_profit) }}</span><br>
+                                                            @php
+                                                                $total_profit =   $item->total_profit; //total perbulan
+                                                                $total_revenue =  $item->total_value; //target perbulan vi  4,000,000,000  ve  7,000,000,000
+                                                                $persentase = ceil(($total_profit / $total_revenue) * 100);
+                                                            @endphp
+                                                            <span class="">Persentasi: {{ $persentase }}%</span>
+                                                        </span><br>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">  
+                                                                <div class="col-12">
+                                                                    @if ($persentase < 6)
+                                                                        <progress class="w-100" style="accent-color: red;" value="{{ $persentase }}" max="7"></progress>
+                                                                    @elseif ($persentase < 7)
+                                                                        <progress class="w-100" style="accent-color: yellow;" value="{{ $persentase }}" max="7"></progress>
+                                                                    @else
+                                                                        <progress class="w-100" style="accent-color: green;" value="{{ $persentase }}" max="7"></progress>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- end Net Profit VI januari--}}
+                                                    {{-- Aging VI januari--}}
+                                                    <div class="my-3">
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
+                                                        <span class="">Persentasi : 0%</span>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">
+                                                                <div class="col-12">
+                                                                    {{-- <div class="progress-bar bg-{{ $persen > 60 ? $persen > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                                        <span>0%</span>
+                                                                    </div> --}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- end Aging VI januari --}}
                                                 </div>
                                             </div>
-                                        </li>
-                                        @endforeach
-                                        {{-- @dd($item) --}}
-                                    </ul>
-                                </div>
-                            </section>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                    {{-- @dd($item) --}}
+                            </div>
                         </div>
                     </div>
                     {{-- coba chart --}}
@@ -240,7 +214,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                 <div class="col-md-8" data-aos="fade-right" data-aos-duration="1000">
                                                     <div class="card" style="">
                                                         <div class="card-body" style="margin-bottom: 50px">
-                                                            <div class="" style="">
+                                                            <div class="table-responsive">
                                                                 <h4 class="d-flex justify-content-center">KPI Corporate Semester {{ $item['semester'] }}</h4>
                                                                 <table  class="table table-sm table table-striped mg-b-0 text-md-nowrap" style="width:100%">
                                                                     <thead>
@@ -351,7 +325,8 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
                 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
                 <script src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"></script>
-                <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+                {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
+                 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
                 <button class="splide__toggle" type="button"></button>
                 {{-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
                 <script>
@@ -569,14 +544,55 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     splide.mount();
                 </script>
                 <script>
-                    var splide = new Splide( '.splide', {
-                    type   : 'loop',
-                    perPage: 3,
-                    autoplay : false,
-                    } );
-
-                    splide.mount();
+                    $('.slick-list').slick({
+                    dots: true,
+                    infinite: false,
+                    speed: 300,
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    responsive: [
+                        {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true,
+                        }
+                        },
+                        {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                        },
+                        {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                        }
+                        // You can unslick at a given breakpoint now by adding:
+                        // settings: "unslick"
+                        // instead of a settings object
+                    ]
+                    });
                 </script>
+                // <script>
+                //     var splide = new Splide( '.splide', {
+                //         type   : 'loop',
+                //         autoWidth: true,
+                //         focus    : 0,
+                //         omitEnd  : true,
+                //         focus  : 'center',
+                //         perPage: 3,
+                //         autoplay : true,
+                //     } );
+
+                //     splide.mount();
+                // </script>
                 <script type="text/javascript">
                    $('.responsive').slick({
                         dots: true,
