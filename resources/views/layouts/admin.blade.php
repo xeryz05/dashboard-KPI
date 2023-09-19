@@ -110,7 +110,7 @@
             <!-- main-header -->
             <!-- main-header -->
             <div class="main-header side-header nav nav-item sticky"
-                style="background:radial-gradient(circle at 20% 20%, rgb(167, 162, 149) 0%, rgb(249, 252, 84) 90%);">
+                style="background:radial-gradient(circle at 20% 20%, rgb(167, 162, 149) 0%, rgb(219, 219, 219) 90%);">
                 <div class="container-fluid main-container">
                     <div class="main-header-left">
                         <div class="responsive-logo">
@@ -243,11 +243,11 @@
                                                             <li class="sub-slide">
                                                                 <a class="slide-item" href="{{ route('departements.index') }}">Departement Management</a>
                                                             </li>
-                                                            <li><a class="slide-item" href="">Company Management</a></li>
-                                                            <li><a class="slide-item" href="">Role Management</a></li>
+                                                            <li><a class="slide-item" href="{{ route('companies.index') }}">Company Management</a></li>
                                                             {{-- <li><a class="slide-item" href="">Revenue Verdanco Indonesia</a></li>
                                                             <li><a class="slide-item" href="">Revenue Verdanco Engineering</a></li> --}}
-                                                            <li><a class="slide-item" href="">Periode</a></li>
+                                                            <li><a class="slide-item" href="{{ route('periods.index') }}">Periode</a></li>
+                                                            <li><a class="slide-item" href="{{ route('events.index') }}">Event</a></li>
                                                             <li><a class="slide-item" href="{{ route('role.index') }}">Roles</a></li>
                                                             <li><a class="slide-item" href="{{ route('permission.index') }}">Permissions</a></li>
                                                         </ul>
@@ -256,6 +256,28 @@
                                             </div>
                                         </li>
                                     </ul>
+                                </li>
+                                <li class="side-item side-item-category text-dark">Verdanco Indonesia</li>
+                                <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('virevs.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Revenue VI</span>
+                                    </a>
+                                    <a class="side-menu__item" href="{{ route('viitem.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">KPI Departement VI</span>
+                                    </a>
+                                </li>
+                                <li class="side-item side-item-category text-dark">Verdanco Engineering</li>
+                                <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('virevs.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Revenue VE</span>
+                                    </a>
+                                    <a class="side-menu__item" href="{{ route('veitem.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">KPI Departement VE</span>
+                                    </a>
                                 </li>
                             @endrole
                             @can('Uji Coba')

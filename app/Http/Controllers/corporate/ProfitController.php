@@ -16,6 +16,7 @@ class ProfitController extends Controller
     public function index()
     {
         $profits = Profit::get();
+        // @dd($profits);
         return view('admin.corporate.net_profits.index', compact('profits'));
     }
 

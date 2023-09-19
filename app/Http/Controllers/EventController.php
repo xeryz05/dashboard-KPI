@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\corporate\Event;
+use App\Models\periode\Event;
 use App\Models\corporate\Verev;
 
 class EventController extends Controller

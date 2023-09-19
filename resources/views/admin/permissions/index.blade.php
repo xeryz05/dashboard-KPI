@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 @section('style')

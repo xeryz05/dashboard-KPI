@@ -8,7 +8,7 @@
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
   <link href="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.css" rel="stylesheet"/>
 @endsection
-@extends('layouts.app')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('content')
     <!-- main-content -->

@@ -32,10 +32,10 @@
                                     <li class="dropdown nav-item main-layout">
                                         <a class="new nav-link theme-layout nav-link-bg layout-setting">
                                             <span class="dark-layout">
-                                                <i class="fa-regular fa-moon" style="color: #000000;"></i>
+                                                <i class="fe fe-sunset" style="color: #000000;"></i>
                                             </span>
                                             <span class="light-layout">
-                                                <i class="fa fa-sun-o" style="color: #000000;" aria-hidden="true"></i>
+                                                <i class="fe fe-sunrise" style="color: #000000;" aria-hidden="true"></i>
                                             </span>
                                         </a>
                                     </li>
@@ -45,35 +45,27 @@
 											</a>
 										</li> --}}
                                     <li class="dropdown main-profile-menu nav nav-item nav-link">
-                                        <a class="profile-user d-flex" href="javascript:void(0);"><img
-                                                style="height:30px" alt=""
-                                                src="{{ asset('assets/img/user/Sample_User_Icon.png') }}"></a>
+                                        <a class="profile-user d-flex" href="javascript:void(0);">
+                                            <img style="width:25px; height:25px" alt="" src="{{ asset('assets/img/user/Sample_User_Icon.png') }}"></a>
                                         <div class="dropdown-menu">
                                             <div class="main-header-profile bg-primary p-3">
                                                 <div class="d-flex wd-100p">
-                                                    <div class="main-img-user"><img class="" alt=""
-                                                            src="{{ asset('assets/img/user/Sample_User_Icon.png') }}">
+                                                    <div class="main-img-user">
+                                                        <img class="" alt="" src="{{ asset('assets/img/user/Sample_User_Icon.png') }}">
                                                     </div>
                                                     <div class="ms-3 my-auto">
                                                         <h6>{{ Auth::user()->name }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a class="dropdown-item" href="{{ route('profile.edit') }}"><i
-                                                    class="bx bx-user-circle"></i>Profile</a>
+                                            <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                                <i class="bx bx-user-circle"></i>Profile</a>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
                                                 <button class="dropdown-item" type="submit"><i
                                                         class="bx bx-log-out"></i> Sign Out</button>
                                             </form>
-
-                                            {{-- <a class="dropdown-item" href="{{ route('logout') }}"><i class="bx bx-log-out"></i> Sign Out</a> --}}
                                         </div>
-                                    </li>
-                                    <li class="dropdown main-header-message right-toggle">
-                                        {{-- <a class="nav-link pe-0" data-bs-toggle="sidebar-right" data-bs-target=".sidebar-right">
-												<svg xmlns="http://www.w3.org/2000/svg" class="header-icon-svgs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-											</a> --}}
                                     </li>
                                 </ul>
                             </div>

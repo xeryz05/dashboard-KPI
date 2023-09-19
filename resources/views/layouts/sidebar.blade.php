@@ -28,32 +28,32 @@
                                 <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
                             <li class="slide">
                                 <a class="side-menu__item" href="{{ route('admin') }}">
-                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <i class="fab fa-github-alt" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Page Admin</span></a>
                             </li>
                             @endrole
                             <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
                             <li class="slide">
                                 <a class="{{ Request::routeIs('CorpVI') ? 'active' : '' }} side-menu__item" href="{{ route('CorpVI') }}">
-                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <i class="si si-chart" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Verdanco Indonesia</span></a>
                             </li>
                             <li class="slide">
                                 <a class="{{ Request::routeIs('CorVE') ? 'active' : '' }} side-menu__item" href="{{ route('CorVE') }}">
-                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <i class="si si-chart" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Verdanco Engineering</span></a>
                             </li>
 
                             <li class="side-item side-item-category text-dark">Dashboard KPI Departement</li>
                             <li class="slide">
                                 <a class="side-menu__item {{ Request::routeIs('deptVI') ? 'active' : '' }}" href="{{route('deptVI')}}">
-                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <i class="si si-speedometer" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Verdanco
                                         Indonesia</span></a>
                             </li>
                             <li class="slide">
                                 <a class="side-menu__item {{ Request::routeIs('deptVE') ? 'active' : '' }}" style="color: #000000" href="{{route('deptVE')}}">
-                                    <i class="fas fa-columns" style="color: #000000;"></i>
+                                    <i class="si si-speedometer" style="color: #000000;"></i>
                                     <span class="side-menu__label" style="margin-left: 20px">Verdanco
                                         Engineering</span></a>
                             </li>

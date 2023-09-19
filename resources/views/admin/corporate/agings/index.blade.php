@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('style')
     {{-- <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/sc-2.1.1/datatables.min.css" rel="stylesheet"/> --}}
@@ -22,7 +22,7 @@
 					</div>
 					<div class="d-flex my-xl-auto right-content align-items-center">
                         <div class="pe-1 mb-xl-0">
-                            <a href="{{ route('verevs.create') }}" class="btn btn-primary">Create Data</a>
+                            <a href="{{ route('agings.create') }}" class="btn btn-primary">Create Data</a>
                         </div>
 
                         <!-- Button trigger modal -->
@@ -71,25 +71,23 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Event</th>
-                                                    <th>Tipe Pekerjaan</th>
                                                     <th>value</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($verevs as $item)
+                                                @foreach ($agings as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->event['start'] }} - {{ $item->event['end'] }}</td>
-                                                        <td>{{ $item->type_job }}</td>
                                                         <td>Rp. {{ number_format($item->value) }}</td>
                                                         <td>
                                                             {{-- @if ($item->Verev()->count() > 0)
                                                                 Tidak bisa dihapus
                                                             @else --}}
-                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('verevs.destroy', $item->id) }}" method="POST">
-                                                                <a href="{{ route('verevs.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
-                                                                <a href="{{ route('verevs.show', $item->id) }}" class="btn btn-sm btn-info"><span class="fe fe-more-vertical"></span></a>
+                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('agings.destroy', $item->id) }}" method="POST">
+                                                                <a href="{{ route('agings.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
+                                                                <a href="{{ route('agings.show', $item->id) }}" class="btn btn-sm btn-info"><span class="fe fe-more-vertical"></span></a>
                                                             
                                                                 @csrf
                                                                 @method('DELETE')
