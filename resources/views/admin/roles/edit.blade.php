@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     @if ($message = Session::get('sukses'))
         <div class="alert alert-success alert-block">

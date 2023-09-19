@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('style')
 
@@ -70,7 +70,6 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Event</th>
-                                                    <th>Tipe Pekerjaan</th>
                                                     <th>value</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -80,7 +79,6 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->event['start'] }} - {{ $item->event['end'] }}</td>
-                                                        <td>{{ $item->type_job }}</td>
                                                         <td>Rp. {{ number_format($item->value) }}</td>
                                                         <td>
                                                             {{-- @if ($item->Verev()->count() > 0)

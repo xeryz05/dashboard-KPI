@@ -6,10 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\periode\Event;
 
-class Profit extends Model
+class Aging extends Model
 {
     use HasFactory;
-
     protected $fillable = ['event_id','value'];
 
     /**
