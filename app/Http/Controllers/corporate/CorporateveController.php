@@ -5,7 +5,9 @@ namespace App\Http\Controllers\corporate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\corporate\Verev;
+use App\Models\corporate\PhysicalAvailability;
 use App\Models\corporate\Profitve;
+use App\Models\Admin\Visitor;
 use Illuminate\Support\Facades\DB;
 
 class CorporateveController extends Controller
@@ -17,15 +19,21 @@ class CorporateveController extends Controller
      */
     public function index(){
         
+        $PhysicalAvailability = PhysicalAvailability::get();
+        // @dd($PhysicalAvailability);
+
         $verevs = Verev::selectRaw('events.start as event, 
                             SUM(verevs.value) as total_value, 
-                            SUM(profitves.value) as total_profit')
+                            MAX(profitves.value) as total_profit,
+                            MAX(physical_availabilities.value) as total_physical_availabilities')
                 ->join('events', 'events.id', '=', 'verevs.event_id')
                 ->leftJoin('profitves', 'events.id', '=', 'profitves.event_id')
+                ->leftJoin('physical_availabilities', 'events.id', '=', 'physical_availabilities.event_id')
                 ->groupBy('event')
                 ->get();
 
         // @dd($verevs);
+        
 
         // foreach ($verevs as $item) {
         //     echo $item->total_value;
@@ -39,12 +47,14 @@ class CorporateveController extends Controller
                     $chunkSum = $chunk->sum('total_value'); // Menghitung total_value untuk setiap bagian
                     $chunkProfitSum = $chunk->sum('total_profit'); // Menghitung total_profit untuk setiap bagian
                     $chunkAgingsSum = $chunk->sum('total_agings'); // Menghitung total_agings untuk setiap bagian
+                    $chunkphysical_availabilitiesSum = $chunk->sum('total_physical_availabilities'); // Menghitung total_agings untuk setiap bagian
 
                     $semesterSums[$index] = [
                             'semester' => $index + 1, // Menambahkan field "semester" dengan nilai indeks + 1
                             'total_value' => $chunkSum,
                             'total_profit' => $chunkProfitSum,
                             'total_agings' => $chunkAgingsSum,
+                            'total_physical_availabilities' => $chunkphysical_availabilitiesSum,
                     ];
             }
 
@@ -68,61 +78,5 @@ class CorporateveController extends Controller
             return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums'));
 
         }
-    
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -48,13 +48,19 @@
                                         <a class="profile-user d-flex" href="javascript:void(0);">
                                             <img style="width:25px; height:25px" alt="" src="{{ asset('assets/img/user/Sample_User_Icon.png') }}"></a>
                                         <div class="dropdown-menu">
-                                            <div class="main-header-profile bg-primary p-3">
+                                            <div class="main-header-profile bg-secondary p-3">
                                                 <div class="d-flex wd-100p">
                                                     <div class="main-img-user">
                                                         <img class="" alt="" src="{{ asset('assets/img/user/Sample_User_Icon.png') }}">
                                                     </div>
                                                     <div class="ms-3 my-auto">
                                                         <h6>{{ Auth::user()->name }}</h6>
+                                                        <span>@if ( Auth::user()->online)
+                                                            <span class="text-danger">Offline</span>
+                                                            @else
+                                                                <span class="text-success">Online</span>
+                                                            @endif
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>

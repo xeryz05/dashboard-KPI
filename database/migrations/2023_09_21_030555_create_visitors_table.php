@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('physicalavailabilitys', function (Blueprint $table) {
+        Schema::create('visitors', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('value');
+            $table->string('ip_address');
+            $table->text('user_agent');
+            $table->timestamp('visited_at')->default(now());
+            $table->string('unique_token')->unique();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('physicalavailabilitys');
+        Schema::dropIfExists('visitors');
     }
 };

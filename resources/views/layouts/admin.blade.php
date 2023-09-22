@@ -92,7 +92,7 @@
         */
     </style>
 
-    {{-- @yield('style') --}}
+    @yield('style')
 
 </head>
 
@@ -263,6 +263,20 @@
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">Revenue VI</span>
                                     </a>
+                                </li>
+                                <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('profits.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Net Profit</span>
+                                    </a>
+                                </li>
+                                <li class="slide">
+                                    <a class="side-menu__item" href="#">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Aging</span>
+                                    </a>
+                                </li>
+                                <li class="slide">
                                     <a class="side-menu__item" href="{{ route('viitem.index') }}">
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">KPI Departement VI</span>
@@ -274,6 +288,8 @@
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">Revenue VE</span>
                                     </a>
+                                </li>
+                                <li class="slide">
                                     <a class="side-menu__item" href="{{ route('veitem.index') }}">
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">KPI Departement VE</span>

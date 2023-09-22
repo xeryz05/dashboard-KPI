@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\corporate\Verev;
 use App\Models\corporate\Virev;
+use App\Models\corporate\PhysicalAvailability;
 
 class Event extends Model
 {
@@ -32,5 +33,9 @@ class Event extends Model
     public function Profitve()
     {
         return $this->hasMany(Profitve::class);
+    }
+    public function PhysicalAvailability()
+    {
+        return $this->hasMany(PhysicalAvailability::class);
     }
 }
