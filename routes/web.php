@@ -31,6 +31,7 @@ use App\Http\Controllers\corporate\CorporateveController;
 use App\Http\Controllers\corporate\CorpVIController;
 use App\Http\Controllers\corporate\ProfitController;
 use App\Http\Controllers\corporate\AgingController;
+use App\Http\Controllers\Visitor\VisitorController;
 
 use App\Http\Controllers\Realization\RealizationpdcaController;
 
@@ -96,9 +97,11 @@ Route::middleware(['auth'])->group(function () {
     //dashboard departement ve
     Route::get('/deptVE', [DashboardDeptVEController::class, 'index'])->name('deptVE');
     //dashboard corporate vi
-    Route::get('/CorVE', [CorporateveController::class, 'index'])->name('CorVE');
+    Route::get('/CorVE', [CorporateveController::class, 'index'])->name('CorVE')->middleware('trackvisitor');
     //dashboard corporate ve
     Route::get('/CorpVI', [CorpVIController::class, 'index'])->name('CorpVI');
+
+    // Route::get('/track-visitor', [VisitorController::class, 'trackVisitor']);
 });
 
 Route::middleware('auth')->group(function () {

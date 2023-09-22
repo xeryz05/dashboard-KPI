@@ -128,7 +128,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                         </h3>
                                                         <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
                                                                 {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
-                                                            <span class="card-text">Tercapai :Rp. {{ number_format($item->total_value) }}</span><br>
+                                                            <span class="card-text">Tercapai :{{ 'Rp.'. number_format( $item->total_value) }}</span><br>
                                                             @php
                                                                 $pendapatan =   $item->total_value; //total perbulan
                                                                 $target =       3500000000 ; //target perbulan ve  4,000,000,000  ve  7,000,000,000
@@ -152,7 +152,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                     <div class="my-3">
                                                         <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
                                                         <span class="card-text">
-                                                            <span class="">Profit/Loss : {{ $item->total_profit }}</span><br>
+                                                            <span class="">Profit/Loss : {{ 'Rp.'. number_format($item->total_profit) }}</span><br>
                                                             @php
                                                                 $total_profit =   $item->total_profit; //total perbulan
                                                                 $total_revenue =  $item->total_value; //target perbulan vi  4,000,000,000  ve  7,000,000,000
@@ -178,13 +178,15 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                     {{-- physical availability VI januari--}}
                                                     <div class="my-3">
                                                         <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical Availability</h6>
-                                                        <span class="">Persentasi : 0%</span>
+                                                        <span class="">Persentasi : {{ number_format($item->total_physical_availabilities / 100, 2) }}%</span>
                                                         <div class="container">
                                                             <div class="row mt-3 text-center">
                                                                 <div class="col-12">
-                                                                    {{-- <div class="progress-bar bg-{{ $persen > 60 ? $persen > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                                                                        <span>0%</span>
-                                                                    </div> --}}
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-{{ number_format($item->total_physical_availabilities / 100, 2) > 60 ? number_format($item->total_physical_availabilities / 100, 2) > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: {{ number_format($item->total_physical_availabilities / 100, 2) > 100 ? 100 : number_format($item->total_physical_availabilities / 100, 2) }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                                            <span>{{ number_format($item->total_physical_availabilities / 100, 2) }}%</span>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
