@@ -1,8 +1,7 @@
 @extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('style')
-    {{-- <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/fc-4.2.2/fh-3.3.2/r-2.4.1/sc-2.1.1/datatables.min.css" rel="stylesheet"/> --}}
-    <link href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/fh-3.3.2/r-2.4.1/sb-1.4.2/sp-2.1.2/datatables.min.css" rel="stylesheet"/>
+
 @endsection
 @section('content')
     <!-- main-content -->
@@ -14,15 +13,15 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
-						<h4 class="page-title">Table Revenues</h4>
+						<h4 class="page-title">Table Profit VI</h4>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0);">Revenue Verdanco Indonesia</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Table Revenues</li>
+							<li class="breadcrumb-item"><a href="javascript:void(0);">Profit Verdanco Indonesia</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Table Profit VI</li>
 						</ol>
 					</div>
 					<div class="d-flex my-xl-auto right-content align-items-center">
                         <div class="pe-1 mb-xl-0">
-                            <a href="{{ route('agings.create') }}" class="btn btn-primary">Create Data</a>
+                            <a href="{{ route('profits.create') }}" class="btn btn-primary">Create Data</a>
                         </div>
 
                         <!-- Button trigger modal -->
@@ -62,7 +61,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Revenue Verdanco Indonesia</h3>
+                                    <h3 class="card-title">Profit Verdanco Indonesia</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -76,7 +75,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($agings as $item)
+                                                @foreach ($profits as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->event['start'] }} - {{ $item->event['end'] }}</td>
@@ -85,8 +84,9 @@
                                                             {{-- @if ($item->Verev()->count() > 0)
                                                                 Tidak bisa dihapus
                                                             @else --}}
-                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('agings.destroy', $item->id) }}" method="POST">
-                                                                <a href="{{ route('agings.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
+                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('profits.destroy', $item->id) }}" method="POST">
+                                                                <a href="{{ route('profits.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
+                                                            
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-sm btn-danger"><span class="fe fe-trash-2"></span></button>

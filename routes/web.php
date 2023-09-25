@@ -10,27 +10,24 @@ use App\Http\Controllers\Admin\RoleController; //controller untuk admin crud rol
 use App\Http\Controllers\Admin\PermissionController; //controller untuk admin crud role
 use App\Http\Controllers\Admin\PeriodController; //controller untuk admin crud periode
 
-use App\Http\Controllers\Admin\VirevController; //controller untuk admin crud
 use App\Http\Controllers\Admin\DashboardController;
-
-use App\Http\Controllers\Internal\DashboardUserController; //controller untuk dashboard VI
-// use App\Http\Controllers\Internal\DashboardUserVEController; //controller untuk dashboard VE
 
 use App\Http\Controllers\Internal\DashboardDeptVIController; //controller untuk dept VI
 use App\Http\Controllers\Internal\DashboardDeptVEController; //controller untuk dept VE
 
-use App\Http\Controllers\Departement\PDCAController;
-use App\Http\Controllers\Departement\realizationController;
-use App\Http\Controllers\Departement\ITController;
 use App\Http\Controllers\Departement\viitemController;
 use App\Http\Controllers\Departement\veitemController;
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\corporate\VirevController; //controller untuk admin crud
 use App\Http\Controllers\corporate\VerevController;
+
 use App\Http\Controllers\corporate\CorporateveController;
 use App\Http\Controllers\corporate\CorpVIController;
 use App\Http\Controllers\corporate\ProfitController;
+use App\Http\Controllers\corporate\ProvitveController;
 use App\Http\Controllers\corporate\AgingController;
+use App\Http\Controllers\corporate\PhyisicalAvailabilityController;
 use App\Http\Controllers\Visitor\VisitorController;
 
 use App\Http\Controllers\Realization\RealizationpdcaController;
@@ -63,6 +60,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::resource('/events', EventController::class);
     Route::resource('/departements', DepartementController::class);
     Route::resource('/users', UserController::class);
+    // Route::put('users/{id}', UserController::class, 'update')->name('users.update');
 
     Route::post('/users/{user}/role', [UserController::class, 'assignRole'])->name('user.role');
     Route::delete('/users/{user}/role/{role}', [UserController::class, 'removeRole'])->name('user.roles.remove');
@@ -80,6 +78,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
     //corporate universal
     Route::resource('/agings', AgingController::class);
     Route::resource('/profits', ProfitController::class);
+    Route::resource('/veprofits', ProvitveController::class);
+    Route::resource('/veprofits', ProvitveController::class);
+    Route::resource('/physicalavailability', PhyisicalAvailabilityController::class);
+
     // corporate vi
     Route::resource('/virevs', VirevController::class);
     //corporate ve

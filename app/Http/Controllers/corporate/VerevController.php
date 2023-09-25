@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\corporate\Verev;
-use App\Models\corporate\Event;
+use App\Models\periode\Event;
+use App\Models\corporate\Job;
+use App\Http\Requests\Corporate\RevenueRequest;
 
 class VerevController extends Controller
 {
@@ -32,7 +34,8 @@ class VerevController extends Controller
     public function create()
     {
         $events = Event::get();
-        return view('admin.corporate.verevs.create', compact('events'));
+        $job = Job::get();
+        return view('admin.corporate.verevs.create', compact('events','job'));
     }
 
     /**
@@ -41,17 +44,9 @@ class VerevController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RevenueRequest $request)
     {
-        $this->rules($request);
-
-        $verevs = new Verev();
-        $verevs->event_id = $request->event_id;
-        $verevs->type_job = $request->type_job;
-        $verevs->value = $request->value;
-        $verevs->physical_availability = $request->physical_availability;
-        $verevs->profit = $request->profit;
-        $verevs->save();
+        Verev::create($request->all());
         
         return redirect()->route('verevs.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -73,9 +68,12 @@ class VerevController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Verev $verev)
     {
-        //
+        $event = Event::get();
+        $job = Job::get();
+
+        return view('admin.corporate.verevs.edit', compact('verev','job','event'));
     }
 
     /**
@@ -85,9 +83,11 @@ class VerevController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RevenueRequest $request, Verev $verev)
     {
-        //
+        $verev->update($request->all());
+
+        return redirect()->route('verevs.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -104,13 +104,13 @@ class VerevController extends Controller
         return redirect()->route('verevs.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    function rules($request){
-        $request->validate([
-            'event_id' => 'required',
-            'type_job' => 'required',
-            'value' => 'required',
-            'profit' => 'required',
-            'physical_availability' => 'required'
-        ]);
-    }
+    // function rules($request){
+    //     $request->validate([
+    //         'event_id' => 'required',
+    //         'type_job' => 'required',
+    //         'value' => 'required',
+    //         'profit' => 'required',
+    //         'physical_availability' => 'required'
+    //     ]);
+    // }
 }

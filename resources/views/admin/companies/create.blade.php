@@ -31,7 +31,9 @@
 												<h2 class="d-none">Company Information</h2>
 												<div class="control-group form-group">
 													<label class="form-label">Name</label>
-													<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required " placeholder="Name">
+													<input type="text"
+														class="form-control required @error('name') is-invalid @enderror"
+														value="{{ old('name') }}" name="name" required placeholder="Name">
 													@error('name')
 														<div class="alert alert-danger mt-2">
 															{{ $message }}

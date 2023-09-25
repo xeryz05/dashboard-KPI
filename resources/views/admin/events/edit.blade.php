@@ -8,10 +8,10 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
-						<h4 class="page-title">Edit Name Departement</h4>
+						<h4 class="page-title">Edit Event</h4>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0);">Departement</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Edit Name Departement</li>
+							<li class="breadcrumb-item"><a href="javascript:void(0);">Event</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Edit Name Event</li>
 						</ol>
 					</div>
 				</div>
@@ -25,17 +25,26 @@
 								<div class="card-body">
 									<p class="mg-b-20"></p>
 									<div id="wizard1">
-										<h3 class="mb-2">Departemen Information</h3>
+										<h3 class="mb-2">Event Information</h3>
 										<section>
-											<h2 class="d-none">Departement Information</h2>
-											<form action="{{ route('departements.update', $departement->id) }}" method="post" enctype="multipart/form-data">
+											<h2 class="d-none">Event Information</h2>
+											<form action="{{ route('events.update', $event->id) }}" method="post" enctype="multipart/form-data">
 												@csrf
 												@method('PUT')
 
 												<div class="control-group form-group">
-													<label class="form-label">Name</label>
-													<input type="text" class="form-control required @error('name', $departement->name) is-invalid @enderror" value="{{ $departement->name }}" name="name" placeholder="Name">
-													@error('name')
+													<label class="form-label">Start</label>
+													<input type="text" class="form-control required @error('start', $event->start) is-invalid @enderror" value="{{ $event->start }}" name="start" placeholder="Start">
+													@error('start')
+														<div class="alert alert-danger mt-2">
+															{{ $message }}
+														</div>
+													@enderror
+												</div>
+												<div class="control-group form-group">
+													<label class="form-label">End</label>
+													<input type="text" class="form-control required @error('end', $event->end) is-invalid @enderror" value="{{ $event->end }}" name="end" placeholder="End">
+													@error('end')
 														<div class="alert alert-danger mt-2">
 															{{ $message }}
 														</div>

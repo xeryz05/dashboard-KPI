@@ -85,11 +85,6 @@
         .text-light {
             color: #000000 !important;
         }
-
-        /* @yield('style')
-
-        ;
-        */
     </style>
 
     @yield('style')
@@ -114,7 +109,7 @@
                 <div class="container-fluid main-container">
                     <div class="main-header-left">
                         <div class="responsive-logo">
-                            <a class="" href="">
+                            <a class="" href="{{ route('CorVE') }}">
                                 <img class="logo-1" src="{{ asset('assets/img/logo/verdanco-removebg-preview.png') }}"
                                     width="150" alt="logo">
                                 <img class="dark-logo-1"
@@ -271,7 +266,7 @@
                                     </a>
                                 </li>
                                 <li class="slide">
-                                    <a class="side-menu__item" href="#">
+                                    <a class="side-menu__item" href="{{ route('agings.index') }}">
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">Aging</span>
                                     </a>
@@ -284,9 +279,22 @@
                                 </li>
                                 <li class="side-item side-item-category text-dark">Verdanco Engineering</li>
                                 <li class="slide">
-                                    <a class="side-menu__item" href="{{ route('virevs.index') }}">
+                                    <a class="side-menu__item" href="{{ route('verevs.index') }}">
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">Revenue VE</span>
+                                    </a>
+                                </li>
+
+                                <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('veprofits.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Net Profit</span>
+                                    </a>
+                                </li>
+                                <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('physicalavailability.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Physical Availability</span>
                                     </a>
                                 </li>
                                 <li class="slide">

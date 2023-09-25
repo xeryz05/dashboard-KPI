@@ -54,7 +54,6 @@
                                                         <td>
                                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('events.destroy', $item->id) }}" method="POST">
                                                                 <a href="{{ route('events.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
-                                                                <a href="{{ route('events.show', $item->id) }}" class="btn btn-sm btn-info"><span class="fe fe-more-vertical"></span></a>
                                                             
                                                                 @csrf
                                                                 @method('DELETE')

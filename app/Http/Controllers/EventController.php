@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\periode\Event;
 use App\Models\corporate\Verev;
+use App\Http\Requests\Admin\EventRequest;
 
 class EventController extends Controller
 {
@@ -35,14 +36,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        $this->rules($request);
-
-        $veitem = new Event();
-        $veitem->start = $request->start;
-        $veitem->end = $request->end;
-        $veitem->save();
+        Event::create($request->all());
         
         return redirect()->route('events.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -64,9 +60,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
-        //
+        return view('admin.events.edit', compact('event'));
     }
 
     /**
@@ -76,9 +72,11 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $request, Event $event)
     {
-        //
+        $event->update($request->all());
+
+        return redirect()->route('events.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -98,10 +96,10 @@ class EventController extends Controller
         return redirect()->route('events.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    function rules($request){
-        $request->validate([
-            'start' => 'required',
-            'end' => 'required',
-        ]);
-    }
+    // function rules($request){
+    //     $request->validate([
+    //         'start' => 'required',
+    //         'end' => 'required',
+    //     ]);
+    // }
 }

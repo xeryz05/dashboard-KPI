@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TypeJobRequest extends FormRequest
+class EventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class TypeJobRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:20|unique:type_jobs'
+            'start' => 'required',
+            'end' => 'required',
         ];
     }
 }

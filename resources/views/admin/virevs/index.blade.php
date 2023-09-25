@@ -20,7 +20,7 @@
 					</div>
 					<div class="d-flex my-xl-auto right-content align-items-center">
                         <div class="pe-1 mb-xl-0">
-                            <a href="{{ route('virevs.index') }}" class="btn btn-primary">Create Data</a>
+                            <a href="{{ route('virevs.create') }}" class="btn btn-primary">Create Data</a>
                         </div>
                     </div>
 				</div>
@@ -54,8 +54,6 @@
                                                         <td>
                                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('virevs.destroy', $item->id) }}" method="POST">
                                                                 <a href="{{ route('virevs.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
-                                                                <a href="{{ route('virevs.show', $item->id) }}" class="btn btn-sm btn-info"><span class="fe fe-more-vertical"></span></a>
-                                                            
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-sm btn-danger"><span class="fe fe-trash-2"></span></button>

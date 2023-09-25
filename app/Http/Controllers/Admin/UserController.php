@@ -61,7 +61,7 @@ class UserController extends Controller
         User::create($datausers);
         // @dd($request);
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
 
         // if($users){
         //     //redirect dengan pesan sukses
@@ -94,17 +94,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $item = User::with(['company','departement','role'])->findOrFail($id);
-        $departement = Departement::all();
-        $role = Role::all();
-        $company = Company::all();
+         $user = User::findOrFail($id);
+         $companies = Company::all();
+         $departements = Departement::all();
 
-        return view('admin.users.edit',[
-            'item' => $item,
-            'departement' => $departement,
-            'role' => $role,
-            'company' => $company
-        ]);
+        //  @dd($user);
+
+        return view('admin.users.edit', compact('user', 'companies', 'departements'));
     }
 
     /**
@@ -114,22 +110,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, User $user)
     {
-        $data = $request->all();
-
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
-        }
-        else {
-            unset($data['password']);
-        }
-
-        $item = User::findOrFail($id);
-
-        $data->update($data);
-
-        return redirect()->route('user.index');
+        $user->update($request->validated());
+        // @dd($user);
+        return redirect()->route('user.index')->with('success', 'User updated successfully');
     }
 
     /**
