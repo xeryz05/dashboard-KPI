@@ -8,7 +8,7 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
-						<h4 class="page-title">Create User</h4>
+						<h4 class="page-title">Create Revenue VE</h4>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="javascript:void(0);">Revenue</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Create Revenue</li>
@@ -44,9 +44,13 @@
 													@enderror
 												</div>
 												<div class="control-group form-group">
-													<label class="form-label">type_job</label>
-													<input type="text" class="form-control required @error('type_job') is-invalid @enderror" value="{{ old('type_job') }}" name="type_job">
-													@error('type_job')
+													<label class="form-label">Type Job</label>
+													<select name="job_id" class="form-select" aria-label="Default select example">
+														@foreach ($job as $item)
+															<option value="{{ $item->id }}">{{ $item->name }}</option>	
+														@endforeach
+													</select>
+													@error('job_id')
 														<div class="alert alert-danger mt-2">
 															{{ $message }}
 														</div>

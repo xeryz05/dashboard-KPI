@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\CompanyRequest;
 use App\Models\Company;
 
 class CompanyController extends Controller
@@ -11,7 +12,7 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::all();
-        return view('admin.companies.index', compact('companies', 'companies'));
+        return view('admin.companies.index', compact('companies'));
     }
 
     public function create()
@@ -19,15 +20,9 @@ class CompanyController extends Controller
         return view('admin.companies.create');
     }
 
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:departements',
-        ]);
-
-        Company::create([
-            'name' => $request->name,
-        ]);
+        Company::create($request->all());
 
         return redirect()->route('companies.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
@@ -38,7 +33,7 @@ class CompanyController extends Controller
         // return view('admin.companies.show', compact('dcompany'));
     }
 
-    public function edit(Departement $company)
+    public function edit(Company $company)
     {
         return view('admin.companies.edit', compact('company'));
     }
@@ -46,13 +41,7 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         
-        $request->validate([
-            'name' => 'required',
-        ]);
-    
-        $departement->update([
-            'name' => $request->name,
-        ]);
+        $company->update($request->all());
     
         return redirect()->route('companies.index')->with('success'  ,'Product updated successfully');
 
@@ -60,7 +49,7 @@ class CompanyController extends Controller
 
     public function destroy(Company $company)
     {
-        $comapny->delete();
+        $company->delete();
     
         return redirect()->route('companies.index')->with('success','Product deleted successfully');
     }

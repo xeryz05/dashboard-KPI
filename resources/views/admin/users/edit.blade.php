@@ -26,13 +26,14 @@
                             <div id="wizard1">
                                 <h3 class="mb-2">Personal Information</h3>
                                 <section>
-                                    <form action="{{ route('users.update', $item->id) }}" method="PUT"
+                                    <form action="{{ route('users.edit',$user->id) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
+                                        <input type="hidden" name="_method" value="PUT">
                                         <div class="form-group">
                                             <label class="font-weight-bold">Name</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                                name="name" value="{{ $item->name }}">
+                                                name="name" value="{{ $user->name }}">
 
                                             <!-- error message untuk title -->
                                             @error('name')
@@ -45,7 +46,7 @@
                                         <div class="form-group">
                                             <label class="font-weight-bold">Email</label>
                                             <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                                name="email" value="{{ $item->email }}" placeholder="Masukkan Email">
+                                                name="email" value="{{ $user->email }}" placeholder="Masukkan Email">
 
                                             <!-- error message untuk title -->
                                             @error('email')
@@ -58,7 +59,7 @@
                                             <label class="font-weight-bold">Password</label>
                                             <input type="password"
                                                 class="form-control @error('password') is-invalid @enderror" name="password"
-                                                value="{{ $item->password }}" placeholder="Masukkan Passwoord">
+                                                value="{{ $user->password }}" placeholder="Masukkan Passwoord">
 
                                             <!-- error message untuk title -->
                                             @error('password')
@@ -71,9 +72,8 @@
                                             <label class="font-weight-bold">Company</label>
                                             <select name="company_id" class="form-select"
                                                 aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                @foreach ($company as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @foreach ($companies as $company)
+                                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -81,33 +81,10 @@
                                             <label class="font-weight-bold">Departement</label>
                                             <select name="departement_id" class="form-select"
                                                 aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                @foreach ($departement as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @foreach ($departements as $item)
+                                                    <option value="{{ $item->item }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="font-weight-bold">Role</label>
-                                            <select name="role_id" class="form-select" aria-label="Default select example">
-                                                <option selected>Open this select menu</option>
-                                                @foreach ($role as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="font-weight-bold">Position</label>
-                                            <input type="text"
-                                                class="form-control @error('position') is-invalid @enderror"
-                                                name="position">
-
-                                            <!-- error message untuk title -->
-                                            @error('position')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
                                         <div class="pe-1 mb-xl-0">
                                             <button class="btn btn-primary">Create Data</button>

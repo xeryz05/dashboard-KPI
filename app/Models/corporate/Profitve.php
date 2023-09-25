@@ -13,6 +13,6 @@ class Profitve extends Model
 
     public function Event()
     {
-        return $this->hasMany(Event::class);
+        return $this->belongsTo(Event::class);
     }
 }

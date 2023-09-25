@@ -14,15 +14,15 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
-						<h4 class="page-title">Table Revenues</h4>
+						<h4 class="page-title">Table Physical Availability</h4>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="javascript:void(0);">Revenue Verdanco Indonesia</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Table Revenues</li>
+							<li class="breadcrumb-item"><a href="javascript:void(0);">Physical Availability</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Table Physical Availability</li>
 						</ol>
 					</div>
 					<div class="d-flex my-xl-auto right-content align-items-center">
                         <div class="pe-1 mb-xl-0">
-                            <a href="{{ route('agings.create') }}" class="btn btn-primary">Create Data</a>
+                            <a href="{{ route('physicalavailability.create') }}" class="btn btn-primary">Create Data</a>
                         </div>
 
                         <!-- Button trigger modal -->
@@ -62,7 +62,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Revenue Verdanco Indonesia</h3>
+                                    <h3 class="card-title">Physical Availability</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -76,17 +76,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($agings as $item)
+                                                @foreach ($pa as $item)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->event['start'] }} - {{ $item->event['end'] }}</td>
-                                                        <td>Rp. {{ number_format($item->value) }}</td>
+                                                        <td>{{ number_format($item->value / 100, 2) . '%' }}</td>
                                                         <td>
                                                             {{-- @if ($item->Verev()->count() > 0)
                                                                 Tidak bisa dihapus
                                                             @else --}}
-                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('agings.destroy', $item->id) }}" method="POST">
-                                                                <a href="{{ route('agings.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
+                                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('physicalavailability.destroy', $item->id) }}" method="POST">
+                                                                <a href="{{ route('physicalavailability.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-sm btn-danger"><span class="fe fe-trash-2"></span></button>

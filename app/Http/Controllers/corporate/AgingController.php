@@ -5,6 +5,8 @@ namespace App\Http\Controllers\corporate;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\corporate\Aging;
+use App\Models\periode\Event;
+use App\Http\Requests\Corporate\AgingRequest;
 
 class AgingController extends Controller
 {
@@ -20,69 +22,29 @@ class AgingController extends Controller
         return view('admin.corporate.agings.index', compact('agings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+     public function create(){
+        $event = Event::get();
+        return view('admin.corporate.agings.create', compact('event'));
+    }
+    public function store(AgingRequest $request){
+        Aging::create($request->all());
+        
+        return redirect()->route('agings.index')->with(['success' => 'Data Berhasil Disimpan!']);
+    }
+    public function edit(Aging $aging){
+        $event = Event::get();
+
+        return view('admin.corporate.agings.edit', compact('aging','event'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function update(AgingRequest $request, Aging $aging){
+        $aging->update($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect()->route('agings.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
+    public function destroy(Aging $aging){
+        $aging->delete();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('agings.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 }

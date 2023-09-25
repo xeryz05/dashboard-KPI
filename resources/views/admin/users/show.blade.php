@@ -10,8 +10,8 @@
                 <div class="my-auto">
                     <h4 class="page-title">Show User</h4>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">User</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">User Role</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Department</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Department</li>
                     </ol>
                 </div>
             </div>

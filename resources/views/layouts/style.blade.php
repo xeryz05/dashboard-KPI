@@ -82,9 +82,4 @@
         .text-light {
             color: #000000 !important;
         }
-
-        /* @yield('style')
-
-        ;
-        */
     </style>

@@ -80,7 +80,7 @@
 													@endforeach
 												</select>
 											</div>
-											<div class="form-group">
+											{{-- <div class="form-group">
 												<label class="font-weight-bold">Role</label>
 												<select name="role_id" class="form-select" aria-label="Default select example">
 													<option selected>Open this select menu</option>
@@ -88,7 +88,7 @@
 														<option value="{{ $item->id }}">{{ $item->name }}</option>
 													@endforeach
 												</select>
-											</div>
+											</div> --}}
 											<div class="pe-1 mb-xl-0">
 												<button class="btn btn-primary">Create Data</button>
 											</div>

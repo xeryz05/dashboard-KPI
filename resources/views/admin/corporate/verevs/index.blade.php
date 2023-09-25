@@ -14,7 +14,7 @@
 				<!-- breadcrumb -->
 				<div class="breadcrumb-header justify-content-between">
 					<div class="my-auto">
-						<h4 class="page-title">Table Revenues</h4>
+						<h4 class="page-title">Table Revenues VE</h4>
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="javascript:void(0);">Revenue Verdanco Indonesia</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Table Revenues</li>
@@ -62,7 +62,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Revenue Verdanco Indonesia</h3>
+                                    <h3 class="card-title">Revenue Verdanco Engineering</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -81,7 +81,7 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $item->event['start'] }} - {{ $item->event['end'] }}</td>
-                                                        <td>{{ $item->type_job }}</td>
+                                                        <td>{{ $item->job['name'] }}</td>
                                                         <td>Rp. {{ number_format($item->value) }}</td>
                                                         <td>
                                                             {{-- @if ($item->Verev()->count() > 0)
@@ -89,8 +89,6 @@
                                                             @else --}}
                                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('verevs.destroy', $item->id) }}" method="POST">
                                                                 <a href="{{ route('verevs.edit', $item->id) }}" class="btn btn-sm btn-primary"><span class="fe fe-edit"></span></a>
-                                                                <a href="{{ route('verevs.show', $item->id) }}" class="btn btn-sm btn-info"><span class="fe fe-more-vertical"></span></a>
-                                                            
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button class="btn btn-sm btn-danger"><span class="fe fe-trash-2"></span></button>
