@@ -6,11 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Revenue;
 use App\Models\Verevenue;
-use App\Models\Period;
 use App\Models\Department\viitem;
-use App\Models\Department\veitem;
-use App\Models\Department\kpipdca;
-use App\Models\Department\kpiit;
 
 class Period extends Model
 {
