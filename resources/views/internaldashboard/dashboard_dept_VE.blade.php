@@ -142,8 +142,8 @@
                                         <td>Verdanco Engineering</th>
                                         <td>Ardi Setiadharma</td>
                                     </tr>
-                                    <tr>
-                                        <td>
+                                    <tr >
+                                        <td colspan="2">
                                             <table class="table table-condensed" style="border-collapse:collapse;">
                                                 <thead>
                                                     <tr>

@@ -152,7 +152,7 @@
                                         <td>Ardi Setiadharma</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td colspan="2">
                                             <table class="table table-condensed" style="border-collapse:collapse;">
                                                 <thead>
                                                     <tr>
