@@ -189,6 +189,7 @@
             </div>
             {{-- @forelse ($veitems as  $departmentId => $items) --}}
             @forelse($veitemsByDepartment as $departmentId => $veitems)
+                {{-- @if(Auth::user()->can('view_department_' . $item->departement_id)) --}}
             <div class="card" id="item{{ $veitemsByDepartment[$departmentId]->first()->departement['name'] }}">
                 <div class="row">
                     <div class="col-md-4">
@@ -302,7 +303,7 @@
                     </div>
                 </div>
             </div>
-            {{-- @break --}}
+            {{-- @endif --}}
             @empty
                 <div>Data Not Found</div>
             @endforelse
@@ -352,54 +353,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- JavaScript -->
-    {{-- <script>
-        $(document).ready(function() {
-        $('#periodFilter').change(function() {
-            var filterPeriod = $(this).val();
-
-            $.ajax({
-                url: '{{ route('deptVE') }}',
-                type: 'GET',
-                data: { 'period_id': filterPeriod },
-                success: function(response) {
-                    console.log('Data fetched successfully:', response);
-                    $('#items').html(response);
-                },
-                error: function(xhr, status, error) {
-                        console.log('An error occurred:', error);
-                    }
-            });
-        });
-    });
-    </script> --}}
-    {{-- <script>
-        $(document).ready(function() {
-        $('#periodFilter').on('change',function() {
-            var filterPeriod = $(this).val();
-
-            $.ajax({
-                url: "{{ route('deptVE') }}",
-                type: 'GET',
-                data: { 'period_id': filterPeriod },
-                success: function(data) {
-                    console.log('Data fetched successfully:', data);
-                    var filterPeriod = data.filterPeriod;
-                    var html '';
-                    if(veitems.length > 0){
-                        for(let i = 1;i<veitems.length;i++){
-                            html += `
-
-                            `;
-                        }
-                    }else{
-                        html +='<tr><td colspan="11">No Data Found</td></tr>'
-                    }
-                    $("#items").html(html)
-                },
-            });
-        });
-    });
-    </script> --}}
 
     <script>
 
