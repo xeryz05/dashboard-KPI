@@ -25,7 +25,6 @@ class User extends Authenticatable
         'email',
         'password',
         'company_id',
-        'departement_id',
     ];
 
     /**
@@ -54,7 +53,7 @@ class User extends Authenticatable
 
     public function departement()
     {
-        return $this->belongsTo(Departement::class);
+        return $this->belongsToMany(Departement::class, 'user_departement');
     }
 
     /**
@@ -72,4 +71,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(viitem::class);
     }
+
 }

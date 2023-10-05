@@ -25,7 +25,12 @@ class DashboardDeptVEController extends Controller
         $dept = Departement::get();
         $filterPeriod = $request->input('period_id', 1);
 
-        $veitems = Veitem::where('departement_id', Auth::user()->departement_id)->where('period_id', $filterPeriod)
+        $userDepartments = Auth::user()->departement->pluck('id')->toArray(); // Ambil seluruh departement_id yang dimiliki oleh user
+
+        // dd($userDepartments);
+
+        $veitems = Veitem::whereIn('departement_id', $userDepartments)
+        ->where('period_id', $filterPeriod)
         ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
         ->get();
 
@@ -41,10 +46,41 @@ class DashboardDeptVEController extends Controller
         $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
 
         // Hitung data VeItem dari departemen user saat ini
-        $count = Veitem::where('departement_id', Auth::user()->departement_id)->count();
+        // $count = Veitem::where('departement_id', Auth::user()->departement_id)->count(); 
 
-        return view('internaldashboard.dashboard_dept_VE', compact('periods', 'dept', 'filterPeriod', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary', 'count'));
+        return view('internaldashboard.dashboard_dept_VE', compact('periods', 'dept', 'filterPeriod', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary', ));
     }
+
+    // public function index(Request $request){
+    //     $user = Auth::user();
+
+    //     $departement = Auth::user()->departement()->get();
+    //     // dd($departement);
+
+    //     $periods = Period::get();
+    //     $dept = Departement::get();
+    //     $filterPeriod = $request->input('period_id', 1);
+
+    //     $veitems = Veitem::where('departement_id', $user->departement_id)->where('period_id', $filterPeriod)
+    //         ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
+    //         ->get();
+
+    //     $veitemsByDepartment = $veitems->groupBy('departement_id');
+    //     $sumByDepartment = $veitemsByDepartment->map(function ($items) {
+    //         return $items->sum('weight_percentage');
+    //     })->sortByDesc(function ($sumPercentage, $departmentId) {
+    //         return $sumPercentage;
+    //     });
+
+    //     $total = $sumByDepartment->sum();
+    //     $totalDepartements = $sumByDepartment->count();
+    //     $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
+
+    //     // Hitung data VeItem dari departemen user saat ini
+    //     $count = Veitem::where('departement_id', $user->departement_id)->count();
+
+    //     return view('internaldashboard.dashboard_dept_VE', compact('periods', 'dept', 'filterPeriod', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary', 'count'));
+    // }
     
     //  public function index(Request $request)
     // {
