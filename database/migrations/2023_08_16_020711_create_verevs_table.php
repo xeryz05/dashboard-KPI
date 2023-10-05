@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('verevenues', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id')->after('id');
- 
-            $table->foreign('company_id')->references('id')->on('companies');
+        Schema::create('verevs', function (Blueprint $table) {
+            $table->id();
+            $table->string('type_job');
+            $table->bigInteger('value');
+            $table->timestamps();
         });
     }
 
@@ -27,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('verevenues', function (Blueprint $table) {
-            $table->dropForeign(['company_id']);
-            $table->dropColumn('companies');
-        });
+        Schema::dropIfExists('verevs');
     }
 };
