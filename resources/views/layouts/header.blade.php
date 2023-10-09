@@ -68,8 +68,9 @@
                                                 <i class="bx bx-user-circle"></i>Profile</a>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-                                                <button class="dropdown-item" type="submit"><i
-                                                        class="bx bx-log-out"></i> Sign Out</button>
+                                                <button class="dropdown-item" type="submit">
+                                                    <i class="bx bx-log-out"></i> Sign Out
+                                                </button>
                                             </form>
                                         </div>
                                     </li>

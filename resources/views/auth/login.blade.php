@@ -5,11 +5,11 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
+        <!-- noreg Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="noreg" :value="__('No Reg')" />
+            <x-text-input id="noreg" class="block mt-1 w-full" type="noreg" name="noreg" :value="old('noreg')" required autofocus autocomplete="noreg" />
+            <x-input-error :messages="$errors->get('noreg')" class="mt-2" />
         </div>
 
         <!-- Password -->
