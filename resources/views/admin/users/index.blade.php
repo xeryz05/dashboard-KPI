@@ -41,9 +41,9 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>No Reg</th>
                                             <th>Name</th>
                                             <th>E-Mail</th>
-                                            {{-- <th>Company</th> --}}
                                             {{-- <th>Departement</th> --}}
                                             {{-- <th>Role</th> --}}
                                             <th>Action</th>
@@ -54,14 +54,9 @@
                                         @foreach ($users as $item)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->noreg }}</td>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
-                                                {{-- <td>
-                                                    {{ $item->company['name'] }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->departement['name'] }}
-                                                </td> --}}
                                                 <td>
                                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                         action="{{ route('users.destroy', $item->id) }}" method="POST">
@@ -74,7 +69,8 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button class="btn btn-sm btn-danger"><span
-                                                                class="fe fe-trash-2"></span></button>
+                                                            class="fe fe-trash-2"></span>
+                                                        </button>
                                                     </form>
                                                 </td>
                                             </tr>

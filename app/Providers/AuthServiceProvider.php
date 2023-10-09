@@ -24,7 +24,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         // Gate::define('view-department', function ($user, $department) {
         //     // Logika untuk memeriksa izin akses ke data departemen
         //     // Misalnya, Anda dapat memeriksa apakah user adalah pemilik departemen atau memiliki izin khusus, dll.

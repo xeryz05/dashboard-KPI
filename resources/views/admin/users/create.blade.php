@@ -40,6 +40,18 @@
 												@enderror
 											</div>
 
+								 			<div class="form-group">
+												<label class="font-weight-bold">No Reg</label>
+												<input type="text" value="{{ old('noreg') }}" class="form-control @error('noreg') is-invalid @enderror" name="noreg">
+											
+												<!-- error message untuk title -->
+												@error('noreg')
+													<div class="alert alert-danger mt-2">
+														{{ $message }}
+													</div>
+												@enderror
+											</div>
+
 											<div class="form-group">
 												<label class="font-weight-bold">Email</label>
 												<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Masukkan Email">
