@@ -9,7 +9,7 @@
 
 </head>
 
-<body class="main-body app sidebar-mini ltr">
+<body class="main-body app sidebar-mini ltr" style="background-color: #e7ecef">
 
     <!-- Loader -->
     <div id="global-loader">
@@ -32,13 +32,13 @@
         <!-- main-content -->
         @yield('content')
         <!-- /main-content -->
-
-        <!-- Footer opened -->
-        <div class="main-footer">
-            <div class="container-fluid pd-t-0 ht-100p">
-                <span> 2023 © Copyright Verdanco Group | Beta Version</span>
+        <footer>
+            <div class="main-footer">
+                <div class="container-fluid pd-t-0 ht-100p">
+                    <span> 2023 © Copyright Verdanco Group | Beta Version</span>
+                </div>
             </div>
-        </div>
+        </footer>
         <!-- Footer closed -->
 
     </div>

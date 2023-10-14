@@ -215,13 +215,6 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        {{-- @foreach ($veitemsByDepartment as $departmentId => $veitems)
-                                            @if ($loop->first)
-                                                @php $firstVeitem = $veitems[0]; @endphp
-                                                <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->period['month'] }} {{ $firstVeitem->period['year'] }}</h4>
-                                            @endif
-                                        @endforeach --}}
-                                        {{-- untuk Nama User --}}
                                     </tr>
                                 </tbody>    
                             </table>
@@ -363,55 +356,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- JavaScript -->
-    {{-- <script>
-        $(document).ready(function() {
-        $('#periodFilter').change(function() {
-            var filterPeriod = $(this).val();
-
-            $.ajax({
-                url: '{{ route('deptVE') }}',
-                type: 'GET',
-                data: { 'period_id': filterPeriod },
-                success: function(response) {
-                    console.log('Data fetched successfully:', response);
-                    $('#items').html(response);
-                },
-                error: function(xhr, status, error) {
-                        console.log('An error occurred:', error);
-                    }
-            });
-        });
-    });
-    </script> --}}
-    {{-- <script>
-        $(document).ready(function() {
-        $('#periodFilter').on('change',function() {
-            var filterPeriod = $(this).val();
-
-            $.ajax({
-                url: "{{ route('deptVE') }}",
-                type: 'GET',
-                data: { 'period_id': filterPeriod },
-                success: function(data) {
-                    console.log('Data fetched successfully:', data);
-                    var filterPeriod = data.filterPeriod;
-                    var html '';
-                    if(veitems.length > 0){
-                        for(let i = 1;i<veitems.length;i++){
-                            html += `
-
-                            `;
-                        }
-                    }else{
-                        html +='<tr><td colspan="11">No Data Found</td></tr>'
-                    }
-                    $("#items").html(html)
-                },
-            });
-        });
-    });
-    </script> --}}
     <script>
             Highcharts.chart('summary', {
 
@@ -421,7 +365,8 @@
                     plotBackgroundImage: null,
                     plotBorderWidth: 0,
                     plotShadow: false,
-                    height: '80%'
+                    height: '80%',
+                    animation: false
                 },
 
                 title: {
@@ -531,6 +476,9 @@
     <script>
         
     var config = {
+        chart : {
+            animation: false
+        },
         type: 'gauge',
         data: {
             datasets: [{
@@ -566,7 +514,8 @@
                     plotBackgroundImage: null,
                     plotBorderWidth: 0,
                     plotShadow: false,
-                    height: '80%'
+                    height: '80%',
+                    animation: false
                 },
 
                 title: {
@@ -651,34 +600,6 @@
                 }
             });
         </script>
-        {{-- <script>
-            var config = {
-            type: 'gauge',
-            data: {
-                datasets: [{
-                data: [60,79,100],
-                value: 15,
-                backgroundColor: ['red', 'yellow', 'green'],
-                }]
-            },
-            options:{
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'sss'
-                },
-            }
-            };  
-
-            window.onload = function() {
-            var ctx = document.getElementById("chartt").getContext('2d');
-            window.myGauge = new Chart(ctx, config);
-            };
-        </script> --}}
-
-         {{-- @endforeach
-    @empty
-    @endforelse --}}
 
         <script>
             

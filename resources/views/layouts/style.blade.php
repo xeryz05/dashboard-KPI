@@ -1,30 +1,65 @@
     <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta
+        name='viewport'
+        content='width=device-width, initial-scale=1.0, user-scalable=0'
+    >
+    <meta
+        http-equiv="X-UA-Compatible"
+        content="IE=edge"
+    >
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/img/logo/verdanco-title.png') }}" type="image/x-icon" />
+    <link
+        rel="icon"
+        href="{{ asset('assets/img/logo/verdanco-title.png') }}"
+        type="image/x-icon"
+    />
     <!-- Title -->
     <title> @yield('title') - Verdanco Group </title>
 
     <!-- Icons css -->
-    <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet">
+    <link
+        href="{{ asset('assets/css/icons.css') }}"
+        rel="stylesheet"
+    >
 
     <!-- Bootstrap css -->
-    <link id="style" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link
+        id="style"
+        href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}"
+        rel="stylesheet"
+    >
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+    <link
+        href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+        rel="stylesheet"
+    >
+
     <!-- style css -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/plugins.css') }}" rel="stylesheet">
+    <link
+        href="{{ asset('assets/css/style.css') }}"
+        rel="stylesheet"
+    >
+    <link
+        href="{{ asset('assets/css/plugins.css') }}"
+        rel="stylesheet"
+    >
 
     <!--- Animations css-->
-    <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
+    <link
+        href="{{ asset('assets/css/animate.css') }}"
+        rel="stylesheet"
+    >
 
     {{-- Toastr --}}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link
+        rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    >
 
-    <script src="https://kit.fontawesome.com/aee6c06acc.js" crossorigin="anonymous"></script>
+    <script
+        src="https://kit.fontawesome.com/aee6c06acc.js"
+        crossorigin="anonymous"
+    ></script>
 
     @yield('style')
 
@@ -63,7 +98,7 @@
         }
 
         .side-menu__item.active .side-menu__label {
-            color: yellow !important;
+            color: rgb(0, 0, 0) !important;
         }
 
         .bg-primary {
@@ -82,4 +117,36 @@
         .text-light {
             color: #000000 !important;
         }
+
+        .main-sidemenu {
+            top: 0;
+            left: 0;
+        }
+
+        .main-sidemenu span:hover{
+            left: 10px;
+        }
+
+        .main-header {
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.3s ease; /* Efek transisi */
+            animation: none;
+        }
+
+        /* Animasi header solid dari atas ke bawah */
+        .main-header.solid {
+            background: linear-gradient(to right, #d6d6d6 0%, #ffed66 55%);
+            animation: slideDown 0.5s;
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
     </style>
+

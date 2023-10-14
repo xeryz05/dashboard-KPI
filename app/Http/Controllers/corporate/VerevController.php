@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use App\Models\corporate\Verev;
 use App\Models\periode\Event;
 use App\Models\corporate\Job;
+use App\Imports\VerevImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\Corporate\RevenueRequest;
 
 class VerevController extends Controller
@@ -104,13 +106,11 @@ class VerevController extends Controller
         return redirect()->route('verevs.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    // function rules($request){
-    //     $request->validate([
-    //         'event_id' => 'required',
-    //         'type_job' => 'required',
-    //         'value' => 'required',
-    //         'profit' => 'required',
-    //         'physical_availability' => 'required'
-    //     ]);
-    // }
+    public function import(Request $request)
+    {
+        Excel::import(new VerevImport, $request->file('file'));
+        
+        return redirect()->back()->with('success', 'All good!');
+        // dd($request->file('file'));
+    }
 }

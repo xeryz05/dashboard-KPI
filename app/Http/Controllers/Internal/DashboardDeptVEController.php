@@ -27,11 +27,10 @@ class DashboardDeptVEController extends Controller
 
         $userDepartments = Auth::user()->departement->pluck('id')->toArray(); // Ambil seluruh departement_id yang dimiliki oleh user
 
-        // dd($userDepartments);
-
         $veitems = Veitem::whereIn('departement_id', $userDepartments)
         ->where('period_id', $filterPeriod)
         ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
+        // ->Paginate(15);
         ->get();
 
         $veitemsByDepartment = $veitems->groupBy('departement_id');
@@ -44,9 +43,6 @@ class DashboardDeptVEController extends Controller
         $total = $sumByDepartment->sum();
         $totalDepartements = $sumByDepartment->count();
         $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
-
-        // Hitung data VeItem dari departemen user saat ini
-        // $count = Veitem::where('departement_id', Auth::user()->departement_id)->count(); 
 
         return view('internaldashboard.dashboard_dept_VE', compact('periods', 'dept', 'filterPeriod', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary', ));
     }

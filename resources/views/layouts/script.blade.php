@@ -1,5 +1,19 @@
 <!-- JQuery min js -->
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    
+<script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+<script>
+    $(document).ready(function() {
+        var header = $(".main-header");
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 100) {
+                header.addClass("solid");
+            } else {
+                header.removeClass("solid");
+            }
+        });
+    });
+</script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -79,3 +93,4 @@
             toastr.error('{{ session('error') }}', 'GAGAL!');
         @endif
     </script>
+    

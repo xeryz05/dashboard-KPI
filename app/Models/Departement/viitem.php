@@ -12,7 +12,7 @@ class viitem extends Model
     use HasFactory;
     
     protected $fillable = [
-        'period_id','departement_id','area','kpi','calculation','target','weight','realization'
+        'period_id','departement_id','area','kpi','calculation','target','weight','realization','created_by','updated_by'
     ];
 
     public function departement()

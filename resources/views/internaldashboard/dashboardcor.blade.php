@@ -104,7 +104,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
                     <!-- Row -->
                     <div class="row">
-                        <div class="col-lg-12 mt-2">
+                        <div class="col-lg-12" style="margin-top: -60px">
                             <!-- breadcrumb -->
                             <div class="breadcrumb-header d-flex justify-content-center">
                                 <h4 class="page-title">Verdanco Engineering 2023</h4>
@@ -115,7 +115,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                 <div class="slick-list">
                                     @foreach ($verevs as $item)
                                         <div class="col-md mg-md-t-0">
-                                            <div class="card">
+                                            <div class="card shadow bg-body-tertiary rounded">
                                                 <div class="card-body">
                                                     {{-- revenue VI Januari--}}
                                                     <div class="my-3">

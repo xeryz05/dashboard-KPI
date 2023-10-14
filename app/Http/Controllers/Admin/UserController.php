@@ -33,24 +33,14 @@ class UserController extends Controller
     {
         $companies = Company::get();
         $departements = Departement::get();
-        $roles = Role::get();
 
         // @dd($companies);
 
         return view('admin.users.create', [
             'companies' => $companies,
             'departements' => $departements,
-            'roles' => $roles,
         ]);
-
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(UserRequest $request)
     {
         
@@ -58,18 +48,14 @@ class UserController extends Controller
 
         $datausers['password'] = bcrypt($request->password);
 
-        User::create($datausers);
+        $user = User::create($datausers);
+
+        // Simpan departemen yang dipilih oleh pengguna
+        $departements = $request->input('departements');
+        $user->departements()->attach($departements);
         // @dd($request);
 
         return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
-
-        // if($users){
-        //     //redirect dengan pesan sukses
-        //     return redirect()->route('users.index')->with(['success' => 'Data Berhasil Disimpan!']);
-        // }else{
-        //     //redirect dengan pesan error
-        //     return redirect()->route('users.index')->with(['error' => 'Data Gagal Disimpan!']);
-        // }
     }
 
     /**

@@ -8,6 +8,8 @@ use App\Models\corporate\Virev;
 use App\Models\periode\Event;
 use App\Models\corporate\Job;
 use App\Http\Requests\Corporate\RevenueRequest;
+use App\Imports\VirevImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VirevController extends Controller
 {
@@ -43,5 +45,13 @@ class VirevController extends Controller
         $virev->delete();
 
         return redirect()->route('virevs.index')->with(['success' => 'Data Berhasil Disimpan!']);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new VirevImport, $request->file('file'));
+        
+        return redirect()->back()->with('success', 'All good!');
+        // dd($request->file('file'));
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Departement\viitem;
 use App\Models\Departement;
 use App\Models\Period;
+use App\Imports\ViitemImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -140,5 +142,13 @@ class viitemController extends Controller
             'departement_id' => 'required',
             'period_id' => 'required'
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new ViitemImport, $request->file('file'));
+        
+        return redirect()->back()->with('success', 'All good!');
+        // dd($request->file('file'));
     }
 }

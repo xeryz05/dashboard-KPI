@@ -188,8 +188,7 @@
                 </div>
             </div>
             {{-- @forelse ($veitems as  $departmentId => $items) --}}
-            @forelse($veitemsByDepartment as $departmentId => $veitems)
-                {{-- @if(Auth::user()->can('view_department_' . $item->departement_id)) --}}
+            @foreach($veitemsByDepartment as $departmentId => $veitems)
             <div class="card" id="item{{ $veitemsByDepartment[$departmentId]->first()->departement['name'] }}">
                 <div class="row">
                     <div class="col-md-4">
@@ -303,10 +302,9 @@
                     </div>
                 </div>
             </div>
-            {{-- @endif --}}
-            @empty
-                <div>Data Not Found</div>
-            @endforelse
+            @endforeach
+            {{-- {{ $veitems->links() }} --}}
+            
         </div>
     </div>
         <!-- Container closed -->
@@ -322,17 +320,9 @@
         <!-- Footer closed -->
 
     </div>
-    <!-- End Page -->
-
-    <!-- Back-to-top -->
-    {{-- <a id="back-to-top" href="#top"><i class="las la-angle-double-up"></i></a> --}}
-
-    {{-- @yield('script') --}}
+   
 
     @section('script')
-
-        {{-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> --}}
-        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script> --}}
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -381,6 +371,7 @@
 
                 chart: {
                     type: 'gauge',
+                    animation: false,
                     plotBackgroundColor: null,
                     plotBackgroundImage: null,
                     plotBorderWidth: 0,
@@ -434,7 +425,11 @@
                         thickness: 20
                     }]
                 },
-
+                plotOptions: {
+                    series: {
+                    animation: false
+                    }
+                },
                 series: [{
                     name: 'Speed',
                     data: [56],
@@ -513,7 +508,8 @@
                     plotBackgroundImage: null,
                     plotBorderWidth: 0,
                     plotShadow: false,
-                    height: '80%'
+                    height: '80%',
+                    animation: false
                 },
 
                 title: {
@@ -562,6 +558,11 @@
                         thickness: 20
                     }]
                 },
+                plotOptions: {
+                    series: {
+                    animation: false
+                    }
+                },
 
                 series: [{
                     name: 'Speed',
@@ -609,7 +610,8 @@
             
             Highcharts.chart('chartContainerr{{ $veitem->id }}', {
             chart: {
-                type: 'column'
+                type: 'column',
+                animation: false
             },
             title: {
                 text: ''
@@ -628,6 +630,9 @@
                 }
             },
             plotOptions: {
+                series: {
+                    animation: false
+                },
                 column: {
                 dataLabels: {
                     enabled: true,

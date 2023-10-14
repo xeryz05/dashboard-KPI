@@ -84,10 +84,13 @@ Route::middleware(['auth','role:admin'])->group(function () {
 
     // corporate vi
     Route::resource('/virevs', VirevController::class);
+    Route::post('/virevs/import', [VirevController::class, 'import'])->name('virevs.import');
     //corporate ve
     Route::resource('/verevs', VerevController::class);
+    Route::post('/verevs/import', [VerevController::class, 'import'])->name('verevs.import');
     //departement vi
     Route::resource('/viitem', viitemController::class);
+    Route::post('/viitem/import', [viitemController::class, 'import'])->name('viitem.import');
     //departement ve
     Route::resource('/veitem', veitemController::class);
 });
