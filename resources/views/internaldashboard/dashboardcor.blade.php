@@ -104,7 +104,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
 
                     <!-- Row -->
                     <div class="row">
-                        <div class="col-lg-12" style="margin-top: -60px">
+                        <div class="col-lg-12 mt-2">
                             <!-- breadcrumb -->
                             <div class="breadcrumb-header d-flex justify-content-center">
                                 <h4 class="page-title">Verdanco Engineering 2023</h4>

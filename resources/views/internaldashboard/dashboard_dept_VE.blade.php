@@ -28,27 +28,16 @@
         }
 
     </style>
-    {{-- <script>
-        const periodFilter = document.getElementById('period_id');
-        const applyFilterButton = document.getElementById('apply_filter');
-
-        applyFilterButton.addEventListener('click', function() {
-            const selectedPeriodId = periodFilter.value;
-            // Redirect to a URL with the selected period filter
-            window.location.href = '/deptVE?period_id=' + selectedPeriodId;
-        });
-    </script> --}}
 </head>
 
 <body class="main-body app sidebar-mini ltr" >
     <button onclick="halamanBerGerakKeAtas()" id="tombolNya" title="Kembali ke atas halaman"><i class="las la-angle-double-up"></i></i></button>
 
     <!-- Loader -->
-    {{-- <div id="global-loader">
+    <div id="global-loader">
         <img class="loader-img" src="{{ asset('assets/img/logo/verdanco-title.png') }}" alt="Loader">
-    </div> --}}
+    </div>
     <!-- /Loader -->
-
     <!-- Page -->
     <div class="page custom-index">
         <div>
@@ -82,22 +71,17 @@
                             <li class="breadcrumb-item active" aria-current="page">KPI Departement</li>
                         </ol>
                     </div>
-                    <div class="d-flex my-xl-auto right-content align-items-center">
+                    <div class="d-flex">
                         <div class="pe-1 mb-xl-0">
-                            <form action="" method="GET">
-                                <select name="period_id" id="period_id">
-                                    <option value="1">All Data</option>
+                            <form action="" method="GET" class="d-flex">
+                                <select class="form-select" name="period_id" id="period_id">
+                                    {{-- <option value="1">All Data</option> --}}
                                     @foreach ($periods as $item)
-                                        <option value="{{ $item->id }}">{{ $item->month }} {{ $item->year }}</option>
+                                        <option value="{{ $item->id }}" {{ $item->id == $filterPeriod ? 'selected' : '' }}>{{ $item->month }} {{ $item->year }}</option>
                                     @endforeach
                                 </select>
-                                <button id="apply_filter">Apply Filter</button>
+                                <button class="btn btn-outline-secondary ml-2" id="apply_filter">Apply</button>
                             </form>
-                            {{-- <select id="periodFilter">
-                                @foreach ($periods as $period)
-                                    <option value="{{ $period->id }}">{{ $period->month }} {{ $period->year }}</option>
-                                @endforeach
-                            </select> --}}
                         </div>
                     </div>
                 </div>
@@ -124,6 +108,7 @@
                                             <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->period['month'] }} {{ $firstVeitem->period['year'] }}</h4>
                                         @endif
                                     @endforeach
+                                    {{-- nanti di idupin lagi --}}
                                 </div>
                             </div>
                         </div>
@@ -187,124 +172,117 @@
                     </div>
                 </div>
             </div>
-            {{-- @forelse ($veitems as  $departmentId => $items) --}}
             @foreach($veitemsByDepartment as $departmentId => $veitems)
-            <div class="card" id="item{{ $veitemsByDepartment[$departmentId]->first()->departement['name'] }}">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="d-flex justify-content-center mt-2"><h4></h4></div>
-                                {{-- ini untuk grafik summry --}}
-                                <div id="avg{{ $departmentId }}"></div>
-                                {{-- <div id="chart" style="width: 300px; height: 300px;"></div> --}}
-                                <canvas id="myChart"></canvas>
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        {{-- @foreach ($veitemsByDepartment as $departmentId => $veitems)
-                                            @if ($loop->first)
-                                                @php $firstVeitem = $veitems[0]; @endphp
-                                                <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->period['month'] }} {{ $firstVeitem->period['year'] }}</h4>
-                                            @endif
-                                        @endforeach --}}
-                                        {{-- untuk Nama User --}}
-                                    </tr>
-                                </tbody>    
-                            </table>
+                <div class="card" id="item{{ $veitemsByDepartment[$departmentId]->first()->departement['name'] }}">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="d-flex justify-content-center mt-2"><h4></h4></div>
+                                    <div id="avg{{ $departmentId }}"></div>
+                                    <canvas id="myChart"></canvas>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                        </tr>
+                                    </tbody>    
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div id="filteredItems">
-                                    <table class="table table-condensed" style="border-collapse:collapse;">
-                                        {{-- ini table untuk isi table kpi ve --}}
-                                        <thead>
-                                            <tr>
-                                                <th>&nbsp;</th>
-                                                {{-- <th>Periode</th> --}}
-                                                <th style="font-weight: bold; font-size: 14px">KPI</th>
-                                                <th style="font-weight: bold; font-size: 14px">Achievement</th>
-                                                <th style="font-weight: bold; font-size: 14px">Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="items">
-                                            @forelse ($veitems as $veitem)
-                                            {{-- @dd($veitem) --}}
-                                                <tr data-toggle="collapse" data-target="#demo{{ $veitem->id }}" class="accordion-toggle">
-                                                    <td><button class="btn btn-default btn-xs"><i class="fa fa-low-vision"></i></button></td>
-                                                    {{-- <td>{{ $veitem->period['month'] }} {{ $veitem->period['year'] }}</td> --}}
-                                                    <td>{{ $veitem->kpi }}</td>
-                                                    <td>{{ number_format($veitem->percentage, 2) }}%</td>
-                                                    <td>
-                                                        @if ( $veitem->percentage < 60 )
-                                                            <div class="spinner-grow text-danger" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @elseif ($veitem->percentage < 80 )
-                                                            <div class="spinner-grow text-warning" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @else
-                                                            <div class="spinner-grow text-success" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                        <div class="col-lg-8">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div id="filteredItems">
+                                        <table class="table table-condensed" style="border-collapse:collapse;">
+                                            <thead>
                                                 <tr>
-                                                    <td colspan="12" class="hiddenRow">
-                                                        <div class="accordian-body collapse" id="demo{{ $veitem->id }}">
-                                                            <table class="table table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <td>{{ $veitem->kpi }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="6">
-                                                                            <div id="chartContainerr{{ $veitem->id }}"></div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>Periode</td>
-                                                                        <td>Weight</td>
-                                                                        <td>Target</td>
-                                                                        <td>Realization</td>
-                                                                        <td>Nilai</td>
-                                                                        <td>Nilai Akhir</td>
+                                                    <th>&nbsp;</th>
+                                                    <th style="font-weight: bold; font-size: 14px">KPI</th>
+                                                    <th style="font-weight: bold; font-size: 14px">Achievement</th>
+                                                    <th style="font-weight: bold; font-size: 14px">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="items">
+                                                @forelse ($veitems as $veitem)
+                                                    <tr data-toggle="collapse" data-target="#demo{{ $veitem->id }}" class="accordion-toggle">
+                                                        <td><button class="btn btn-default btn-xs"><i class="fa fa-low-vision"></i></button></td>
+                                                        <td>{{ $veitem->kpi }}</td>
+                                                        <td>{{ number_format($veitem->percentage, 2) }}%</td>
+                                                        <td>
+                                                            @if ( $veitem->percentage < 60 )
+                                                                <div class="spinner-grow text-danger" role="status">
+                                                                    <span class="sr-only"></span>
+                                                                </div>
+                                                            @elseif ($veitem->percentage < 80 )
+                                                                <div class="spinner-grow text-warning" role="status">
+                                                                    <span class="sr-only"></span>
+                                                                </div>
+                                                            @else
+                                                                <div class="spinner-grow text-success" role="status">
+                                                                    <span class="sr-only"></span>
+                                                                </div>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="12" class="hiddenRow">
+                                                            <div class="accordian-body collapse" id="demo{{ $veitem->id }}">
+                                                                <table class="table table-striped">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <td>{{ $veitem->kpi }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="6">
+                                                                                <div id="chartContainerr{{ $veitem->id }}"></div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Periode</td>
+                                                                            <td>Weight</td>
+                                                                            <td>Target</td>
+                                                                            <td>Realization</td>
+                                                                            <td>Nilai</td>
+                                                                            <td>Nilai Akhir</td>
 
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>{{ $veitem->period['month'] }} {{ $veitem->period['year'] }}</td>
-                                                                        <td>{{ $veitem->weight }}</td>
-                                                                        <td>{{ number_format($veitem->target) }}</td>
-                                                                        <td>{{ number_format($veitem->realization) }}</td>
-                                                                        <td>{{ number_format($veitem->percentage, 2) .'%' }}</td>
-                                                                        <td>{{ number_format($veitem->weight_percentage, 2) .'%' }}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="4" class="text-center">No user found</td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>{{ $veitem->period['month'] }} {{ $veitem->period['year'] }}</td>
+                                                                            <td>{{ $veitem->weight }}</td>
+                                                                            <td>{{ number_format($veitem->target) }}</td>
+                                                                            <td>{{ number_format($veitem->realization) }}</td>
+                                                                            <td>{{ number_format($veitem->percentage, 2) .'%' }}</td>
+                                                                            <td>{{ number_format($veitem->weight_percentage, 2) .'%' }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="4" class="text-center">No user found</td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
-            {{-- {{ $veitems->links() }} --}}
-            
+            {{-- <ul class="pagination">
+                <li class="page-item"><a href="{{ route('deptVE').'?page=1' }}" class="page-link">1</a></li>
+                <li class="page-item"><a href="{{ route('deptVE').'?page=2' }}" class="page-link">2</a></li>
+                <li class="page-item"><a href="{{ route('deptVE').'?page=3' }}" class="page-link">3</a></li>
+                <li class="page-item"><a href="{{ route('deptVE').'?page=4' }}" class="page-link">4</a></li>
+                <li class="page-item">
+                    <a href="{{ route('deptVE').'?page=5' }}" class="page-link">Last</a>
+                </li>
+            </ul> --}}
         </div>
     </div>
         <!-- Container closed -->
@@ -465,7 +443,7 @@
                 }
             });
     </script>
-<script>
+    <script>
         // Create a new Chart instance
         var myChart = new Chart(document.getElementById("myChart"), {
         // Set the type of chart
@@ -496,9 +474,10 @@
         }
         });
     </script>
+    
+    {{-- grafik untuk kolom --}}
     @forelse ($veitemsByDepartment as $departmentId => $veitems)
         @foreach ($veitems as $veitem)
-    
         <script>
             Highcharts.chart('avg{{ $departmentId }}', {
 
@@ -599,13 +578,6 @@
                 }
             });
         </script>
-        @endforeach
-    @empty
-    @endforelse
-    
-    {{-- grafik untuk kolom --}}
-    @forelse ($veitemsByDepartment as $departmentId => $veitems)
-        @foreach ($veitems as $veitem)
         <script>
             
             Highcharts.chart('chartContainerr{{ $veitem->id }}', {

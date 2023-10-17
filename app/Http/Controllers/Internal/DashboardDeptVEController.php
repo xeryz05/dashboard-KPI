@@ -20,12 +20,39 @@ class DashboardDeptVEController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
+{
+    $periods = Period::get();
+    $dept = Departement::get();
+    $filterPeriod = $request->input('period_id', 1);
+
+    $userDepartments = Auth::user()->departement->pluck('id'); // Ambil seluruh departement_id yang dimiliki oleh user
+
+    $veitems = Veitem::whereHas('departement', function ($query) use ($userDepartments) {
+        $query->whereIn('id', $userDepartments);
+    })
+        ->where('period_id', $filterPeriod)
+        ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
+        ->get();
+        // ->paginate(15);
+
+    $veitemsByDepartment = $veitems->groupBy('departement_id');
+    $sumByDepartment = $veitemsByDepartment->map(function ($items) {
+        return $items->sum('weight_percentage');
+    })->sortByDesc('sumPercentage');
+
+    $total = $sumByDepartment->sum();
+    $totalDepartements = $sumByDepartment->count();
+    $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
+
+    return view('internaldashboard.dashboard_dept_VE', compact('periods', 'dept', 'filterPeriod', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary',));
+}
+    public function indexx(Request $request)
     {
         $periods = Period::get();
         $dept = Departement::get();
         $filterPeriod = $request->input('period_id', 1);
 
-        $userDepartments = Auth::user()->departement->pluck('id')->toArray(); // Ambil seluruh departement_id yang dimiliki oleh user
+        $userDepartments = Auth::user()->departement->pluck('id'); // Ambil seluruh departement_id yang dimiliki oleh user
 
         $veitems = Veitem::whereIn('departement_id', $userDepartments)
         ->where('period_id', $filterPeriod)

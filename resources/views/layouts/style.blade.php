@@ -121,10 +121,21 @@
         .main-sidemenu {
             top: 0;
             left: 0;
+            transition: left 2s ease;
         }
 
         .main-sidemenu span:hover{
-            left: 10px;
+            left: 0px;
+            transition: left 0.5s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .main-header {
@@ -146,6 +157,19 @@
             100% {
                 transform: translateY(0);
             }
+        }
+
+        /* .slide{
+            background-color: #ffed66;
+        } */
+        .slide {
+            background-color: #d6d6d6;
+            transition: background-color 0.5s ease;
+        }
+
+        .slide:hover {
+            background-color:#ffed66; /* Gantilah 'your-desired-color' dengan warna yang Anda inginkan */
+            transition: background-color 1s ease;
         }
 
     </style>

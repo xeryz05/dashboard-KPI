@@ -69,7 +69,7 @@
             <ul class="side-menu">
                 @role('admin')
                     <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
-                    <li class="slide bg-body-tertiary m-3 rounded shadow" style="background-color: #ffed66bf">
+                    <li class="slide bg-body-tertiary m-3 rounded shadow">
                         <a
                             class="side-menu__item"
                             href="{{ route('admin') }}"
@@ -87,7 +87,7 @@
                     </li>
                 @endrole
                 <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
-                <li class="slide bg-body-tertiary m-3 rounded shadow" style="background-color: #ffed66bf">
+                <li class="slide bg-body-tertiary m-3 rounded shadow">
                     <a
                         class="{{ Request::routeIs('CorpVI') ? 'active' : '' }} side-menu__item"
                         href="{{ route('CorpVI') }}"
@@ -101,7 +101,7 @@
                             style="margin-left: 20px; animation: move-left 0.100s ease;"
                         >Verdanco Indonesia</span></a>
                 </li>
-                <li class="slide bg-body-tertiary m-3 rounded shadow" style="background-color: #ffed66bf">
+                <li class="slide bg-body-tertiary m-3 rounded shadow">
                     <a
                         class="{{ Request::routeIs('CorVE') ? 'active' : '' }} side-menu__item"
                         href="{{ route('CorVE') }}"
@@ -117,7 +117,7 @@
                 </li>
 
                 <li class="side-item side-item-category text-dark">Dashboard KPI Departement</li>
-                <li class="slide bg-body-tertiary m-3 rounded shadow" style="background-color: #ffed66bf">
+                <li class="slide bg-body-tertiary m-3 rounded shadow">
                     <a
                         class="side-menu__item {{ Request::routeIs('deptVI') ? 'active' : '' }}"
                         href="{{ route('deptVI') }}"
@@ -132,7 +132,7 @@
                         >Verdanco
                             Indonesia</span></a>
                 </li>
-                <li class="slide bg-body-tertiary m-3 rounded shadow" style="background-color: #ffed66bf">
+                <li class="slide bg-body-tertiary m-3 rounded shadow">
                     <a
                         class="side-menu__item {{ Request::routeIs('deptVE') ? 'active' : '' }}"
                         style="color: #000000"

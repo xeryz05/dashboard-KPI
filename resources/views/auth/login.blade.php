@@ -8,7 +8,7 @@
         <!-- noreg Address -->
         <div>
             <x-input-label for="noreg" :value="__('No Reg')" />
-            <x-text-input id="noreg" class="block mt-1 w-full" type="noreg" name="noreg" :value="old('noreg')" required autofocus autocomplete="noreg" />
+            <x-text-input id="noreg" class="block mt-1 w-full" type="text" name="noreg" :value="old('noreg')" required autofocus autocomplete="noreg" />
             <x-input-error :messages="$errors->get('noreg')" class="mt-2" />
         </div>
 
