@@ -2,20 +2,19 @@
 
 namespace App\Imports;
 
-
+use App\Models\Departement\veitem;
 use Maatwebsite\Excel\Concerns\ToModel;
-use App\Models\Departement\viitem;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ViitemImport implements ToCollection, WithHeadingRow
-{ 
+class VeitemImport implements ToCollection, WithHeadingRow
+{
     public function collection(Collection $rows)
     {
         foreach ($rows as $row)
         {
-            viitem::create([
+            veitem::create([
                 'event_id' => $row['periode'],
                 'departement_id' => $row['departement'],
                 'area' => $row['area'],

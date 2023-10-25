@@ -37,25 +37,15 @@
         }
 
     </style>
-    {{-- <script>
-        const periodFilter = document.getElementById('period_id');
-        const applyFilterButton = document.getElementById('apply_filter');
-
-        applyFilterButton.addEventListener('click', function() {
-            const selectedPeriodId = periodFilter.value;
-            // Redirect to a URL with the selected period filter
-            window.location.href = '/deptVE?period_id=' + selectedPeriodId;
-        });
-    </script> --}}
 </head>
 
 <body class="main-body app sidebar-mini ltr" >
     <button onclick="halamanBerGerakKeAtas()" id="tombolNya" title="Kembali ke atas halaman"><i class="las la-angle-double-up"></i></i></button>
 
     <!-- Loader -->
-    {{-- <div id="global-loader">
+    <div id="global-loader">
         <img class="loader-img" src="{{ asset('assets/img/logo/verdanco-title.png') }}" alt="Loader">
-    </div> --}}
+    </div>
     <!-- /Loader -->
 
     <!-- Page -->
@@ -83,7 +73,7 @@
                         @foreach ($viitemsByDepartment as $departmentId => $viitems)
                             @if ($loop->first)
                                 @php $firstViitem = $viitems[0]; @endphp
-                                <h4 class="page-title">KPI Corporate {{ $firstViitem->period['month'] }} {{ $firstViitem->period['year'] }}</h4>
+                                <h4 class="page-title">KPI Corporate {{ $firstViitem->event['start'] }} {{ $firstViitem->event['end'] }}</h4>
                             @endif
                         @endforeach
                         <ol class="breadcrumb">
@@ -91,22 +81,17 @@
                             <li class="breadcrumb-item active" aria-current="page">KPI Departement</li>
                         </ol>
                     </div>
-                    <div class="d-flex my-xl-auto right-content align-items-center">
+                    <div class="d-flex">
                         <div class="pe-1 mb-xl-0">
-                            <form action="" method="GET">
-                                <select name="period_id" id="period_id">
-                                    <option value="1">All Data</option>
-                                    @foreach ($periods as $item)
-                                        <option value="{{ $item->id }}">{{ $item->month }} {{ $item->year }}</option>
+                            <form action="" method="GET" class="d-flex">
+                                <select class="form-select" name="event_id">
+                                    {{-- <option value="1">All Data</option> --}}
+                                    @foreach ($events as $item)
+                                        <option value="{{ $item->id }}" {{ $item->id == $filterEvent ? 'selected' : '' }}>{{ $item->start }} {{ $item->end }}</option>
                                     @endforeach
                                 </select>
-                                <button id="apply_filter">Apply Filter</button>
+                                <button class="btn btn-outline-secondary ml-2" id="apply_filter">Apply</button>
                             </form>
-                            {{-- <select id="periodFilter">
-                                @foreach ($periods as $period)
-                                    <option value="{{ $period->id }}">{{ $period->month }} {{ $period->year }}</option>
-                                @endforeach
-                            </select> --}}
                         </div>
                     </div>
                 </div>
@@ -130,7 +115,7 @@
                                     @foreach ($viitemsByDepartment as $departmentId => $viitems)
                                         @if ($loop->first)
                                             @php $firstViitem = $viitems[0]; @endphp
-                                            <h4 class="page-title d-flex justify-content-center">{{ $firstViitem->period['month'] }} {{ $firstViitem->period['year'] }}</h4>
+                                            <h4 class="page-title d-flex justify-content-center">{{ $firstViitem->event['start'] }} {{ $firstViitem->event['end'] }}</h4>
                                         @endif
                                     @endforeach
                                 </div>
@@ -180,6 +165,7 @@
 
                                                                         @foreach ($sortedDepartments as $departmentId => $totalPercentage)
                                                                             <tr>
+                                                                                <td>{{ $loop->iteration }}</td>
                                                                                 <td><a href="#item{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}">{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}</a></td>
                                                                                 <td>{{ number_format($totalPercentage, 2) . '%' }}</td>
                                                                             </tr>
@@ -285,7 +271,7 @@
 
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>{{ $viitem->period['month'] }} {{ $viitem->period['year'] }}</td>
+                                                                        <td>{{ $viitem->event['start'] }} {{ $viitem->event['end'] }}</td>
                                                                         <td>{{ $viitem->weight }}</td>
                                                                         <td>{{ number_format($viitem->target) }}</td>
                                                                         <td>{{ number_format($viitem->realization) }}</td>
@@ -314,6 +300,18 @@
             @empty
                 <div>Data Not Found</div>
             @endforelse
+            {{-- <ul class="pagination">
+                <li class="page-item">
+                    <a href="{{ route('deptVI').'?page=1' }}" class="page-link">First</a>
+                </li>
+                <li class="page-item"><a href="{{ route('deptVI').'?page=1' }}" class="page-link">1</a></li>
+                <li class="page-item"><a href="{{ route('deptVI').'?page=2' }}" class="page-link">2</a></li>
+                <li class="page-item"><a href="{{ route('deptVI').'?page=3' }}" class="page-link">3</a></li>
+                <li class="page-item"><a href="{{ route('deptVI').'?page=4' }}" class="page-link">4</a></li>
+                <li class="page-item">
+                    <a href="{{ route('deptVI').'?page=5' }}" class="page-link">Last</a>
+                </li>
+            </ul> --}}
         </div>
     </div>
         <!-- Container closed -->

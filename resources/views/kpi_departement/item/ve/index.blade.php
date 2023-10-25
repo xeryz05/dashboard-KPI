@@ -35,7 +35,41 @@
                             <i
                             class="bi bi-plus"></i> Add KPI Item
                         </button>
+                        <div class="mb-xl-0 pe-1">
+                            <button
+                                class="btn btn-info"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                type="button"
+                            >
+                                Import
+                            </button>
+                        </div>
                     </div>
+                    <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Input Revenue</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('veitem.import') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                                <input type="file" name="file">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+            </div>
+            {{-- end modal --}}
                     <div class="pe-1 mb-xl-0">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -66,8 +100,8 @@
                                 @csrf
                                 <div class="mb-3">
                                     <select name="period_id" class="form-select" aria-label="Default select example">
-                                        @foreach ($period as $item)
-                                            <option value="{{ $item->id }}">{{ $item->month }} {{ $item->year }}</option>
+                                        @foreach ($event as $item)
+                                            <option value="{{ $item->id }}">{{ $item->start }} {{ $item->end }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -142,7 +176,7 @@
                                             <tr>
                                                 {{-- <td>{{ $loop->iteration }}</td> --}}
                                                 <td>{{ $item['id'] }}</td>
-                                                <td>{{ $item->period['month']}} {{ $item->period['year']}}</td>
+                                                <td>{{ $item->event['start']}} - {{ $item->event['end']}}</td>
                                                 <td>{{ $item->departement['name'] }}</td>
                                                 <td>{{ $item->area }}</td>
                                                 <td>{{ $item->kpi }}</td>

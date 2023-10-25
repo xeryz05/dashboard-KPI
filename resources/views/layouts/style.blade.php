@@ -69,6 +69,24 @@
             color: black;
         }
 
+        #back-to-top {
+            display: none;
+            /* Sembunyikan tombol saat tampilan awal */
+            position: fixed;
+            background-color: #ffed66;
+            color: #fff;
+            border: none;
+            padding: 2px;
+            color: #000000;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        #back-to-top:hover {
+            background-color: #d6d6d6;
+            transition: background-color 1s ease;
+        }
+
         .side-menu__label {
             color: #000000;
         }
@@ -124,7 +142,7 @@
             transition: left 2s ease;
         }
 
-        .main-sidemenu span:hover{
+        .main-sidemenu span:hover {
             left: 0px;
             transition: left 0.5s ease-in-out;
         }
@@ -133,6 +151,7 @@
             0% {
                 transform: translateY(-100%);
             }
+
             100% {
                 transform: translateY(0);
             }
@@ -140,7 +159,8 @@
 
         .main-header {
             background: rgba(0, 0, 0, 0);
-            transition: background 0.3s ease; /* Efek transisi */
+            transition: background 0.3s ease;
+            /* Efek transisi */
             animation: none;
         }
 
@@ -154,6 +174,7 @@
             0% {
                 transform: translateY(-100%);
             }
+
             100% {
                 transform: translateY(0);
             }
@@ -168,9 +189,34 @@
         }
 
         .slide:hover {
-            background-color:#ffed66; /* Gantilah 'your-desired-color' dengan warna yang Anda inginkan */
+            background-color: #ffed66;
+            /* Gantilah 'your-desired-color' dengan warna yang Anda inginkan */
             transition: background-color 1s ease;
         }
 
-    </style>
+        .main-header-left {
+            /* background-color:#ffed66; */
+            transition: background-color 0.5s ease;
+        }
 
+        .main-header-left:hover {
+            background-color: #ffed66;
+            transition: background-color 1s ease;
+        }
+
+        .fe-sunset {
+            /* background-color:#ffed66; */
+        }
+
+        .fe-sunset:hover {
+            background-color: #ffed66;
+        }
+
+        .profile-user {
+            /* background-color:#ffed66; */
+        }
+
+        .profile-user:hover {
+            background-color: #ffed66;
+        }
+    </style>

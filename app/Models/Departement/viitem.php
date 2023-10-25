@@ -5,14 +5,14 @@ namespace App\Models\Departement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Departement;
-use App\Models\Period;
+use App\Models\periode\Event;
 
 class viitem extends Model
 {
     use HasFactory;
     
     protected $fillable = [
-        'period_id','departement_id','area','kpi','calculation','target','weight','realization','created_by','updated_by'
+        'event_id','departement_id','area','kpi','calculation','target','weight','realization','created_by','updated_by'
     ];
 
     public function departement()
@@ -25,8 +25,8 @@ class viitem extends Model
         return $this->hasMany(User::class);
     }
 
-    public function period()
+    public function Event()
     {
-        return $this->belongsTo(Period::class);
+        return $this->belongsTo(Event::class);
     }
 }

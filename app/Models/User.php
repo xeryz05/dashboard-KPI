@@ -55,19 +55,7 @@ class User extends Authenticatable
     public function departement()
     {
         return $this->belongsToMany(Departement::class, 'user_departement');
-    }
-
-    /**
-     * Get the user that owns the kpiit
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-
-    public function kpiit()
-    {
-        return $this->belongsTo(kpiit::class);
-    }
-    
+    }    
     public function viitem()
     {
         return $this->belongsTo(viitem::class);

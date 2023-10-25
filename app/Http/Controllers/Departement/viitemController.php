@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Departement\viitem;
 use App\Models\Departement;
-use App\Models\Period;
+use App\Models\periode\Event;
 use App\Imports\ViitemImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Requests\Corporate\RevenueRequest;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -23,11 +24,11 @@ class viitemController extends Controller
     {
         $viitems = viitem::get();
         $dept = Departement::get();
-        $period = Period::get();
+        $event = Event::get();
 
         // @dd($items);
 
-        return view('kpi_departement.item.vi.index', compact('viitems','dept','period'));
+        return view('kpi_departement.item.vi.index', compact('viitems','dept','event'));
     }
 
     /**
@@ -52,7 +53,7 @@ class viitemController extends Controller
 
         $viitem = new viitem();
         $viitem->departement_id = $request->departement_id;
-        $viitem->period_id = $request->period_id;
+        $viitem->event_id = $request->event_id;
         $viitem->area = $request->area;
         $viitem->kpi = $request->kpi;
         $viitem->calculation = $request->calculation;
@@ -107,7 +108,7 @@ class viitemController extends Controller
             'realization' => 'numeric',
         ]);
 
-        $veitem->update([
+        $viitem->update([
             'area' => $request->area,
             'kpi' => $request->kpi,
             'calculation' => $request->calculation,
@@ -140,15 +141,14 @@ class viitemController extends Controller
             'target' => 'required',
             'weight' => 'required|max:100',
             'departement_id' => 'required',
-            'period_id' => 'required'
+            'event_id' => 'required'
         ]);
     }
 
     public function import(Request $request)
     {
         Excel::import(new ViitemImport, $request->file('file'));
-        
-        return redirect()->back()->with('success', 'All good!');
         // dd($request->file('file'));
+        return redirect()->back()->with('success', 'All good!');
     }
 }

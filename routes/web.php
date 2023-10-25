@@ -93,6 +93,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::post('/viitem/import', [viitemController::class, 'import'])->name('viitem.import');
     //departement ve
     Route::resource('/veitem', veitemController::class);
+    Route::post('/veitem/import', [veitemController::class, 'import'])->name('veitem.import');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('veitems', function (Blueprint $table) {
-            $table->unsignedBigInteger('period_id')->after('id');
+            $table->unsignedBigInteger('event_id')->after('id');
  
-            $table->foreign('period_id')->references('id')->on('periods');
+            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 
@@ -28,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('veitems', function (Blueprint $table) {
-            $table->dropForeign(['period_id']);
-            $table->dropColumn('periods');
+            $table->dropForeign(['event_id']);
+            $table->dropColumn('events');
         });
     }
 };

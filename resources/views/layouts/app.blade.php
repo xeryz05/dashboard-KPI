@@ -45,7 +45,9 @@
     <!-- End Page -->
 
     <!-- Back-to-top -->
-    <a id="back-to-top" href="#top"><i class="las la-angle-double-up"></i></a>
+    <a id="back-to-top" href="#top">
+        <i class="las la-angle-double-up"></i>
+    </a>
 
     @include('layouts.script')
     {{-- @yield('script') --}}

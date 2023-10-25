@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Departement\veitem;
 use App\Models\Departement;
+use App\Models\periode\Event;
 use App\Models\Period;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\VeitemImport;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -21,8 +24,8 @@ class veitemController extends Controller
     public function index(Request $request)
     {
         $departement = Departement::all();
-        $period = Period::all();
-        $query = veitem::query()->with('period','departement');
+        $event = Event::all();
+        $query = veitem::query()->with('event','departement');
 
         if ($request->ajax()) {
             if (empty($request->departement)) {
@@ -33,28 +36,9 @@ class veitemController extends Controller
             return response()->json(['veitems'=>$veitems]);
         }
         $veitems = $query->get();
-        return view('kpi_departement.item.ve.index', compact('veitems','departement','period'));
+        return view('kpi_departement.item.ve.index', compact('veitems','departement','event'));
 
     }
-
-    // public function filter(Request $request){
-    //     $query = Veitem::query()->with('period', 'departement');
-
-    //     // Lakukan proses filter berdasarkan $request->input()
-    //     // Contoh: if ($request->has('nama')) { $query->where('nama', $request->input('nama')); }
-    //     if ($request->ajax()) {
-    //         if (empty($request->period)) {
-    //             $veitems = $query->get();
-    //         }else {
-    //             $veitems = $query->where(['period_id'=>$request->period])->get();
-    //         }
-    //     }
-    //     $veitems = $query->get();
-    //     // @dd($veitems);
-
-    //     return response()->json(['veitems' => $veitems]);
-    // }
-
 
     /**
      * Show the form for creating a new resource.
@@ -78,15 +62,13 @@ class veitemController extends Controller
 
         $veitem = new veitem();
         $veitem->departement_id = $request->departement_id;
-        $veitem->period_id = $request->period_id;
+        $veitem->event_id = $request->event_id;
         $veitem->area = $request->area;
         $veitem->kpi = $request->kpi;
         $veitem->calculation = $request->calculation;
         $veitem->target = $request->target;
         $veitem->weight = $request->weight;
         $veitem->realization = $request->realization;
-        $veitem->created_by = Auth::user()->id;
-        $veitem->updated_by = Auth::user()->id;
         $veitem->save();
         
         return redirect()->route('veitem.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -166,19 +148,16 @@ class veitemController extends Controller
             'calculation' => 'required',
             'target' => 'required',
             'weight' => 'required|max:100',
-            'departement_id' => [
-                    'required', 
-                    function ($attribute, $value, $fail) use ($request) {
-                        $exists = veitem::where('departement_id', $value)
-                                        ->where('kpi', $request->input('kpi'))
-                                        ->exists();
-
-                                if ($exists) {
-                                    $fail('Ada data yang sama');
-                                }
-                            }],
-            'period_id' => 'required'
+            'departement_id' => 'required',
+            'event_id' => 'required'
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new VeitemImport, $request->file('file'));
+        // dd($request->file('file'));
+        return redirect()->back()->with('success', 'All good!');
     }
 
 }

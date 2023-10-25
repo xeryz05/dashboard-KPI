@@ -125,7 +125,7 @@
                                                     {{ number_format($item->total_value) }}</span><br>
                                                 @php
                                                     $pendapatan = $item->total_value; //total perbulan
-                                                    $target = 4000000000; //target perbulan vi  4,000,000,000  ve  7,000,000,000
+                                                    $target = 2000000000; //target perbulan vi  4,000,000,000  ve  7,000,000,000
                                                     $persentase = ceil(($pendapatan / $target) * 100);
                                                 @endphp
                                                 <span class="">Persentasi: {{ $persentase }}%</span>
@@ -483,10 +483,6 @@
         type="text/javascript"
         src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"
     ></script>
-    <button
-        class="splide__toggle"
-        type="button"
-    ></button>
     {{-- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> --}}
     <script>
         gsap.from('.selection card')

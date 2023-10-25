@@ -16,9 +16,9 @@ class VerevImport implements ToCollection, WithHeadingRow
         foreach ($rows as $row) 
         {
             Verev::create([
-                'value' => $row['value'],
-                'event_id' => $row['periode'], 
                 'job_id' => $row['job'],
+                'value' => $row['value'],
+                'event_id' => $row['periode'],
             ]);
         }
     }

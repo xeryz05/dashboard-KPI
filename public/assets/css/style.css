@@ -9857,8 +9857,8 @@ textarea.form-file-input.parsley-error:focus~.form-file-label {
     .table-responsive-sm {
         display: block;
         width: 100%;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
+        /* overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch; */
     }
 
     .table-responsive-sm>.table-bordered {
@@ -9870,8 +9870,8 @@ textarea.form-file-input.parsley-error:focus~.form-file-label {
     .table-responsive-md {
         display: block;
         width: 100%;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
+        /* overflow-x: auto !important; */
+        /* -webkit-overflow-scrolling: touch; */
     }
 
     .table-responsive-md>.table-bordered {
@@ -9883,8 +9883,8 @@ textarea.form-file-input.parsley-error:focus~.form-file-label {
     .table-responsive-lg {
         display: block;
         width: 100%;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
+        /* overflow-x: auto !important; */
+        /* -webkit-overflow-scrolling: touch; */
     }
 
     .table-responsive-lg>.table-bordered {
@@ -9896,8 +9896,8 @@ textarea.form-file-input.parsley-error:focus~.form-file-label {
     .table-responsive-xl {
         display: block;
         width: 100%;
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
+        /* overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch; */
     }
 
     .table-responsive-xl>.table-bordered {
@@ -9908,8 +9908,8 @@ textarea.form-file-input.parsley-error:focus~.form-file-label {
 .table-responsive {
     display: block;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    /* overflow-x: auto;
+    -webkit-overflow-scrolling: touch; */
 }
 
 .table-responsive>.table-bordered {

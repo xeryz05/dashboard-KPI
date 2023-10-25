@@ -63,7 +63,7 @@
                         @foreach ($veitemsByDepartment as $departmentId => $veitems)
                             @if ($loop->first)
                                 @php $firstVeitem = $veitems[0]; @endphp
-                                <h4 class="page-title">KPI Corporate {{ $firstVeitem->period['month'] }} {{ $firstVeitem->period['year'] }}</h4>
+                                <h4 class="page-title">KPI Corporate {{ $firstVeitem->event['start'] }} {{ $firstVeitem->event['end'] }}</h4>
                             @endif
                         @endforeach
                         <ol class="breadcrumb">
@@ -74,10 +74,10 @@
                     <div class="d-flex">
                         <div class="pe-1 mb-xl-0">
                             <form action="" method="GET" class="d-flex">
-                                <select class="form-select" name="period_id" id="period_id">
+                                <select class="form-select" name="event_id">
                                     {{-- <option value="1">All Data</option> --}}
-                                    @foreach ($periods as $item)
-                                        <option value="{{ $item->id }}" {{ $item->id == $filterPeriod ? 'selected' : '' }}>{{ $item->month }} {{ $item->year }}</option>
+                                    @foreach ($events as $item)
+                                        <option value="{{ $item->id }}" {{ $item->id == $filterEvent ? 'selected' : '' }}>{{ $item->start }} {{ $item->end }}</option>
                                     @endforeach
                                 </select>
                                 <button class="btn btn-outline-secondary ml-2" id="apply_filter">Apply</button>
@@ -105,7 +105,7 @@
                                     @foreach ($veitemsByDepartment as $departmentId => $veitems)
                                         @if ($loop->first)
                                             @php $firstVeitem = $veitems[0]; @endphp
-                                            <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->period['month'] }} {{ $firstVeitem->period['year'] }}</h4>
+                                            <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->event['start'] }} {{ $firstVeitem->event['end'] }}</h4>
                                         @endif
                                     @endforeach
                                     {{-- nanti di idupin lagi --}}
@@ -248,7 +248,7 @@
 
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>{{ $veitem->period['month'] }} {{ $veitem->period['year'] }}</td>
+                                                                            <td>{{ $veitem->event['start'] }} - {{ $veitem->event['end'] }}</td>
                                                                             <td>{{ $veitem->weight }}</td>
                                                                             <td>{{ number_format($veitem->target) }}</td>
                                                                             <td>{{ number_format($veitem->realization) }}</td>
@@ -275,7 +275,8 @@
                 </div>
             @endforeach
             {{-- <ul class="pagination">
-                <li class="page-item"><a href="{{ route('deptVE').'?page=1' }}" class="page-link">1</a></li>
+                <li class="page-item"><a href="{{ route('deptVE').'
+                    ?page=1' }}" class="page-link">1</a></li>
                 <li class="page-item"><a href="{{ route('deptVE').'?page=2' }}" class="page-link">2</a></li>
                 <li class="page-item"><a href="{{ route('deptVE').'?page=3' }}" class="page-link">3</a></li>
                 <li class="page-item"><a href="{{ route('deptVE').'?page=4' }}" class="page-link">4</a></li>

@@ -1,4 +1,66 @@
-<x-guest-layout>
+@extends('layouts.guest')
+@section('content')
+    <div
+        class="card bg-body-tertiary mb-5 rounded p-3 shadow"
+        data-aos="zoom-in-up"
+        style="width: 25rem;"
+    >
+        <div class="card-body">
+            <h5 class="card-title">
+                <img
+                    class="img-fluid position-relative start-50 translate-middle top-0 mt-3"
+                    src="{{ asset('assets/img/logo/verdanco-removebg-preview.png') }}"
+                    style="width: 150px;"
+                >
+            </h5>
+            <form
+                method="POST"
+                action="{{ route('password.store') }}"
+            >
+                @csrf
+
+                <!-- Password Reset Token -->
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                <!-- Email Address -->
+                <div class="mb-3">
+                    <label
+                        class="form-label"
+                        for="email"
+                    >Email address</label>
+                    <input
+                        class="form-control"
+                        id="email"
+                        type="email"
+                        name="email"
+                        value="{{ old('email', $request->email) }}"
+                    >
+                    {{-- <div class="valid-feedback" messages="$errors->get('password')"> --}}
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" type="password" name="password" class="form-control">
+                </div>
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation" class="form-control">
+                </div>
+                <div class="mt-4 flex items-center justify-end">
+                    <button
+                        class="btn btn-outline-secondary"
+                        type="submit"
+                    >Email Password Reset Link</button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
+
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,4 +98,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}

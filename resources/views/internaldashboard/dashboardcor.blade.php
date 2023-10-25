@@ -238,7 +238,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                         <div class="card-body" style="margin-bottom: 50px">
                                                             <div class="table-responsive" style="margin-bottom: 36px">
                                                                 <h4 class="d-flex justify-content-center">KPI Corporate Semester {{ $item['semester'] }}</h4>
-                                                                <table  class="table table-sm table table-striped mg-b-0 text-md-nowrap" style="width:100%">
+                                                                <table class="table table-sm table table-striped mg-b-0 text-md-nowrap" style="width:100%">
                                                                     <thead>
                                                                         <tr>
                                                                             <th style="font-size: 13px;">Item KPI</th>
@@ -349,7 +349,6 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                 <script src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"></script>
                 {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
-                <button class="splide__toggle" type="button"></button>
                 @foreach ($semesterSums as $item)
                     @php
                         $totalNilaiAkhir = 0;
@@ -473,7 +472,6 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     
                     @foreach ($records as $item)
                         <script>
-                            // Set up the chart
                             var records = <?php echo json_encode($records); ?>;
                             const chart = new Highcharts.Chart({
                                 chart: {
@@ -597,19 +595,6 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     ]
                     });
                 </script>
-                // <script>
-                //     var splide = new Splide( '.splide', {
-                //         type   : 'loop',
-                //         autoWidth: true,
-                //         focus    : 0,
-                //         omitEnd  : true,
-                //         focus  : 'center',
-                //         perPage: 3,
-                //         autoplay : true,
-                //     } );
-
-                //     splide.mount();
-                // </script>
                 <script type="text/javascript">
                    $('.responsive').slick({
                         dots: true,

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\internal;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Period;
+use App\Models\periode\Event;
 use App\Models\Departement\viitem;
 use App\Models\Departement;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardDeptVIController extends Controller
 {
@@ -18,45 +18,75 @@ class DashboardDeptVIController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    $filterPeriod = $request->input('period_id', 1);
+        {
+            $filterEvent = $request->input('event_id', 1); // Get filter event from request
 
-    // Load the necessary data
-    $periods = Period::all();
-    $dept = Departement::all();
+            // Load the necessary data
+            $events = Event::get(); // Load events data
+            $dept = Departement::get(); // Load departments data
+            
+            // Get the user's departments
+            $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
 
-    // Load VI items with the necessary relations and filters
-    $viitems = viitem::with('departement')
-        ->when($filterPeriod, function ($query) use ($filterPeriod) {
-            $query->where('period_id', $filterPeriod);
-        })
-        ->select('viitems.*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
-        ->get();
+            // Get VE items based on user departments and filter event
+            $viitems = $this->getVeitems($userDepartments, $filterEvent);
 
-    // Calculate the weighted percentages
-    $viitemsByDepartment = $viitems->groupBy('departement_id');
-    $sumByDepartment = $viitemsByDepartment->map(function ($items) {
-        return $items->sum('weight_percentage');
-    });
+            // Group VE items by department
+            $viitemsByDepartment = $viitems->groupBy('departement_id');
+            // Calculate sum by department
+            $sumByDepartment = $this->calculateSumByDepartment($viitemsByDepartment);
+            
+            // Calculate average summary
+            $total = $sumByDepartment->sum();
+            $totalDepartements = $sumByDepartment->count();
+            $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
 
-    // Calculate the total
-    $total = $sumByDepartment->sum();
-    $totalDepartements = $sumByDepartment->count();
-    $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
+            return view('internaldashboard.dashboard_dept_VI', compact('events', 'dept', 'filterEvent', 'viitems', 'viitemsByDepartment', 'sumByDepartment', 'avgsummary',));
+        }
 
-    // Return the view
-    return view('internaldashboard.dashboard_dept_VI', compact('periods', 'dept', 'filterPeriod', 'viitemsByDepartment', 'sumByDepartment', 'avgsummary'));
-}
+        private function getUserDepartments()
+        {
+            return Auth::user()->departement->pluck('id');
+        }
+        private function getVeitems($userDepartments, $filterEvent)
+        {
+            return Viitem::whereHas('departement', function ($query) use ($userDepartments) {
+                $query->whereIn('id', $userDepartments);
+            })
+                ->where('event_id', $filterEvent)
+                ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
+                ->get();
+        }
+
+        private function calculateSumByDepartment($viitemsByDepartment)
+        {
+            return $viitemsByDepartment->map(function ($items) {
+                 return $items->sum('weight_percentage');
+             })->sortByDesc('sumPercentage');
+        }
+
+         private function calculateAvgSummary($total, $totalDepartements)
+        {
+            return $totalDepartements > 0 ? $total / $totalDepartements : 0;
+        }
+
+
+
+
+
+
+
+
 // public function index(Request $request)
 // {
-//     $filterPeriod = $request->input('period_id', 1);
+//     $filterevent = $request->input('event_id', 1);
 
-//     $periods = Period::all();
+//     $events = event::all();
 //     $dept = Departement::all();
 
 //     $viitems = viitem::with('departement')
-//         ->when($filterPeriod, function ($query) use ($filterPeriod) {
-//             $query->where('period_id', $filterPeriod);
+//         ->when($filterevent, function ($query) use ($filterevent) {
+//             $query->where('event_id', $filterevent);
 //         })
 //         ->select('viitems.*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
 //         ->get();
@@ -67,7 +97,7 @@ class DashboardDeptVIController extends Controller
 //     });
 
 //     // Use caching to store the sorted items
-//     $cachedKey = "sorted_viitems_period_$filterPeriod";
+//     $cachedKey = "sorted_viitems_event_$filterevent";
 //     $cachedSortedViitems = Cache::remember($cachedKey, now()->addMinutes(30), function () use ($sortedViitems) {
 //         return $sortedViitems;
 //     });
@@ -84,16 +114,16 @@ class DashboardDeptVIController extends Controller
 //         $avgsummary = $totalDepartements > 0 ?  $total / $totalDepartements : 0;
 
 //     // Return the view
-//         return view('internaldashboard.dashboard_dept_VI', compact('periods', 'dept', 'filterPeriod','viitemsByDepartment', 'sumByDepartment', 'avgsummary'));
+//         return view('internaldashboard.dashboard_dept_VI', compact('events', 'dept', 'filterevent','viitemsByDepartment', 'sumByDepartment', 'avgsummary'));
 // }
 
     // public function index(Request $request)
     // {
-    //     $periods = Period::get();
+    //     $events = event::get();
     //     $dept = Departement::get();
-    //     $filterPeriod = $request->input('period_id',1);
-    //     $viitems = viitem::when($filterPeriod, function ($query) use ($filterPeriod) {
-    //         $query->where('period_id', $filterPeriod);
+    //     $filterevent = $request->input('event_id',1);
+    //     $viitems = viitem::when($filterevent, function ($query) use ($filterevent) {
+    //         $query->where('event_id', $filterevent);
     //     })
     //     ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
     //     ->get();
@@ -108,7 +138,7 @@ class DashboardDeptVIController extends Controller
     //     $totalDepartements = $sumByDepartment->count();
     //     $avgsummary = $totalDepartements > 0 ?  $total / $totalDepartements : 0;
         
-    //     return view('internaldashboard.dashboard_dept_VI', compact('periods','dept','filterPeriod','viitemsByDepartment','sumByDepartment','avgsummary'));
+    //     return view('internaldashboard.dashboard_dept_VI', compact('events','dept','filterevent','viitemsByDepartment','sumByDepartment','avgsummary'));
     // }
 
 }
