@@ -5,7 +5,7 @@
 @if (trim($slot) === 'Laravel')
 <img src="{{ asset('assets/img/logo/verdanco-removebg-preview.png') }}" class="logo" alt="Laravel Logo">
 @else
-{{ $slot }}
+<img src="{{ asset('assets/img/logo/verdanco-removebg-preview.png') }}" class="logo" alt="Laravel Logo">
 @endif
 </a>
 </td>

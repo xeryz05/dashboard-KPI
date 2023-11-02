@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\PeriodController; //controller untuk admin crud p
 use App\Http\Controllers\Admin\DashboardController;
 
 use App\Http\Controllers\Internal\DashboardDeptVIController; //controller untuk dept VI
+use App\Http\Controllers\Internal\IndicatorController; //controller untuk dept VI
+
 use App\Http\Controllers\Internal\DashboardDeptVEController; //controller untuk dept VE
 
 use App\Http\Controllers\Departement\viitemController;
@@ -29,6 +31,7 @@ use App\Http\Controllers\corporate\ProvitveController;
 use App\Http\Controllers\corporate\AgingController;
 use App\Http\Controllers\corporate\PhyisicalAvailabilityController;
 use App\Http\Controllers\Visitor\VisitorController;
+
 
 use App\Http\Controllers\Realization\RealizationpdcaController;
 
