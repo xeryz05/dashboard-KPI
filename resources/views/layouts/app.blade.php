@@ -9,7 +9,7 @@
 
 </head>
 
-<body class="main-body app sidebar-mini ltr" style="background-color: #e7ecef">
+<body class="main-body app sidebar-mini ltr" style="background-color: #f4f3ef">
 
     <!-- Loader -->
     <div id="global-loader">

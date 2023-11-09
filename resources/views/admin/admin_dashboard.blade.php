@@ -60,7 +60,7 @@
 									<div class="pb-0 mt-0">
 										<div class="d-flex">
 											<div class="">
-												<h4 class="tx-20 fw-bold mb-1 text-white">{{ $visitors }}</h4>
+												<h4 class="tx-20 fw-bold mb-1 text-white"></h4>
 												<p class="mb-0 tx-12 text-white op-7">Unique Visitors</p>
 											</div>
 											<span class="float-end my-auto ms-auto text-white">
