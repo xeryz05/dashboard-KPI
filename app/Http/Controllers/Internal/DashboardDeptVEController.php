@@ -20,67 +20,97 @@ class DashboardDeptVEController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // public function index(Request $request)
+    // {
+    //     $filterEvent = $request->input('event_id', 1); // Get filter event from request
+
+    //     // Load the necessary data
+    //     $events = Event::get(); // Load events data
+    //     $dept = Departement::get(); // Load departments data
+
+    //     // Get the user's departments
+    //     $userDepartments = $this->getUserDepartments();
+
+    //     // dd($userDepartments);
+
+    //     // Get VE items based on user departments and filter event
+    //     $veitems = $this->getVeitems($userDepartments, $filterEvent);
+
+    //     // Group VE items by department
+    //     $veitemsByDepartment = $veitems->groupBy('departement_id');
+
+    //     // Calculate sum by department
+    //     $sumByDepartment = $this->calculateSumByDepartment($veitemsByDepartment);
+
+    //     // Calculate average summary
+    //     $total = $sumByDepartment->sum();
+    //     $totalDepartements = $sumByDepartment->count();
+    //     $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
+
+    //     // dd($veitemsByDepartment);
+
+    //     // Render the view with the necessary data
+    //     return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'filterEvent', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary'));
+    // }
+
+    // private function getUserDepartments()
+    // {
+    //     return Auth::user()->departement->pluck('id');
+    // }
+
+    // private function getVeitems($userDepartments, $filterEvent)
+    // {
+    //     return Veitem::whereHas('departement', function ($query) use ($userDepartments) {
+    //         $query->whereIn('id', $userDepartments);
+    //     })
+    //         ->where('event_id', $filterEvent)
+    //         ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
+    //         ->get();
+    // }
+
+    // private function calculateSumByDepartment($veitemsByDepartment)
+    // {
+    //     return $veitemsByDepartment->map(function ($items) {
+    //         return $items->sum('weight_percentage');
+    //     })->sortByDesc(function ($sumPercentage, $departmentId) {
+    //         return $sumPercentage;
+    //     });
+    // }
+
+    // private function calculateAvgSummary($total, $totalDepartements)
+    // {
+    //     return $totalDepartements > 0 ? $total / $totalDepartements : 0;
+    // }
+
     public function index(Request $request)
-    {
-        $filterEvent = $request->input('event_id', 1); // Get filter event from request
+{
+    $events = Event::get();
+    $dept = Departement::get();
+    $filterEvent = $request->input('event_id', 1);
 
-        // Load the necessary data
-        $events = Event::get(); // Load events data
-        $dept = Departement::get(); // Load departments data
+    $userDepartments = Auth::user()->departement->pluck('id'); // Ambil seluruh departement_id yang dimiliki oleh user
 
-        // Get the user's departments
-        $userDepartments = $this->getUserDepartments();
-
-        // dd($userDepartments);
-
-        // Get VE items based on user departments and filter event
-        $veitems = $this->getVeitems($userDepartments, $filterEvent);
-
-        // Group VE items by department
-        $veitemsByDepartment = $veitems->groupBy('departement_id');
-
-        // Calculate sum by department
-        $sumByDepartment = $this->calculateSumByDepartment($veitemsByDepartment);
-
-        // Calculate average summary
-        $total = $sumByDepartment->sum();
-        $totalDepartements = $sumByDepartment->count();
-        $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
-
-        // dd($veitemsByDepartment);
-
-        // Render the view with the necessary data
-        return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'filterEvent', 'veitems', 'veitemsByDepartment', 'sumByDepartment', 'avgsummary'));
-    }
-
-    private function getUserDepartments()
-    {
-        return Auth::user()->departement->pluck('id');
-    }
-
-    private function getVeitems($userDepartments, $filterEvent)
-    {
-        return Veitem::whereHas('departement', function ($query) use ($userDepartments) {
-            $query->whereIn('id', $userDepartments);
-        })
-            ->where('event_id', $filterEvent)
-            ->select('*', DB::raw('(realization / target) * 100 as percentage'), DB::raw('((realization / target) * 100) * weight / 100 as weight_percentage'))
-            ->get();
-    }
-
-    private function calculateSumByDepartment($veitemsByDepartment)
-    {
-        return $veitemsByDepartment->map(function ($items) {
+    $veitems = Veitem::selectRaw('*, (realization / target) * 100 as percentage, ((realization / target) * 100) * weight / 100 as weight_percentage')
+        ->where('event_id', $filterEvent)
+        ->whereIn('departement_id', $userDepartments)
+        ->get();
+    $groupVeitems = $veitems->groupBy('departement_id');
+        $sumByDepartment = $groupVeitems->map(function ($items) {
             return $items->sum('weight_percentage');
-        })->sortByDesc(function ($sumPercentage, $departmentId) {
+        })->sortByDesc(function ($sumPercentage, $departementId) {
             return $sumPercentage;
         });
-    }
+    // dd($sumByDepartment);
 
-    private function calculateAvgSummary($total, $totalDepartements)
-    {
-        return $totalDepartements > 0 ? $total / $totalDepartements : 0;
-    }
+    $total = $veitems->sum(DB::raw('((realization / target) * 100) * weight / 100'));
+    // dd($total);
+    $totalDepartements = count($userDepartments);
+    // dd($totalDepartements);
+    $avgsummary = $totalDepartements > 0 ? $total / $totalDepartements : 0;
+
+    return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'filterEvent', 'groupVeitems','sumByDepartment','total', 'totalDepartements', 'avgsummary'));
+}
+
 
     // public function indexx(Request $request)
     // {

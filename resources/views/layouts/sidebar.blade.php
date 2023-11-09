@@ -5,11 +5,11 @@
 <div class="sticky">
     <aside
         class="app-sidebar sidebar-scroll bg-body-tertiary rounded shadow"
-        style="background-color: #d6d6d6"
+        style="background-color: #f4f3ef"
     >
         <div
             class="main-sidebar-header active"
-            style="background-color: #d6d6d6"
+            style="background-color: #f4f3ef"
         >
             <a
                 class="desktop-logo logo-light active"
@@ -94,7 +94,7 @@
                     >
                         <i
                             class="si si-chart"
-                            style="color: #000000;"
+                            {{-- style="color: #000000;" --}}
                         ></i>
                         <span
                             class="side-menu__label"

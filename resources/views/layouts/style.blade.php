@@ -112,7 +112,22 @@
         }
 
         .app-sidebar .slide .side-menu__item.active::before {
-            background: yellow;
+            background: rgb(183, 183, 183);
+            animation: myAnim 2s ease 0s 4 normal forwards;
+        }
+
+        @keyframes myAnim {
+
+            0%,
+            50%,
+            100% {
+                opacity: 1;
+            }
+
+            25%,
+            75% {
+                opacity: 0;
+            }
         }
 
         .side-menu__item.active .side-menu__label {
@@ -180,11 +195,8 @@
             }
         }
 
-        /* .slide{
-            background-color: #ffed66;
-        } */
         .slide {
-            background-color: #d6d6d6;
+            background-color: #ffed6677;
             transition: background-color 0.5s ease;
         }
 
@@ -195,28 +207,35 @@
         }
 
         .main-header-left {
-            /* background-color:#ffed66; */
+            background-color: #ffed6677;
             transition: background-color 0.5s ease;
         }
 
         .main-header-left:hover {
-            background-color: #ffed66;
+            background-color: #f4f3ef81;
             transition: background-color 1s ease;
         }
 
         .fe-sunset {
-            /* background-color:#ffed66; */
+            background-color: #ffed6677;
         }
 
         .fe-sunset:hover {
-            background-color: #ffed66;
+            background-color: #f4f3ef81;
+            transition: background-color 0.5s ease;
         }
 
         .profile-user {
-            /* background-color:#ffed66; */
+            background-color: #ffed6677;
         }
 
         .profile-user:hover {
-            background-color: #ffed66;
+            background-color: #f4f3ef81;
+            transition: background-color 0.5s ease;
+        }
+
+        .si {
+            color: black;
+            /* animation: myAnimm 2s ease 0s 1 normal forwards; */
         }
     </style>
