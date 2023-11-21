@@ -25,6 +25,7 @@ class CorporateveController extends Controller
         $verevs = Verev::selectRaw('events.start as event, 
                             SUM(verevs.value) as total_value, 
                             MAX(profitves.value) as total_profit,
+                            MAX(verevs.updated_at) as latest_updated_at,
                             MAX(physical_availabilities.value) as total_physical_availabilities')
                 ->join('events', 'events.id', '=', 'verevs.event_id')
                 ->leftJoin('profitves', 'events.id', '=', 'profitves.event_id')
@@ -32,13 +33,10 @@ class CorporateveController extends Controller
                 ->groupBy('event')
                 ->get();
 
-        // @dd($verevs);
-        
+        $item = Verev::select('updated_at')->latest()->first();
 
-        // foreach ($verevs as $item) {
-        //     echo $item->total_value;
-        // }
-        // @dd($item);
+        // dd($item);
+
 
             $semesterSums = [];
             $semester = $verevs->chunk(6);
@@ -75,7 +73,7 @@ class CorporateveController extends Controller
             // @dd($records);
             // @dd($records);
 
-            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums'));
+            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums','item'));
 
         }
 

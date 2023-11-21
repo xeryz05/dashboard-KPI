@@ -82,11 +82,12 @@
                     <div class="breadcrumb-header justify-content-between">
                         <div class="my-auto">
                             @foreach ($groupVeitems as $departmentId => $veitems)
-                            @if ($loop->first)
-                                @php $firstVeitem = $veitems[0]; @endphp
-                                <h4 class="page-title">KPI Corporate {{ $firstVeitem->event['start'] }} {{ $firstVeitem->event['end'] }}</h4>
-                            @endif
-                        @endforeach
+                                @if ($loop->first)
+                                    @php $firstVeitem = $veitems[0]; @endphp
+                                    <h4 class="page-title">KPI Corporate {{ $firstVeitem->event['start'] }}
+                                        {{ $firstVeitem->event['end'] }}</h4>
+                                @endif
+                            @endforeach
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">VE</a></li>
                                 <li
@@ -188,7 +189,10 @@
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td colspan="2" class="text-uppercase text-center">
+                                            <td
+                                                class="text-uppercase text-center"
+                                                colspan="2"
+                                            >
                                                 <span class="ps-3">Department Rank</span>
                                             </td>
                                         </tr>
@@ -206,7 +210,7 @@
                                                         ></div>
                                                     </div> --}}
                                                     <div class="table-responsive">
-                                                        <table class="table table-sm text-center">
+                                                        <table class="table-sm table text-center">
                                                             <thead>
                                                                 <tr>
                                                                     <th scope="col"></th>
@@ -219,9 +223,11 @@
                                                                     <tr>
                                                                         <th scope="row">{{ $loop->iteration }}</th>
                                                                         <td>
-                                                                            <a href="#scrollspyHeading{{ $groupVeitems[$departmentId]->first()->departement['name'] }}">{{ $groupVeitems[$departmentId]->first()->departement['name'] }}</a>
+                                                                            <a
+                                                                                href="#scrollspyHeading{{ $groupVeitems[$departmentId]->first()->departement['name'] }}">{{ $groupVeitems[$departmentId]->first()->departement['name'] }}</a>
                                                                         </td>
-                                                                        <td>{{ number_format($totalPercentage, 2) . '%' }}</th>
+                                                                        <td>{{ number_format($totalPercentage, 2) . '%' }}
+                                                                            </th>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
@@ -244,17 +250,24 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div>
-                                                <div class="card" id="scrollspyHeading{{ $groupVeitems[$departmentId]->first()->departement['name'] }}">
-                                                    <div
-                                                        id="main{{ $departementId }}"
-                                                        style="height:300px;"
-                                                    ></div>
-                                                </div>
+                                                <table>
+                                                    <thead class="">
+                                                        <div class="d-flex justify-content-center">
+                                                            <span class="fw-bolder fs-5">{{ $veitem->departement['name'] }}</span>
+                                                        </div>
+                                                    </thead>
+                                                    <tbody>
+                                                        <div class="card" id="scrollspyHeading{{ $groupVeitems[$departmentId]->first()->departement['name'] }}" style="border: 0">
+                                                            <div id="main{{ $departementId }}" style="height:300px;"></div>
+                                                        </div>
+                                                    </tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="table-responsive">
-                                                <table class="table table-hover table-sm">
+                                                <table class="table-hover table-sm table">
                                                     <thead>
                                                         <tr class="text-uppercase">
                                                             <th>&nbsp;</th>
@@ -319,7 +332,10 @@
 
                                                             <tr>
                                                                 <td colspan="4">
-                                                                    <div class="collapse" id="collapseExample{{ $veitem->id }}">
+                                                                    <div
+                                                                        class="collapse"
+                                                                        id="collapseExample{{ $veitem->id }}"
+                                                                    >
                                                                         <div class="card card-body">
                                                                             <div
                                                                                 class="position-relative start-50 translate-middle-x bottom-0"
@@ -435,7 +451,6 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
         <!-- JavaScript -->
 
         <script>
@@ -466,10 +481,10 @@
         // Specify the configuration items and data for the chart
         option = {
             title: {
-                        text: 'Corporate',
-                        left: 'center',
-                        // rich: {}
-                    },
+                text: 'Corporate',
+                left: 'center',
+                // rich: {}
+            },
             series: [{
                 type: 'gauge',
                 startAngle: 180,
@@ -555,7 +570,6 @@
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
     </script>
-
 
     {{-- grafik untuk kolom --}}
     {{-- @forelse ($veitemsByDepartment as $departmentId => $veitems) --}}
@@ -643,7 +657,7 @@
                         },
                         data: [{
                             value: {{ number_format($sumByDepartment[$departementId], 2) }},
-                            name: '{{ $veitem->departement['name'] }}',
+                            name: 'Grade',
                         }]
                     }]
                 };
@@ -697,7 +711,8 @@
                         color: [
                             '#f5f552',
                         ]
-                    },grid: {
+                    },
+                    grid: {
                         left: '100px',
                         right: '15px'
                     },

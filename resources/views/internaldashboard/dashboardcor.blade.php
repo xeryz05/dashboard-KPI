@@ -106,6 +106,11 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     <div class="row">
                         <div class="col-lg-12 mt-2">
                             <!-- breadcrumb -->
+                            <div class="col-md-3">
+                                <span>
+                                    Last Update: {{ \Carbon\Carbon::parse($item->latest_updated_at)->format("d M Y")}}
+                                </span>
+                            </div>
                             <div class="breadcrumb-header d-flex justify-content-center">
                                 <h4 class="page-title">Verdanco Engineering 2023</h4>
                             </div>
@@ -127,7 +132,15 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                             @endif
                                                         </h3>
                                                         <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
-                                                                {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
+                                                            <span>
+                                                                {{-- @if ($item->latest_updated_at)
+                                                                    Update: {{ \Carbon\Carbon::parse($item->latest_updated_at)->format("d/M/Y") }}
+                                                                @else
+                                                                    No update information
+                                                                @endif --}}
+                                                                
+                                                            </span>
+                                                            <br>
                                                             <span class="card-text">Tercapai :{{ 'Rp.'. number_format( $item->total_value) }}</span><br>
                                                             @php
                                                                 $pendapatan =   $item->total_value; //total perbulan
@@ -196,6 +209,65 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                             </div>
                                         </div>
                                     @endforeach
+                                        <div class="col-md mg-md-t-0">
+                                            <div class="card shadow bg-body-tertiary rounded">
+                                                <div class="card-body">
+                                                    {{-- revenue VI Januari--}}
+                                                    <div class="my-3">
+                                                        <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center" style="font-size: 16px">
+                                                        </h3>
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
+                                                            <br>
+                                                            <span class="card-text">Tercapai :</span><br>
+                                                        <span class="">Persentasi: %</span>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">
+                                                                <div class="col-12">
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-success" role="progressbar" style="width: %" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                                            <span>%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- end revenue VI januari --}}
+                                                    {{-- Net Profit VI januari --}}
+                                                    <div class="my-3">
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
+                                                        <span class="card-text">
+                                                            <span class="">Profit/Loss : </span><br>
+                                                            <span class="">Persentasi: %</span>
+                                                        </span><br>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">  
+                                                                <div class="col-12">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- end Net Profit VI januari--}}
+                                                    {{-- physical availability VI januari--}}
+                                                    <div class="my-3">
+                                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical Availability</h6>
+                                                        <span class="">Persentasi : %</span>
+                                                        <div class="container">
+                                                            <div class="row mt-3 text-center">
+                                                                <div class="col-12">
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar bg-dabger" role="progressbar" style="width: %" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                                            <span>%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- end physical availability VI januari --}}
+                                                </div>
+                                            </div>
+                                        </div>
                                 </div>
                         </div>
                     </div>
