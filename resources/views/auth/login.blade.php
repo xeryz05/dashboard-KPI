@@ -1,9 +1,10 @@
 @extends('layouts.guest')
 @section('content')
     <div
-        class="card bg-body-tertiary mb-5 rounded p-3 shadow"
+        class="card mb-5 rounded p-3 shadow"
         data-aos="zoom-in-up"
         style="width: 20rem;"
+        id="card-login"
     >
         <div class="card-body">
             <h5 class="card-title">

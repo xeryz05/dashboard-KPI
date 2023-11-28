@@ -69,7 +69,7 @@
             <ul class="side-menu">
                 @role('admin')
                     <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
-                    <li class="slide bg-body-tertiary m-3 rounded shadow">
+                    <li class="slide m-3 rounded shadow">
                         <a
                             class="side-menu__item"
                             href="{{ route('admin') }}"
@@ -87,19 +87,13 @@
                     </li>
                 @endrole
                 <li class="side-item side-item-category text-dark">Dashboard KPI Corporate</li>
-                <li class="slide bg-body-tertiary m-3 rounded shadow">
-                    <a
-                        class="{{ Request::routeIs('CorpVI') ? 'active' : '' }} side-menu__item"
-                        href="{{ route('CorpVI') }}"
-                    >
-                        <i
-                            class="si si-chart"
-                            {{-- style="color: #000000;" --}}
-                        ></i>
-                        <span
-                            class="side-menu__label"
-                            style="margin-left: 20px; animation: move-left 0.100s ease;"
-                        >Verdanco Indonesia</span></a>
+                <li class="slide m-3 rounded shadow">
+                    <a id="vi-active" class="{{ Request::routeIs('CorpVI') ? 'active' : '' }} side-menu__item" href="{{ route('CorpVI') }}">
+                        <i class="si si-chart"></i>
+                        <span class="side-menu__label text-dark">
+                            Verdanco Indonesia
+                        </span>
+                    </a>
                 </li>
                 <li class="slide bg-body-tertiary m-3 rounded shadow">
                     <a

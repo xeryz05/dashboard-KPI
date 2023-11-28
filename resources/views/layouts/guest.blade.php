@@ -18,9 +18,22 @@
         rel="stylesheet"
         href="https://unpkg.com/aos@next/dist/aos.css"
     />
+    <style>
+        #bg-img{
+            
+        }
+        #card-login{
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.22);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12.9px);
+            -webkit-backdrop-filter: blur(12.9px);
+        }
+    </style>
 </head>
 
-<body class="bg-body-tertiary">
+<body class="body-login" id="bg-img">
     <div class="container">
         <div class="position-absolute top-50 start-50 translate-middle">
             @yield('content')
@@ -46,6 +59,24 @@
                 passwordInput.type = 'password';
             }
         });
+    </script>
+    <script>
+        function changeBg() {
+        var backgrounds = [
+            "{{ asset('assets/img/background-color/image1.jpg') }}",
+            "{{ asset('assets/img/background-color/image2.jpg') }}",
+            "{{ asset('assets/img/background-color/image3.jpg') }}",
+        ];
+
+            var imgShown = document.body.style.backgroundImage;
+            var newNumber = Math.floor(Math.random() * backgrounds.length);
+            var imageUrl = backgrounds[newNumber];
+
+            document.body.style.background = 'url(' + imageUrl + ')';
+            document.body.style.backgroundSize = 'cover';
+        }
+
+        window.onload = changeBg;
     </script>
 </body>
 

@@ -63,7 +63,7 @@
 
     @yield('style')
 
-    <style>
+    {{-- <style>
         body {
             background-color: white;
             color: black;
@@ -238,4 +238,114 @@
             color: black;
             /* animation: myAnimm 2s ease 0s 1 normal forwards; */
         }
+    </style> --}}
+
+    <style>
+        /*==================================================================
+                    DASHBOARD KPI General
+        ====================================================================*/
+        body {
+            background-color: white;
+            color: black;
+        }
+        a{
+            color: #818181
+        }
+
+        #back-to-top {
+            display: none;
+            /* Sembunyikan tombol saat tampilan awal */
+            position: fixed;
+            background-color: #ffed66;
+            color: #fff;
+            border: none;
+            padding: 2px;
+            color: #000000;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        /* slide yang dipinggir */
+        .app-sidebar .slide .side-menu__item.active::before{
+            background-color: yellow;
+        }
+        /*==================================================================
+                            Main Header
+        ====================================================================*/
+        .main-header{
+            background: radial-gradient(circle at 10% 20%,rgb(225, 215, 192) 0%, rgb(254, 255, 165) 90%);
+        }
+
+        /* toogle left */
+        .main-header-left {
+            background-color: #f4f3ef81;
+            transition: background-color 0.5s ease;
+        }
+
+        .text-light {
+            color: #000000 !important;
+        }
+
+        .main-header-left:hover {
+            background-color: #ffed6677;
+            transition: background-color 1s ease;
+        }
+        /* end toogle left */
+        /* toogle sun */
+        .fe-sunset {
+            
+            background-color: #f4f3ef81;
+        }
+
+        .fe-sunset:hover {
+            background-color: #ffed6677;
+            transition: background-color 0.5s ease;
+        }
+        /* end toogle sun */
+
+        /* toggle user */
+        .profile-user {
+            background-color: #f4f3ef81;
+            
+        }
+
+        .profile-user:hover {
+            background-color: #ffed6677;
+            transition: background-color 0.5s ease;
+        }
+        /* end toggle user */
+
+        /*==================================================================
+                    DASHBOARD KPI CORPORATE Verdanco Indonesia
+        ====================================================================*/
+        .side-menu__label{
+            margin-left: 20px;
+            color: #000000;
+        }
+
+        /* .side-menu .slide .side-menu__item{
+            background-color: #c00000;
+        } */
+        /* Terapkan animasi pada link yang aktif */
+        .side-menu .slide .side-menu__item.active::before{
+            transition: background-color 1s cubic-bezier(0.37, 0, 0.63, 1) 0.8ms;
+        }
+        .side-menu a.active, a:hover {
+            background-color: #ffed6677;
+        }
+        /* icon vi */
+        .side-menu__item.active, .side-menu__item:hover, .side-menu__item:focus{
+            color: #818181;
+            transition: background-color 1s cubic-bezier(0.37, 0, 0.63, 1) 0.8ms;
+        }
+        /* end icon vi */
+
+        /* lebel vi */
+        .side-menu__label{
+            color: rgb(0, 0, 0) !important;
+        }
+        .side-menu__item.active .side-menu__label{
+            color: #818181 !important;
+        }
+        /* end lebel vi */
     </style>
