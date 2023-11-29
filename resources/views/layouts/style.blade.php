@@ -274,6 +274,7 @@
         ====================================================================*/
         .main-header{
             background: radial-gradient(circle at 10% 20%,rgb(225, 215, 192) 0%, rgb(254, 255, 165) 90%);
+            transition: top 1s;
         }
 
         /* toogle left */

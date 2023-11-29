@@ -1,6 +1,5 @@
-<div
-    class="main-header side-header nav nav-item bg-body-tertiary sticky mb-5 rounded shadow"
-    {{-- style="background: linear-gradient(to right, #d6d6d6 0%, #ffed66 55%);" --}}
+<div class="main-header side-header nav nav-item sticky mb-5 rounded shadow"
+id="navbar"
 >
     <div class="container-fluid main-container">
         <div class="main-header-left bg-body-tertiary rounded shadow">
