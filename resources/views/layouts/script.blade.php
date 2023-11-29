@@ -81,21 +81,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.getElementById("navbar").style.top = "0";
-  } else {
-    document.getElementById("navbar").style.top = "-100px";
-  }
-  prevScrollpos = currentScrollPos;
-}
-</script>
-
 @yield('script')
 
+<script>
+  var prevScrollpos = window.pageYOffset;
+  window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("navbar").style.top = "0";
+    } else {
+      document.getElementById("navbar").style.top = "-100px";
+    }
+    prevScrollpos = currentScrollPos;
+  }
+</script>
 <script>
     @if (session()->has('success'))
 

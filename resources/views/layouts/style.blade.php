@@ -245,8 +245,11 @@
                     DASHBOARD KPI General
         ====================================================================*/
         body {
-            background-color: white;
-            color: black;
+            /* color: black; */
+            background-image: url('assets/img/svgicons/blob-scene-haikei.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* background-color: #f4f3ef; */
         }
         a{
             color: #818181
@@ -273,8 +276,15 @@
                             Main Header
         ====================================================================*/
         .main-header{
-            background: radial-gradient(circle at 10% 20%,rgb(225, 215, 192) 0%, rgb(254, 255, 165) 90%);
+            /* background:transparent; */
             transition: top 1s;
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.32);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10.4px);
+            -webkit-backdrop-filter: blur(10.4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* toogle left */
@@ -324,9 +334,6 @@
             color: #000000;
         }
 
-        /* .side-menu .slide .side-menu__item{
-            background-color: #c00000;
-        } */
         /* Terapkan animasi pada link yang aktif */
         .side-menu .slide .side-menu__item.active::before{
             transition: background-color 1s cubic-bezier(0.37, 0, 0.63, 1) 0.8ms;
@@ -349,4 +356,49 @@
             color: #818181 !important;
         }
         /* end lebel vi */
+
+
+        /*==================================================================
+                    DASHBOARD KPI CORPORATE Verdanco Engineering
+        ====================================================================*/
+        #card-slide{
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.42);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(6.8px);
+            -webkit-backdrop-filter: blur(6.8px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            height: 450px;
+            transition: top 1s;
+            
+        }
+        #card-slide:hover{
+
+            box-shadow: -3px 10px 16px 0px rgba(0,0,0,0.78);
+            -webkit-box-shadow: -3px 10px 16px 0px rgba(0,0,0,0.78);
+            -moz-box-shadow: -3px 10px 16px 0px rgba(0,0,0,0.78);
+        }
+
+        #card-rekap{
+            /* From https://css.glass */
+            background: rgba(255, 255, 255, 0.49);
+            border-radius: 10px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(13.1px);
+            -webkit-backdrop-filter: blur(13.1px);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            /* height: 450px; */
+            transition: top 1s;
+        }
+
+
+        #footer{
+            background: rgba(255, 255, 255, 0.32);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10.4px);
+            -webkit-backdrop-filter: blur(10.4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
     </style>
