@@ -34,8 +34,13 @@ class CorporateveController extends Controller
                 ->get();
 
         $item = Verev::select('updated_at')->latest()->first();
+        $valueSum = $verevs->sum('total_value');
+        $profitSum = $verevs->sum('total_profit');
 
-        // dd($item);
+        $target = 42000000000;
+        $valuePersent = ($valueSum / $target) * 100;
+        // dd($valuePersent);
+        // dd($profitSum);
 
 
             $semesterSums = [];
@@ -73,7 +78,7 @@ class CorporateveController extends Controller
             // @dd($records);
             // @dd($records);
 
-            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums','item'));
+            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums','item','valueSum','profitSum','valuePersent'));
 
         }
 

@@ -119,7 +119,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     <!-- breadcrumb -->
                     <div class="col-md-3">
                         <span>
-                            Last Update: {{ \Carbon\Carbon::parse($item->latest_updated_at)->format('d M Y') }}
+                            Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }}
                         </span>
                     </div>
                     <div class="breadcrumb-header d-flex justify-content-center">
@@ -139,14 +139,14 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                             style="font-size: 15px; padding-top:10px"
                                         >Revenue</h6>
                                         <br>
-                                        <span class="card-text">Tercapai :</span><br>
-                                        <span class="">Persentasi: %</span>
+                                        <span class="card-text">Tercapai : {{ 'Rp.' . number_format($valueSum) }}</span><br>
+                                        <span class="">Persentasi: {{ number_format($valuePersent) }}%</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: %" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
-                                                            <span>%</span>
+                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format($valuePersent) }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ number_format($valuePersent) }}%</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                             style="font-size: 15px; padding-top:10px"
                                         >Net Profit</h6>
                                         <span class="card-text">
-                                            <span class="">Profit/Loss : </span><br>
+                                            <span class="">Profit/Loss : {{ 'Rp.'. number_format($profitSum) }}</span><br>
                                             <span class="">Persentasi: %</span>
                                         </span><br>
                                         <div class="container">
