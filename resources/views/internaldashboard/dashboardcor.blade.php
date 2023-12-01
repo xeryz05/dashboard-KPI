@@ -381,8 +381,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                 {{ $item['semester'] }}</h4>
                                             <table
                                                 class="table-sm table-striped mg-b-0 text-md-nowrap table table"
-                                                style="width:100%"
-                                            >
+                                                style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th style="font-size: 13px;">Item KPI</th>
