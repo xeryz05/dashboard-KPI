@@ -145,7 +145,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ number_format($valuePersent) }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar bg-{{ $valuePersent > 60 ? ($valuePersent > 80 ? 'success' : 'warning') : 'danger' }}" role="progressbar" style="width: {{ number_format($valuePersent) }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
                                                             <span>{{ number_format($valuePersent) }}%</span>
                                                         </div>
                                                     </div>

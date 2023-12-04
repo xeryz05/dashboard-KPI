@@ -24,6 +24,15 @@ class CorpVIController extends Controller
                 ->get();
         // @dd($virevs);
 
+        $item = Virev::select('updated_at')->latest()->first();
+        $valueSum = $virevs->sum('total_value');
+        $profitSum = $virevs->sum('total_profit');
+
+        $target = 24000000000;
+        $valuePersent = ($valueSum / $target) * 100;
+
+        // dd($item);
+
         $semesterSums = [];
         $semester = $virevs->chunk(6);
 
@@ -56,7 +65,7 @@ class CorpVIController extends Controller
         // @dd($records);
         // @dd($records);
 
-        return view('internaldashboard.dashboardcorp_vi', compact('virevs','records','semesterSums'));
+        return view('internaldashboard.dashboardcorp_vi', compact('virevs','records','semesterSums', 'item', 'valueSum', 'profitSum','valuePersent'));
 
     }
 }
