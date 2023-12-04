@@ -246,7 +246,7 @@
         ====================================================================*/
         body {
             /* color: black; */
-            background-image: url('assets/img/svgicons/blob-scene-haikei.png');
+            background-image: url('assets/img/svgicons/bg1.png');
             background-repeat: no-repeat;
             background-size: cover;
             /* background-color: #f4f3ef; */

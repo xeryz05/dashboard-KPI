@@ -2,7 +2,9 @@
     Dashboard VI
 @endsection
 @extends('layouts.app')
+{{-- @extends('admin.dashboard') --}}
 @section('style')
+    <!-- Add the slick-theme.css if you want default styling -->
     <link
         rel="stylesheet"
         type="text/css"
@@ -14,9 +16,13 @@
         href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick-theme.css"
     />
 
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="
+        https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+        "></script>
     <link
-        href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
+        href="
+https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+"
         rel="stylesheet"
     >
     <style>
@@ -100,26 +106,25 @@
         .highcharts-data-table tr:hover {
             background: #f1f7ff;
         }
-        
     </style>
 @endsection
 @section('content')
     <!-- main-content -->
     <div class="main-content app-content">
-
         <!-- container -->
         <div class="main-container container-fluid">
-
             <!-- Row -->
             <div class="row">
                 <div class="col-lg-12 mt-2">
                     <!-- breadcrumb -->
+                    <div class="col-md-3">
+                        <span>
+                            Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }}
+                        </span>
+                    </div>
                     <div class="breadcrumb-header d-flex justify-content-center">
                         <h4 class="page-title">Verdanco Indonesia 2023</h4>
                     </div>
-                    {{-- @foreach ($resultArray as $item)
-                                    
-                            @endforeach --}}
                     <div class="slick-list">
                         <div class="col-md mg-md-t-0">
                             <div class="card" id="card-slide">
@@ -133,21 +138,21 @@
                                         <h6
                                             class="card-text bd-t"
                                             style="font-size: 15px; padding-top:10px">Revenue</h6>
-                                        <span class="card-text">Tercapai :</span><br>
-                                        <span class="">Persentasi: </span>
+                                        <span class="card-text">Tercapai :{{ number_format($valueSum) }}</span><br>
+                                        <span class="">Persentasi: {{ number_format($valuePersent,2) }}</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
                                                         <div
-                                                            class="progress-bar bg-"
+                                                            class="progress-bar bg-{{ $valuePersent > 60 ? ($valuePersent > 80 ? 'success' : 'warning') : 'danger' }}"
                                                             role="progressbar"
-                                                            style="width: %"
+                                                            style="width: {{ number_format($valuePersent,2) }}%"
                                                             aria-valuenow="42.72"
                                                             aria-valuemin="0"
                                                             aria-valuemax="100"
                                                         >
-                                                            <span>%</span>
+                                                            <span>{{ number_format($valuePersent,2) }}%</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -346,15 +351,16 @@
 
                             $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
                         @endphp
-                        <div class="card" id="card-rekap">
+                        <div class="card" id="card-rekap" data-aos="fade-right" data-aos-duration="1000">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-8">
                                         <div class="table-responsive">
                                             <h4 class="d-flex justify-content-center">KPI Corporate Semester
-                                                {{ $item['semester'] }}
-                                            </h4>
-                                            <table class="table-sm table-striped mg-b-0 text-md-nowrap table table" style="width:100%">
+                                                {{ $item['semester'] }}</h4>
+                                            <table
+                                                class="table-sm table-striped mg-b-0 text-md-nowrap table table"
+                                                style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th style="font-size: 13px;">Item KPI</th>
@@ -365,7 +371,7 @@
                                                         <th style="font-size: 13px;">Hasil Akhir</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-center">
+                                                <tbody>
                                                     <tr>
                                                         <td style="font-size: 13px">Revenue Perusahaan</td>
                                                         <td class="text-center" style="font-size: 13px">
@@ -429,8 +435,7 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="5">Total</th>
-                                                        <th class="text-center">
-                                                            {{ ceil($totalNilaiAkhir) . '%' }}</th>
+                                                        <th class="text-center">{{ ceil($totalNilaiAkhir) . '%' }}</th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -452,7 +457,7 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-lg-12">
+                <div class="col-lg-12 mt-2">
                     <div class="card" id="card-rekap">
                         <div class="card-body">
                             <div id="tipe_pekerjaan"></div>
@@ -464,7 +469,6 @@
         <!-- Container closed -->
     </div>
     <!-- main-content closed -->
-@endsection
 @section('script')
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -484,21 +488,18 @@
     <script
         src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"
     ></script>
+    {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
     <script
         type="text/javascript"
         src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"
     ></script>
-    <script>
-        gsap.from('.selection card')
-    </script>
     @foreach ($semesterSums as $item)
         @php
             $totalNilaiAkhir = 0;
             $bobot = 40;
-            $target = 12000000000;
+            $target = 21000000000; //target per semester
             $revenue = $item['total_value'];
             $profit = $item['total_profit'];
-            $aging = $item['total_agings'];
             $nilai = ($revenue / $target) * 100;
             $nilai_akhir = ($nilai * $bobot) / 100;
 
@@ -519,7 +520,6 @@
         @endphp
         <script>
             Highcharts.chart('corporate{{ $item['semester'] }}', {
-
                 chart: {
                     type: 'gauge',
                     plotBackgroundColor: null,
@@ -596,7 +596,7 @@
                         }
                     },
                     dial: {
-                        radius: '80%',
+                        radius: '70%',
                         backgroundColor: 'gray',
                         baseWidth: 12,
                         baseLength: '0%',
@@ -616,7 +616,6 @@
 
     @foreach ($records as $item)
         <script>
-            // Set up the chart
             var records = <?php echo json_encode($records); ?>;
             const chart = new Highcharts.Chart({
                 chart: {
@@ -660,7 +659,7 @@
                             outside: true
                         },
                         colorByPoint: true,
-                        colors: ['#FF9642', '#FFE05D', '#FFF8CD'] // Ganti warna kolom sesuai kebutuhan Anda
+                        colors: ['#52575D', '#FDDB3A', '#F6F4E6'] // Ganti warna kolom sesuai kebutuhan Anda
                     }
                 },
                 credits: {
@@ -690,17 +689,6 @@
             showValues();
         </script>
     @endforeach
-
-    <script>
-        $('.rekap').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            fade: true,
-            cssEase: 'linear'
-        });
-    </script>
-
     <script>
         $('.slick-list').slick({
             dots: true,
@@ -737,4 +725,52 @@
             ]
         });
     </script>
+
+    <script>
+        $('.rekap').slick({
+            dots: true,
+            infinite: true,
+            speed: 500,
+            fade: true,
+            cssEase: 'linear'
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                dom: 'Bfrtip',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        footer: true
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        footer: true
+                    }
+                ],
+                "ordering": false,
+                fixedColumns: {
+                    leftColumns: 1
+                },
+            });
+        });
+    </script>
 @endsection
+@endsection
+
+
+
+
+
+
+
+
