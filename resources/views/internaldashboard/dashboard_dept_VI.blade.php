@@ -197,20 +197,22 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
-                            <div class="d-flex justify-content-center mt-2"><h4></h4></div>
-                                {{-- ini untuk grafik summry --}}
-                                <div id="avg{{ $departmentId }}" style="height:300px;"></div>
-                            <table class="table table-hover">
+                            <table>
+                                <thead class="">
+                                </thead>
                                 <tbody>
-                                    <tr>
-                                    </tr>
-                                </tbody>    
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <span class="fw-bolder fs-5">{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}</span>
+                                    </div>
+                                    <div id="avg{{ $departmentId }}" style="height:300px;"></div>
+                                </tbody>
+                                <tfoot></tfoot>
                             </table>
                         </div>
                     </div>
                     <div class="col-lg-8">
                         <div class="table-responsive">
-                            <table class="table-hover table-sm table">
+                            <table class="table table-hover table-sm">
                                 <thead>
                                     <tr>
                                         <th>&nbsp;</th>
@@ -288,7 +290,7 @@
                                                         {{-- <div id="chartContainerr{{ $viitem->id }}"></div> --}}
                                                     </div>
                                                     <div class="table-responsive">
-                                                        <table class="table">
+                                                        <table class="table table-hover table-responsive table-sm">
                                                             <thead>
                                                                 <tr>
                                                                     <td>{{ $viitem->kpi }}</td>
