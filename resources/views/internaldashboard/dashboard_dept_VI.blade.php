@@ -110,7 +110,10 @@
                         <div class="card">
                             <div class="">
                                 <div>
-                                    <div id="summary"></div>
+                                    <div
+                                        id="summary"
+                                        style="height:300px;"
+                                    ></div>
                                     {{-- {{ $persentase }}% --}}
                                     @foreach ($viitemsByDepartment as $departmentId => $viitems)
                                         @if ($loop->first)
@@ -196,8 +199,7 @@
                         <div class="card">
                             <div class="d-flex justify-content-center mt-2"><h4></h4></div>
                                 {{-- ini untuk grafik summry --}}
-                                <div id="avg{{ $departmentId }}"></div>
-                                {{-- <canvas id='chart{{ $departmentId }}' style="width: 40%"></canvas> --}}
+                                <div id="avg{{ $departmentId }}" style="height:300px;"></div>
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
@@ -207,91 +209,128 @@
                         </div>
                     </div>
                     <div class="col-lg-8">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div id="filteredItems">
-                                    <table class="table table-condensed" style="border-collapse:collapse;">
-                                        {{-- ini table untuk isi table kpi ve --}}
-                                        <thead>
-                                            <tr>
-                                                <th>&nbsp;</th>
-                                                {{-- <th>Periode</th> --}}
-                                                <th>KPI</th>
-                                                <th>Achievement</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="items">
-                                            @forelse ($viitems as $viitem)
-                                            {{-- @dd($veitem) --}}
-                                                <tr data-toggle="collapse" data-target="#demo{{ $viitem->id }}" class="accordion-toggle">
-                                                    <td><button class="btn btn-default btn-xs"><i class="fa fa-low-vision"></i></button></td>
-                                                    {{-- <td>{{ $viitem->period['month'] }} {{ $viitem->period['year'] }}</td> --}}
-                                                    <td>{{ $viitem->kpi }}</td>
-                                                    <td>{{ number_format($viitem->percentage, 2) }}%</td>
-                                                    <td>
-                                                        @if ( $viitem->percentage < 60 )
-                                                            <div class="spinner-grow text-danger" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @elseif ($viitem->percentage < 80 )
-                                                            <div class="spinner-grow text-warning" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @else
-                                                            <div class="spinner-grow text-success" role="status">
-                                                                <span class="sr-only"></span>
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="12" class="hiddenRow">
-                                                        <div class="accordian-body collapse" id="demo{{ $viitem->id }}">
-                                                            <table class="table table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <td>{{ $viitem->kpi }}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="6">
-                                                                            <div id="chartContainerr{{ $viitem->id }}"></div>
-                                                                            {{-- <div id="chart"></div> --}}
-                                                                        </td>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>Periode</td>
-                                                                        <td>Weight</td>
-                                                                        <td>Target</td>
-                                                                        <td>Realization</td>
-                                                                        <td>Nilai</td>
-                                                                        <td>Nilai Akhir</td>
+                        <div class="table-responsive">
+                            <table class="table-hover table-sm table">
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        {{-- <th>Periode</th> --}}
+                                        <th>KPI</th>
+                                        <th>Achievement</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items">
+                                    @forelse ($viitems as $viitem)
+                                        <tr>
+                                            <th scope="row">
+                                                <p class="d-inline-flex gap-1">
+                                                    <a
+                                                        class="btn"
+                                                        id="arrow-down{{ $viitem->id }}"
+                                                        data-bs-toggle="collapse"
+                                                        onclick="rotateArrow('arrow-down{{ $viitem->id }}')"
+                                                        href="#collapseExample{{ $viitem->id }}"
+                                                        role="button"
+                                                        aria-expanded="false"
+                                                        aria-controls="collapseExample"
+                                                    ><i class="bi bi-capslock"></i></a>
+                                                </p>
+                                            </th>
+                                            <th>
+                                                <span
+                                                    class="d-inline-block text-truncate"
+                                                    style="max-width: 150px;"
+                                                >
+                                                    {{ $viitem->kpi }}
+                                                </span>
+                                            </th>
+                                            <th>{{ number_format($viitem->percentage, 2) . '%' }}
+                                            </th>
+                                            <th class="text-center">
+                                                @if ($viitem->percentage < 60)
+                                                    <div
+                                                        class="spinner-grow text-danger"
+                                                        role="status"
+                                                    >
+                                                        <span class="sr-only"></span>
+                                                    </div>
+                                                @elseif ($viitem->percentage < 80)
+                                                    <div
+                                                        class="spinner-grow text-warning"
+                                                        role="status"
+                                                    >
+                                                        <span class="sr-only"></span>
+                                                    </div>
+                                                @else
+                                                    <div
+                                                        class="spinner-grow text-success"
+                                                        role="status"
+                                                    >
+                                                        <span class="sr-only"></span>
+                                                    </div>
+                                                @endif
+                                            </th>
+                                        </tr>
 
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>{{ $viitem->event['start'] }} {{ $viitem->event['end'] }}</td>
-                                                                        <td>{{ $viitem->weight }}</td>
-                                                                        <td>{{ number_format($viitem->target) }}</td>
-                                                                        <td>{{ number_format($viitem->realization) }}</td>
-                                                                        <td>{{ number_format($viitem->percentage, 2) .'%' }}</td>
-                                                                        <td>{{ number_format($viitem->weight_percentage, 2) .'%' }}</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="4" class="text-center">No user found</td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                        <tr>
+                                            <td colspan="4">
+                                                <div
+                                                    class="collapse"
+                                                    id="collapseExample{{ $viitem->id }}"
+                                                >
+                                                    <div class="card card-body">
+                                                        <div
+                                                            class="position-relative start-50 translate-middle-x bottom-0"
+                                                            id="chartContainerr{{ $viitem->id }}"
+                                                            style="width: 400px;height:300px;"
+                                                        ></div>
+                                                        {{-- <div id="chartContainerr{{ $viitem->id }}"></div> --}}
+                                                    </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td>{{ $viitem->kpi }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="col">Periode</th>
+                                                                    <th scope="col">Weight</th>
+                                                                    <th scope="col">Target</th>
+                                                                    <th scope="col">Realization
+                                                                    </th>
+                                                                    <th scope="col">Nilai</th>
+                                                                    <th scope="col">Nilai Akhir
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>{{ $viitem->event['start'] }}
+                                                                        -
+                                                                        {{ $viitem->event['end'] }}
+                                                                    </td>
+                                                                    <td>{{ $viitem->weight }}</td>
+                                                                    <td>{{ number_format($viitem->target) }}
+                                                                    </td>
+                                                                    <td>{{ number_format($viitem->realization) }}
+                                                                    </td>
+                                                                    <td>{{ number_format($viitem->percentage, 2) . '%' }}
+                                                                    </td>
+                                                                    <td>{{ number_format($viitem->weight_percentage, 2) . '%' }}
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {{-- panggil endforeach --}}
+                                    @empty
+                                    @endforelse
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -300,18 +339,6 @@
             @empty
                 <div>Data Not Found</div>
             @endforelse
-            {{-- <ul class="pagination">
-                <li class="page-item">
-                    <a href="{{ route('deptVI').'?page=1' }}" class="page-link">First</a>
-                </li>
-                <li class="page-item"><a href="{{ route('deptVI').'?page=1' }}" class="page-link">1</a></li>
-                <li class="page-item"><a href="{{ route('deptVI').'?page=2' }}" class="page-link">2</a></li>
-                <li class="page-item"><a href="{{ route('deptVI').'?page=3' }}" class="page-link">3</a></li>
-                <li class="page-item"><a href="{{ route('deptVI').'?page=4' }}" class="page-link">4</a></li>
-                <li class="page-item">
-                    <a href="{{ route('deptVI').'?page=5' }}" class="page-link">Last</a>
-                </li>
-            </ul> --}}
         </div>
     </div>
         <!-- Container closed -->
@@ -329,12 +356,8 @@
     </div>
     <!-- End Page -->
 
-    <!-- Back-to-top -->
-    {{-- <a id="back-to-top" href="#top"><i class="las la-angle-double-up"></i></a> --}}
-
-    {{-- @yield('script') --}}
-
     @section('script')
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 
         <script src="https://code.highcharts.com/highcharts.js"></script>
         <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -354,100 +377,101 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-            Highcharts.chart('summary', {
+    <script type="text/javascript">
+        // Initialize the echarts instance based on the prepared dom
+        var myChart = echarts.init(document.getElementById('summary'));
 
-                chart: {
-                    type: 'gauge',
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false,
-                    height: '80%',
-                    animation: false
-                },
-
-                title: {
-                    text: 'Corporate'
-                },
-
-                pane: {
-                    startAngle: -90,
-                    endAngle: 89.9,
-                    background: null,
-                    center: ['50%', '75%'],
-                    size: '110%'
-                },
-
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    tickPixelInterval: 72,
-                    tickPosition: 'inside',
-                    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
-                    tickLength: 20,
-                    tickWidth: 2,
-                    minorTickInterval: null,
-                    labels: {
-                        distance: 20,
-                        style: {
-                            fontSize: '14px'
-                        }
-                    },
-                    lineWidth: 0,
-                    plotBands: [{
-                        from: 0,
-                        to: 59,
-                        color: '#DF5353', // red
-                        thickness: 20
-                    }, {
-                        from: 60,
-                        to: 79,
-                        color: '#DDDF0D', // yellow
-                        thickness: 20
-                    }, {
-                        from: 80,
-                        to: 100,
-                        color: '#55BF3B', // green
-                        thickness: 20
-                    }]
-                },
-
-                series: [{
-                    name: 'Speed',
-                    data: [15],
-                    tooltip: {
-                        valueSuffix: '%'
-                    },
-                    dataLabels: {
-                        format: '{y} %',
-                        borderWidth: 0,
-                        color: (
-                            Highcharts.defaultOptions.title &&
-                            Highcharts.defaultOptions.title.style &&
-                            Highcharts.defaultOptions.title.style.color
-                        ) || '#333333',
-                        style: {
-                            fontSize: '16px'
-                        }
-                    },
-                    dial: {
-                        radius: '80%',
-                        backgroundColor: 'gray',
-                        baseWidth: 12,
-                        baseLength: '0%',
-                        rearLength: '0%'
-                    },
-                    pivot: {
-                        backgroundColor: 'gray',
-                        radius: 6
+        // Specify the configuration items and data for the chart
+        option = {
+            title: {
+                text: 'Corporate',
+                left: 'center',
+                // rich: {}
+            },
+            series: [{
+                type: 'gauge',
+                startAngle: 180,
+                endAngle: 0,
+                center: ['50%', '75%'],
+                radius: '90%',
+                min: 0,
+                max: 100,
+                animation: false,
+                splitNumber: 8,
+                axisLine: {
+                    lineStyle: {
+                        width: 6,
+                        color: [
+                            [0.60, '#FF6E76'],
+                            [0.75, '#FDDD60'],
+                            // [0.75, '#58D9F9'],
+                            [1, '#7CFFB2']
+                        ]
                     }
-                }],
-                credits: {
-                    enabled: false
-                }
-            });
+                },
+                pointer: {
+                    icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                    length: '12%',
+                    width: 20,
+                    offsetCenter: [0, '-60%'],
+                    itemStyle: {
+                        color: 'auto'
+                    }
+                },
+                axisTick: {
+                    length: 12,
+                    lineStyle: {
+                        color: 'auto',
+                        width: 2
+                    }
+                },
+                splitLine: {
+                    length: 20,
+                    lineStyle: {
+                        color: 'auto',
+                        width: 5
+                    }
+                },
+                axisLabel: {
+                    color: '#464646',
+                    fontSize: 20,
+                    distance: -60,
+                    rotate: 'tangential',
+                    formatter: function(value) {
+                        if (value === 0.875) {
+                            return 'Grade A';
+                        } else if (value === 0.625) {
+                            return 'Grade B';
+                        } else if (value === 0.375) {
+                            return 'Grade C';
+                        } else if (value === 0.125) {
+                            return 'Grade D';
+                        }
+                        return '';
+                    }
+                },
+                title: {
+                    offsetCenter: [0, '-10%'],
+                    fontSize: 20
+                },
+                detail: {
+                    fontSize: 30,
+                    offsetCenter: [0, '-35%'],
+                    valueAnimation: true,
+                    formatter: function(value) {
+                        return Math.round(value * 1) + '';
+                    },
+                    color: 'inherit'
+                },
+                data: [{
+                    value: 37,
+                    name: 'Grade Rating'
+                }]
+            }]
+        };
+
+        // Display the chart using the configuration items and data just specified.
+        myChart.setOption(option);
     </script>
 
     <script>
@@ -471,228 +495,158 @@
     @endsection
     
     @include('layouts.script')
-    <script>
-        
-    var config = {
-        chart : {
-            animation: false
-        },
-        type: 'gauge',
-        data: {
-            datasets: [{
-            data: [60,79,100],
-            value: 15,
-            // data: [60,79,100],
-            backgroundColor: ['red', 'yellow', 'green'],
-            }]
-        },
-        options:{
-            responsive: true,
-            title: {
-                display: true,
-                text: 'Corporate'
-            },
-        }
-        };  
-
-        window.onload = function() {
-        var ctx = document.getElementById('chart').getContext('2d');
-        window.myGauge = new Chart(ctx, config);
-        };
-    </script>
+    
 
     @forelse ($viitemsByDepartment as $departmentId => $viitems)
         @foreach ($viitems as $viitem)
-        <script>
-            Highcharts.chart('avg{{ $departmentId }}', {
-
-                chart: {
-                    type: 'gauge',
-                    plotBackgroundColor: null,
-                    plotBackgroundImage: null,
-                    plotBorderWidth: 0,
-                    plotShadow: false,
-                    height: '80%',
-                    animation: false
-                },
-
-                title: {
-                    text: '{{ $viitem->departement['name'] }}'
-                },
-
-                pane: {
-                    startAngle: -90,
-                    endAngle: 89.9,
-                    background: null,
-                    center: ['50%', '75%'],
-                    size: '110%'
-                },
-
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    tickPixelInterval: 72,
-                    tickPosition: 'inside',
-                    tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
-                    tickLength: 20,
-                    tickWidth: 2,
-                    minorTickInterval: null,
-                    labels: {
-                        distance: 20,
-                        style: {
-                            fontSize: '14px'
-                        }
-                    },
-                    lineWidth: 0,
-                    plotBands: [{
-                        from: 0,
-                        to: 59,
-                        color: '#DF5353', // red
-                        thickness: 20
-                    }, {
-                        from: 60,
-                        to: 79,
-                        color: '#DDDF0D', // yellow
-                        thickness: 20
-                    }, {
-                        from: 80,
-                        to: 100,
-                        color: '#55BF3B', // green
-                        thickness: 20
+        <script type="text/javascript">
+                // Initialize the echarts instance based on the prepared dom
+                var myChart = echarts.init(document.getElementById('avg{{ $departmentId }}'));
+                // Specify the configuration items and data for the chart
+                option = {
+                    series: [{
+                        type: 'gauge',
+                        startAngle: 180,
+                        endAngle: 0,
+                        center: ['50%', '75%'],
+                        radius: '90%',
+                        min: 0,
+                        animation: false,
+                        max: 100,
+                        splitNumber: 8,
+                        axisLine: {
+                            lineStyle: {
+                                width: 6,
+                                color: [
+                                    [0.60, '#FF6E76'],
+                                    [0.75, '#FDDD60'],
+                                    // [0.75, '#58D9F9'],
+                                    [1, '#7CFFB2']
+                                ]
+                            }
+                        },
+                        pointer: {
+                            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                            length: '12%',
+                            width: 20,
+                            offsetCenter: [0, '-60%'],
+                            itemStyle: {
+                                color: 'auto'
+                            }
+                        },
+                        axisTick: {
+                            length: 12,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 2
+                            }
+                        },
+                        splitLine: {
+                            length: 20,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 5
+                            }
+                        },
+                        axisLabel: {
+                            color: '#464646',
+                            fontSize: 20,
+                            distance: -60,
+                            rotate: 'tangential',
+                            formatter: function(value) {
+                                if (value === 0.875) {
+                                    return 'Grade A';
+                                } else if (value === 0.625) {
+                                    return 'Grade B';
+                                } else if (value === 0.375) {
+                                    return 'Grade C';
+                                } else if (value === 0.125) {
+                                    return 'Grade D';
+                                }
+                                return '';
+                            }
+                        },
+                        title: {
+                            offsetCenter: [0, '-10%'],
+                            fontSize: 20
+                        },
+                        detail: {
+                            fontSize: 30,
+                            offsetCenter: [0, '-35%'],
+                            valueAnimation: true,
+                            // formatter: function(value) {
+                            //     return Math.round(value * 1) + '';
+                            // },
+                            color: 'inherit'
+                        },
+                        data: [{
+                            value: {{ number_format($sumByDepartment[$departmentId],2) }},
+                            name: 'Grade',
+                        }]
                     }]
-                },
+                };
 
-                series: [{
-                    name: 'Speed',
-                    data: [{{ number_format($sumByDepartment[$departmentId],2) }}],
-                    tooltip: {
-                        valueSuffix: '%'
-                    },
-                    dataLabels: {
-                        format: '{y} %',
-                        borderWidth: 0,
-                        color: (
-                            Highcharts.defaultOptions.title &&
-                            Highcharts.defaultOptions.title.style &&
-                            Highcharts.defaultOptions.title.style.color
-                        ) || '#333333',
-                        style: {
-                            fontSize: '16px'
+                // Display the chart using the configuration items and data just specified.
+                myChart.setOption(option);
+            </script>
+
+        <script type="text/javascript">
+                // Initialize the echarts instance based on the prepared dom
+                var myChart = echarts.init(document.getElementById('chartContainerr{{ $viitem->id }}'));
+
+                // Specify the configuration items and data for the chart
+                option = {
+                    animation: false,
+                    dataset: [{
+                            dimensions: ['name', 'score'],
+                            source: [
+                                ['Target', {{ $viitem->target }}],
+                                ['Realization', {{ $viitem->realization }}]
+                            ]
+                        },
+                        {
+                            transform: {
+                                type: 'sort',
+                                config: {
+                                    dimension: 'score',
+                                    order: 'desc'
+                                }
+                            }
+                        }
+                    ],
+                    xAxis: {
+                        type: 'category',
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 30
                         }
                     },
-                    dial: {
-                        radius: '80%',
-                        backgroundColor: 'gray',
-                        baseWidth: 12,
-                        baseLength: '0%',
-                        rearLength: '0%'
+                    yAxis: {},
+                    series: {
+                        type: 'bar',
+                        encode: {
+                            x: 'name',
+                            y: 'score'
+                        },
+                        datasetIndex: 1,
+                        label: {
+                            show: true,
+                            position: 'top' // Anda dapat menyesuaikan posisi label sesuai kebutuhan
+                        },
+                        color: [
+                            '#f5f552',
+                        ]
                     },
-                    pivot: {
-                        backgroundColor: 'gray',
-                        radius: 6
-                    }
-                }],
-                credits: {
-                    enabled: false
-                }
-            });
-        </script>
+                    grid: {
+                        left: '100px',
+                        right: '15px'
+                    },
+                };
 
-        <script>
-            
-            Highcharts.chart('chartContainerr{{ $viitem->id }}', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Target', 'Realization']
-            },
-            yAxis: {
-                title: {
-                text: 'Value'
-                },
-                labels: {
-                formatter: function() {
-                    return '' + Highcharts.numberFormat(Math.abs(this.value), 0);
-                }
-                }
-            },
-            plotOptions: {
-                column: {
-                dataLabels: {
-                    enabled: true,
-                    formatter: function() {
-                    return '' + Highcharts.numberFormat(Math.abs(this.y), 0);
-                    }
-                }
-                }
-            },credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Target',
-                data: [{{ $viitem->target }}]
-            }, {
-                name: 'Realization',
-                data: [{{ $viitem->realization }}]
-            }]
-            });
+                // Display the chart using the configuration items and data just specified.
+                myChart.setOption(option);
+            </script>
 
-        </script>
-
-        {{-- <script>
-            let myConfig = {
-            type: 'bar',
-            title: {
-                text: 'Data Basics',
-                fontSize: 24,
-            },
-            legend: {
-                draggable: true,
-            },
-            scaleX: {
-                // Set scale label
-                label: { text: 'Days' },
-                // Convert text on scale indices
-                labels: [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
-            },
-            scaleY: {
-                // Scale label with unicode character
-                label: { text: 'Temperature (°F)' }
-            },
-            plot: {
-                // Animation docs here:
-                // https://www.zingchart.com/docs/tutorials/styling/animation#effect
-                animation: {
-                effect: 'ANIMATION_EXPAND_BOTTOM',
-                method: 'ANIMATION_STRONG_EASE_OUT',
-                sequence: 'ANIMATION_BY_NODE',
-                speed: 275,
-                }
-            },
-            series: [
-                {
-                // plot 1 values, linear data
-                values: [{{ $viitem->realization }}],
-                text: 'Realization',
-                },
-                {
-                // plot 2 values, linear data
-                values: [{{ $viitem->target }}],
-                text: 'Target'
-                },
-            ]
-            };
-            // Render Method[3]
-                zingchart.render({
-                id: 'chartContainerr{{ $viitem->id }}',
-                data: myConfig,
-                });
-        </script> --}}
         
         @endforeach
     @empty
