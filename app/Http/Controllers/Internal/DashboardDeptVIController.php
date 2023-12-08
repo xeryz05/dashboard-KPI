@@ -19,11 +19,10 @@ class DashboardDeptVIController extends Controller
      */
     public function index(Request $request)
         {
-            $filterEvent = $request->input('event_id', 1); // Get filter event from request
-
             // Load the necessary data
             $events = Event::get(); // Load events data
             $dept = Departement::get(); // Load departments data
+            $filterEvent = $request->input('event_id', 1); // Get filter event from request
             
             // Get the user's departments
             $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
