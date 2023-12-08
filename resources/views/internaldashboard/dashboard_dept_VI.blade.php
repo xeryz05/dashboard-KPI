@@ -44,7 +44,7 @@
 
     <!-- Loader -->
     <div id="global-loader">
-        <img class="loader-img" src="{{ asset('assets/img/logo/verdanco-title.png') }}" alt="Loader">
+        <img class="loader-img" src="{{ asset('assets/img/gif/vg2.gif') }}" alt="Loader">
     </div>
     <!-- /Loader -->
 

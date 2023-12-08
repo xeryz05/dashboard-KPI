@@ -13,7 +13,7 @@
 
     <!-- Loader -->
     <div id="global-loader">
-        <img class="loader-img" src="{{ asset('assets/img/logo/verdanco-title.png') }}" alt="Loader">
+        <img class="loader-img" src="{{ asset('assets/img/gif/vg2.gif') }}" alt="Loader">
     </div>
     <!-- /Loader -->
 
@@ -35,7 +35,7 @@
         <footer>
             <div class="main-footer" id="footer">
                 <div class="container-fluid pd-t-0 ht-100p">
-                    <span> 2023 © Copyright Verdanco Group | Beta Version</span>
+                    <span> 2023 © Copyright Verdanco Group | Version 1.0</span>
                 </div>
             </div>
         </footer>
