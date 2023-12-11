@@ -65,7 +65,7 @@ class CorpVIController extends Controller
         // @dd($records);
         // @dd($records);
 
-        return view('internaldashboard.dashboardcorp_vi', compact('virevs','records','semesterSums', 'item', 'valueSum', 'profitSum','valuePersent'));
+        return view('internaldashboard.corpVI.dashboardCorp-2023', compact('virevs','records','semesterSums', 'item', 'valueSum', 'profitSum','valuePersent'));
 
     }
 }

@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('verevs', function (Blueprint $table) {
             $table->id();
-            $table->string('type_job');
             $table->bigInteger('value');
             $table->timestamps();
         });

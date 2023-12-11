@@ -78,7 +78,7 @@ class CorporateveController extends Controller
             // @dd($records);
             // @dd($records);
 
-            return view('internaldashboard.dashboardcor', compact('verevs','records','semesterSums','item','valueSum','profitSum','valuePersent'));
+            return view('internaldashboard.corpVE.dashboardCorp-2023', compact('verevs','records','semesterSums','item','valueSum','profitSum','valuePersent'));
 
         }
 

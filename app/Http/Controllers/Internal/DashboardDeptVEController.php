@@ -25,7 +25,11 @@ class DashboardDeptVEController extends Controller
 {
     $events = Event::get();
     $dept = Departement::get();
-    $filterEvent = $request->input('event_id', 1);
+    $lastFilter = Veitem::orderBy('event_id', 'desc')->value('event_id');
+    $filterEvent = $lastFilter ? $lastFilter : 1;
+    if ($request->has('event_id')) {
+        $filterEvent = $request->input('event_id');
+    }
 
     $userDepartments = Auth::user()->departement->pluck('id'); // Ambil seluruh departement_id yang dimiliki oleh user
 

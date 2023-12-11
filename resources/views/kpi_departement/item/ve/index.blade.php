@@ -1,14 +1,23 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
+@extends('layouts.admin')
 @section('style')
     <style>
     .ui-datepicker-calendar {
     display: none;
     }
     </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <link href="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.css" rel="stylesheet"/>
+    
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" /> --}}
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/date-1.5.1/fc-4.3.0/r-2.5.0/datatables.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+    <script type="text/javascript" src="DataTables/datatables.min.js"></script>
 @endsection
-@extends('layouts.admin')
 {{-- @extends('admin.dashboard') --}}
 @section('content')
     <!-- main-content -->
@@ -155,7 +164,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="example" style="width:100%">
+                                <table id="example" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -174,8 +183,8 @@
                                     <tbody id="items">
                                         @forelse ($veitems as $item)
                                             <tr>
-                                                {{-- <td>{{ $loop->iteration }}</td> --}}
-                                                <td>{{ $item['id'] }}</td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                {{-- <td>{{ $item['id'] }}</td> --}}
                                                 <td>{{ $item->event['start']}} - {{ $item->event['end']}}</td>
                                                 <td>{{ $item->departement['name'] }}</td>
                                                 <td>{{ $item->area }}</td>
@@ -206,6 +215,7 @@
                                         @empty
                                         @endforelse
                                     </tbody>
+                                    {{-- {{ $veitems->links() }} --}}
                                 </table>
                             </div>
                         </div>
@@ -219,105 +229,12 @@
     <!-- main-content closed -->
 @endsection
 @section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
-<script src="https://cdn.datatables.net/v/dt/dt-1.13.5/datatables.min.js"></script>
-{{-- <script>
-    $(document).ready(function(){
-        $("#departement").on('change',function(){
-            var veitems = $(this).val();
-            $.ajax({
-                url:"{{ route('veitem.index') }}",
-                type:"GET",
-                data:{'departement':veitems},
-                success:function(data){
-                    console.log('Data fetched successfully:', data);
-                    var veitems = data.veitems;
-                    var html = '';
-                    if(veitems.length > 0){
-                        // console.log(veitems[2])
-                        for(let i = 1;i<veitems.length;i++){
-                            html += `
-                                <tr>
-                                    <td>${i}</td>
-                                    <td>${veitems[i]['period'] ? (veitems[i]['period']['month'] + ' ' + veitems[i]['period']['year']) : ''}</td>
-                                    <td>${veitems[i]['departement'] ? (veitems[i]['departement']['name']):''}</td>
-                                    <td>${veitems[i]['area'] || ''}</td>
-                                    <td>${veitems[i]['kpi'] || ''}</td>
-                                    <td>${veitems[i]['calculation'] || ''}</td>
-                                    <td>${veitems[i]['target'] || ''}</td>
-                                    <td>${veitems[i]['weight'] || ''}</td>
-                                    <td>${veitems[i]['realization'] || ''}</td>
-                                    <td>${veitems[i]['created_by'] || ''}</td>
-                                    <td>
-                                        <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                            action="{{ route('veitem.destroy', $item->id) }}" method="POST">
-                                            <a href="{{ route('veitem.edit', $item->id) }}" class="btn btn-sm btn-primary">
-                                                <span class="fe fe-edit"></span>
-                                            </a>
-                                            <a href="{{ route('veitem.show', $item->id) }}" class="btn btn-sm btn-info">
-                                                <span class="fe fe-more-vertical"></span>
-                                            </a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-sm btn-danger"><span class="fe fe-trash-2"></span></button>
-                                        </form>
-                                    </td>
-                                </tr>`;
-                        }
-                    }else{
-                        html +='<tr><td colspan="11">No Data Found</td></tr>'
-                    }
-                    $("#items").html(html);
-                }
-            })
-        })
-    })
-</script> --}}
-{{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-    document.getElementById('filterSelect').addEventListener('change', function() {
-        
-        var selectedFilter = this.value;
-        // Lakukan permintaan Ajax untuk mengambil hasil filter
-        axios.get('{{ route('veitem.filter') }}', {
-            params: {
-                filter: selectedFilter
-            }
-        }).then(function(response) {
-            var veitems = response.data.veitems;
-            var resultTableBody = document.querySelector('#resultTable tbody');
-            
-            // Hapus baris hasil sebelumnya
-            resultTableBody.innerHTML = '';
-            
-            // Tampilkan hasil filter dalam tabel
-            veitems.forEach(function(item, index) {
-                var row = document.createElement('tr');
-                
-                var indexCell = document.createElement('td');
-                indexCell.textContent = index + 1;
-                row.appendChild(indexCell);
+ 
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
 
-                var periodCell = document.createElement('td');
-                periodCell.textContent = item.period.month + ' ' + item.period.year // Ganti 'nama' dengan atribut yang sesuai
-                row.appendChild(periodCell);
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 
-                var departementCell = document.createElement('td');
-                departementCell.textContent = item.departement.name // Ganti 'nama' dengan atribut yang sesuai
-                row.appendChild(departementCell);
-
-                var areaCell = document.createElement('td');
-                areaCell.textContent = item.area;
-                row.appendChild(areaCell);
-                
-                // Tambahkan kolom lainnya sesuai kebutuhan
-                
-                resultTableBody.appendChild(row);
-            });
-        });
-    });
-</script> --}}
-    <script>
-let table = new DataTable('#example');
-    </script>
+<script> 
+    let table = new DataTable('#myTable');
+</script>
 @endsection

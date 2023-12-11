@@ -31,6 +31,11 @@
 
     <script src="https://kit.fontawesome.com/aee6c06acc.js" crossorigin="anonymous"></script>
 
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/date-1.5.1/fc-4.3.0/r-2.5.0/datatables.min.css" rel="stylesheet">
+ 
+<script src="https://cdn.datatables.net/v/bs4/dt-1.13.8/b-2.4.2/date-1.5.1/fc-4.3.0/r-2.5.0/datatables.min.js"></script>
+
+
     <style>
         body {
             background-color: white;
