@@ -17,6 +17,8 @@ use App\Http\Controllers\Internal\IndicatorController; //controller untuk dept V
 
 use App\Http\Controllers\Internal\DashboardDeptVEController; //controller untuk dept VE
 
+use App\Http\Controllers\corporate\CorpVEController;
+
 use App\Http\Controllers\Departement\viitemController;
 use App\Http\Controllers\Departement\veitemController;
 
@@ -46,58 +48,9 @@ use App\Http\Controllers\Realization\RealizationpdcaController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// })->middleware('auth');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware(['auth','role:admin'])->group(function () {
-
-//     //universal admin
-//     Route::get('/admin', [DashboardController::class, 'index'])->name('admin');
-//     Route::resource('/companies', CompanyController::class);
-//     Route::resource('/periods', PeriodController::class);
-//     Route::resource('/events', EventController::class);
-//     Route::resource('/departements', DepartementController::class);
-//     Route::resource('/users', UserController::class);
-//     // Route::put('users/{id}', UserController::class, 'update')->name('users.update');
-
-//     Route::post('/users/{user}/role', [UserController::class, 'assignRole'])->name('user.role');
-//     Route::delete('/users/{user}/role/{role}', [UserController::class, 'removeRole'])->name('user.roles.remove');
-//     Route::post('/users/{user}/permission', [UserController::class, 'givePermission'])->name('user.permission');
-//     Route::delete('/users/{user}/permission/{permission}', [UserController::class, 'removePermission'])->name('user.permission.revoke');
-
-//     Route::resource('/role', RoleController::class);
-//     Route::post('/role/{role}/permission', [RoleController::class, 'givePermission'])->name('role.permission');
-//     Route::delete('/role/{role}/permission/{permission}', [RoleController::class, 'revokePermission'])->name('role.permission.revoke');
-
-//     Route::resource('/permission', PermissionController::class);
-//     Route::post('/permission/{permission}/role', [PermissionController::class, 'assignRole'])->name('role.permission.role');
-//     Route::delete('/permission/{permission}/role/{role}', [PermissionController::class, 'removeRole'])->name('permission.roles.remove');
-    
-//     //corporate universal
-//     Route::resource('/agings', AgingController::class);
-//     Route::resource('/profits', ProfitController::class);
-//     Route::resource('/veprofits', ProvitveController::class);
-//     Route::resource('/veprofits', ProvitveController::class);
-//     Route::resource('/physicalavailability', PhyisicalAvailabilityController::class);
-
-//     // corporate vi
-//     Route::resource('/virevs', VirevController::class);
-//     Route::post('/virevs/import', [VirevController::class, 'import'])->name('virevs.import');
-//     //corporate ve
-//     Route::resource('/verevs', VerevController::class);
-//     Route::post('/verevs/import', [VerevController::class, 'import'])->name('verevs.import');
-//     //departement vi
-//     Route::resource('/viitem', viitemController::class);
-//     Route::post('/viitem/import', [viitemController::class, 'import'])->name('viitem.import');
-//     //departement ve
-//     Route::resource('/veitem', veitemController::class);
-//     Route::post('/veitem/import', [veitemController::class, 'import'])->name('veitem.import');
-// });
 
 Route::middleware(['auth'])->group(function () {
     // Route::get('/revenueVI/tipe-pekerjaan', [DashboardUserController::class, 'jobchartVI']);
@@ -111,6 +64,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/CorpVI', [CorpVIController::class, 'index'])->name('CorpVI');
 
     // Route::get('/track-visitor', [VisitorController::class, 'trackVisitor']);
+
+    Route::get('/CorpVE-2024', [CorpVEController::class, 'index'])->name('CorpVE-2024');
 });
 
 Route::middleware('auth')->group(function () {
@@ -119,5 +74,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
-require __DIR__.'/admin.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';

@@ -23,7 +23,7 @@
             <!-- main-header -->
             @include('layouts.header')
             <!-- main-header -->
-            
+
             <!-- main-sidebar -->
             @include('layouts.sidebar')
             <!-- main-sidebar -->
