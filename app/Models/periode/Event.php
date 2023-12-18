@@ -14,7 +14,7 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['start', 'end'];
+    protected $fillable = ['start', 'end', 'year'];
 
     public function Verev()
     {
