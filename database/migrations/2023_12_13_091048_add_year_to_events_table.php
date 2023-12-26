@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->integer('year');
+            $table->integer('year');  
         });
     }
 

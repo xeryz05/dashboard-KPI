@@ -79,8 +79,6 @@ class CorporateveController extends Controller
             ->orderByDesc('total_value') // Menyusun data berdasarkan total_value secara descending
             ->take(3) // Mengambil 2 data teratas
             ->get();
-
-        // @dd($records);
         // @dd($records);
 
         return view('internaldashboard.corpVE.dashboardCorp-2023', compact('verevs', 'records', 'semesterSums', 'item', 'valueSum', 'profitSum', 'valuePersent'));
