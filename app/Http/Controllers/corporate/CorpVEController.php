@@ -58,27 +58,23 @@ class CorpVEController extends Controller
                 // You may add other fields you want to sum here
             ];
         }
-
         // dd($semester);
 
-
+        // Ambil verevs yang sesuai dengan tahun dari tabel events
         $records = DB::table('verevs')
             ->selectRaw('verevs.job_id as job_id,
-                                    jobs.name as job_name,
-                                    SUM(verevs.value) as total_value,
-                                    (SUM(verevs.value) / (SELECT SUM(value) FROM verevs)) * 100 as percentage')
+                            jobs.name as job_name,
+                            SUM(verevs.value) as total_value,
+                            (SUM(verevs.value) / (SELECT SUM(value) FROM verevs)) * 100 as percentage')
             ->leftJoin('jobs', 'verevs.job_id', '=', 'jobs.id')
+            ->leftJoin('events', 'verevs.event_id', '=', 'events.id') // Adjust the relationship based on your actual database structure
+            ->where('events.year', $selectedYear) // Adjust the column name based on your actual database structure
             ->groupBy('job_id')
-            ->orderByDesc('total_value') // Menyusun data berdasarkan total_value secara descending
-            ->take(3) // Mengambil 2 data teratas
+            ->orderByDesc('total_value')
+            ->take(3)
             ->get();
 
-        // dd($records);
 
-        // dd($semesterSums[$index]);
-
-
-
-        return view('internaldashboard.corpVE.dashboardCorp-2024', compact('verevs', 'events', 'selectedYear', 'dataSUM', 'semesterSums', 'item'));
+        return view('internaldashboard.corpVE.dashboardCorp-2024', compact('verevs', 'events', 'selectedYear', 'dataSUM', 'semesterSums', 'item', 'records'));
     }
 }

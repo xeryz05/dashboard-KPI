@@ -104,21 +104,31 @@
                     <!-- breadcrumb -->
                     <div class="col-md-3">
                         <span>
-                            {{-- Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }}    --}}
+                            {{-- Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }} --}}
                         </span>
                         <form method="GET" action="">
-                            <label for="year">Pilih Tahun:</label>
-                            <select name="year" class="form-select" id="year">
-                                <option value="">-- Semua Tahun --</option>
-                                @foreach (range(date('Y'), 2024, -1) as $year)
-                                    <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-outline-dark">Submit</button>
+                            <div class="d-flex">
+                                <div class="me-2">
+                                    <label for="year" class="form-label">Pilih Tahun:</label>
+                                </div>
+                                <div class="me-2">
+                                    <select name="year" class="form-select" id="year">
+                                        <option value="">-- Semua Tahun --</option>
+                                        @foreach (range(date('Y'), 2024, -1) as $year)
+                                            <option value="{{ $year }}"
+                                                {{ $selectedYear == $year ? 'selected' : '' }}>
+                                                {{ $year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-outline-dark">Submit</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
+
                     <div class="breadcrumb-header d-flex justify-content-center">
                         <h4 class="page-title">Verdanco Engineering 2023</h4>
                     </div>
@@ -323,216 +333,385 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="row">
+                    <div class="card text-center">
+                        <div class="card-title">
+                            <h4 class="d-flex justify-content-center mt-3">Diagram top 3 Tipe Pekerjaan (Revenue)</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="top3" style="height:400px;"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-4">
+                                        <div id="top3-2" style="width: 300px;height:300px;"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="col-md-4">
+                                        <div id="top3-3" style="width: 300px;height:300px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- coba chart --}}
             </div>
-            {{-- coba chart --}}
+            <!-- Container closed -->
         </div>
-        <!-- Container closed -->
-    </div>
-    <!-- main-content closed -->
-@section('script')
-    {{-- Echart --}}
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    {{--  --}}
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
-    <script>
-        $('.slick-list').slick({
-            dots: true,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 3,
-            slidesToScroll: 3,
-            responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true,
+        <!-- main-content closed -->
+    @section('script')
+        {{-- Echart --}}
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+        {{--  --}}
+        <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
+        <script>
+            $('.slick-list').slick({
+                dots: true,
+                infinite: false,
+                speed: 300,
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                            dots: true,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 2
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
                     }
-                },
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
+            });
+        </script>
+
+        <script>
+            $('.rekap').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            });
+        </script>
+
+        @foreach ($semesterSums as $item)
+            @php
+                $totalNilaiAkhir = 0;
+                $bobot = 40;
+                $target = 21000000000; //target per semester
+                $revenue = $item['total_value'];
+                $profit = $item['total_profit'];
+                $nilai = ($revenue / $target) * 100;
+                $nilai_akhir = ($nilai * $bobot) / 100;
+
+                $bobot_profit = 30;
+                $target_profit = 7;
+                $pencapaian_profit = $item['total_profit'];
+                $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                if ($nilai_profit < 0) {
+                    $nilai_profit = 0;
                 }
-                // You can unslick at a given breakpoint now by adding:
-                // settings: "unslick"
-                // instead of a settings object
-            ]
-        });
-    </script>
+                $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
 
-    <script>
-        $('.rekap').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            fade: true,
-            cssEase: 'linear'
-        });
-    </script>
+                if ($nilai_akhir_profit < 0) {
+                    $nilai_akhir_profit = 0;
+                }
 
-    @foreach ($semesterSums as $item)
-        @php
-            $totalNilaiAkhir = 0;
-            $bobot = 40;
-            $target = 21000000000; //target per semester
-            $revenue = $item['total_value'];
-            $profit = $item['total_profit'];
-            $nilai = ($revenue / $target) * 100;
-            $nilai_akhir = ($nilai * $bobot) / 100;
+                $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+            @endphp
 
-            $bobot_profit = 30;
-            $target_profit = 7;
-            $pencapaian_profit = $item['total_profit'];
-            $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-            if ($nilai_profit < 0) {
-                $nilai_profit = 0;
-            }
-            $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+            <script type="text/javascript">
+                // Initialize the echarts instance based on the prepared dom
+                var myChart = echarts.init(document.getElementById('corporate{{ $item['semester'] }}'));
 
-            if ($nilai_akhir_profit < 0) {
-                $nilai_akhir_profit = 0;
-            }
+                // Specify the configuration items and data for the chart
+                option = {
+                    title: {
+                        text: 'Corporate',
+                        left: 'center',
+                        // rich: {}
+                    },
+                    series: [{
+                        type: 'gauge',
+                        startAngle: 180,
+                        endAngle: 0,
+                        center: ['50%', '75%'],
+                        radius: '90%',
+                        min: 0,
+                        max: 100,
+                        animation: false,
+                        splitNumber: 8,
+                        axisLine: {
+                            lineStyle: {
+                                width: 6,
+                                color: [
+                                    [0.60, '#FF6E76'],
+                                    [0.75, '#FDDD60'],
+                                    // [0.75, '#58D9F9'],
+                                    [1, '#7CFFB2']
+                                ]
+                            }
+                        },
+                        pointer: {
+                            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                            length: '12%',
+                            width: 20,
+                            offsetCenter: [0, '-60%'],
+                            itemStyle: {
+                                color: 'auto'
+                            }
+                        },
+                        axisTick: {
+                            length: 12,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 2
+                            }
+                        },
+                        splitLine: {
+                            length: 20,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 5
+                            }
+                        },
+                        axisLabel: {
+                            color: '#464646',
+                            fontSize: 20,
+                            distance: -60,
+                            rotate: 'tangential',
+                            formatter: function(value) {
+                                if (value === 0.875) {
+                                    return 'Grade A';
+                                } else if (value === 0.625) {
+                                    return 'Grade B';
+                                } else if (value === 0.375) {
+                                    return 'Grade C';
+                                } else if (value === 0.125) {
+                                    return 'Grade D';
+                                }
+                                return '';
+                            }
+                        },
+                        title: {
+                            offsetCenter: [0, '-10%'],
+                            fontSize: 20
+                        },
+                        detail: {
+                            fontSize: 30,
+                            offsetCenter: [0, '-35%'],
+                            valueAnimation: true,
+                            formatter: function(value) {
+                                return Math.round(value * 1) + '';
+                            },
+                            color: 'inherit'
+                        },
+                        data: [{
+                            value: [{{ ceil($totalNilaiAkhir) }}],
+                            name: 'Grade Rating'
+                        }]
+                    }]
+                };
 
-            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
-        @endphp
+                // Display the chart using the configuration items and data just specified.
+                myChart.setOption(option);
+            </script>
+        @endforeach
 
-        <script type="text/javascript">
-            // Initialize the echarts instance based on the prepared dom
-            var myChart = echarts.init(document.getElementById('corporate{{ $item['semester'] }}'));
+        <script>
+            var myChart = echarts.init(document.getElementById('top3'));
+            var option;
 
-            // Specify the configuration items and data for the chart
+            var pieData = [
+                @foreach ($records as $item)
+                    {
+                        value: {{ $item->total_value }},
+                        name: '{{ $item->job_name }}'
+                    },
+                @endforeach
+            ];
+
             option = {
-                title: {
-                    text: 'Corporate',
-                    left: 'center',
-                    // rich: {}
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    top: 20,
                 },
                 series: [{
-                    type: 'gauge',
-                    startAngle: 180,
-                    endAngle: 0,
-                    center: ['50%', '75%'],
-                    radius: '90%',
-                    min: 0,
-                    max: 100,
-                    animation: false,
-                    splitNumber: 8,
-                    axisLine: {
-                        lineStyle: {
-                            width: 6,
-                            color: [
-                                [0.60, '#FF6E76'],
-                                [0.75, '#FDDD60'],
-                                // [0.75, '#58D9F9'],
-                                [1, '#7CFFB2']
-                            ]
-                        }
-                    },
-                    pointer: {
-                        icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-                        length: '12%',
-                        width: 20,
-                        offsetCenter: [0, '-60%'],
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: '50%',
+                    data: pieData,
+                    emphasis: {
                         itemStyle: {
-                            color: 'auto'
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                         }
-                    },
-                    axisTick: {
-                        length: 12,
-                        lineStyle: {
-                            color: 'auto',
-                            width: 2
-                        }
-                    },
-                    splitLine: {
-                        length: 20,
-                        lineStyle: {
-                            color: 'auto',
-                            width: 5
-                        }
-                    },
-                    axisLabel: {
-                        color: '#464646',
-                        fontSize: 20,
-                        distance: -60,
-                        rotate: 'tangential',
-                        formatter: function(value) {
-                            if (value === 0.875) {
-                                return 'Grade A';
-                            } else if (value === 0.625) {
-                                return 'Grade B';
-                            } else if (value === 0.375) {
-                                return 'Grade C';
-                            } else if (value === 0.125) {
-                                return 'Grade D';
-                            }
-                            return '';
-                        }
-                    },
-                    title: {
-                        offsetCenter: [0, '-10%'],
-                        fontSize: 20
-                    },
-                    detail: {
-                        fontSize: 30,
-                        offsetCenter: [0, '-35%'],
-                        valueAnimation: true,
-                        formatter: function(value) {
-                            return Math.round(value * 1) + '';
-                        },
-                        color: 'inherit'
-                    },
-                    data: [{
-                        value: [{{ ceil($totalNilaiAkhir) }}],
-                        name: 'Grade Rating'
-                    }]
+                    }
                 }]
             };
 
-            // Display the chart using the configuration items and data just specified.
-            myChart.setOption(option);
+            option && myChart.setOption(option);
         </script>
-    @endforeach
 
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'copyHtml5',
-                        footer: true
-                    },
-                    {
-                        extend: 'excelHtml5',
-                        footer: true
-                    },
-                    {
-                        extend: 'csvHtml5',
-                        footer: true
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        footer: true
+        <script>
+            var myChart = echarts.init(document.getElementById('top3-2'));
+            var option;
+
+            var xAxisData = []; // Array to store X-axis labels
+            var seriesData = []; // Array to store series data
+
+            @foreach ($records as $item)
+                xAxisData.push('{{ $item->job_name }}');
+                seriesData.push({{ $item->total_value }});
+            @endforeach
+
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
                     }
-                ],
-                "ordering": false,
-                fixedColumns: {
-                    leftColumns: 1
                 },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [{
+                    type: 'category',
+                    data: xAxisData,
+                    axisTick: {
+                        alignWithLabel: true
+                    }
+                }],
+                yAxis: [{
+                    type: 'value'
+                }],
+                series: [{
+                    name: 'Direct',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: seriesData
+                }]
+            };
+
+            option && myChart.setOption(option);
+        </script>
+        <script>
+            var myChart = echarts.init(document.getElementById('top3-3'));
+            var option;
+
+            var yAxisData = []; // Array to store Y-axis labels
+            var seriesData = []; // Array to store series data
+
+            @foreach ($records as $item)
+                yAxisData.push('{{ $item->job_name }}');
+                seriesData.push({{ $item->total_value }});
+            @endforeach
+
+            option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {},
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: false
+                },
+                xAxis: {
+                    type: 'value',
+                    boundaryGap: [0, 0.01]
+                },
+                yAxis: {
+                    type: 'category',
+                    data: yAxisData,
+                    axisLabel: {
+                        formatter: function(value, index) {
+                            return formatLargeNumber(value);
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Total Value',
+                    type: 'bar',
+                    data: seriesData
+                }]
+            };
+
+            option && myChart.setOption(option);
+
+            function formatLargeNumber(value) {
+                var suffixes = ["", "K", "M", "B", "T"];
+                var order = Math.floor(Math.log10(value) / 3);
+                var suffix = suffixes[order];
+                var shortValue = value / Math.pow(10, order * 3);
+
+                return shortValue.toFixed(2) + suffix;
+            }
+        </script>
+
+
+
+        <script>
+            $(document).ready(function() {
+                $('#example').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [{
+                            extend: 'copyHtml5',
+                            footer: true
+                        },
+                        {
+                            extend: 'excelHtml5',
+                            footer: true
+                        },
+                        {
+                            extend: 'csvHtml5',
+                            footer: true
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            footer: true
+                        }
+                    ],
+                    "ordering": false,
+                    fixedColumns: {
+                        leftColumns: 1
+                    },
+                });
             });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection
 @endsection
