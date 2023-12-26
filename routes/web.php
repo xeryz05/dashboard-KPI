@@ -65,7 +65,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Route::get('/track-visitor', [VisitorController::class, 'trackVisitor']);
 
-    Route::get('/CorpVE-2024', [CorpVEController::class, 'index'])->name('CorpVE-2024');
+    Route::get('/CorpVE', [CorpVEController::class, 'index'])->name('CorpVE');
 });
 
 Route::middleware('auth')->group(function () {

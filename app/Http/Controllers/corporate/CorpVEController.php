@@ -41,7 +41,7 @@ class CorpVEController extends Controller
 
 
         $item = Verev::select('updated_at')->latest()->first();
-        // dd($dataSUM);
+        // dd($item);
 
 
         $semesterSums = [];
