@@ -1,30 +1,19 @@
 @section('title')
-    Dashboard VE
+    Dashboard VI
 @endsection
 @extends('layouts.app')
 {{-- @extends('admin.dashboard') --}}
 @section('style')
     <!-- Add the slick-theme.css if you want default styling -->
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css"
-    />
-    <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick-theme.css"
-    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick-theme.css" />
 
     <script src="
-        https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
-        "></script>
-    <link
-        href="
+                https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+                "></script>
+    <link href="
 https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
-"
-        rel="stylesheet"
-    >
+" rel="stylesheet">
     <style>
         .slick-prev:before,
         .slick-next:before {
@@ -119,34 +108,35 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     <!-- breadcrumb -->
                     <div class="col-md-3">
                         <span>
-                            Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }}
+                            @foreach ($item as $i)
+                                Last Update: {{ \Carbon\Carbon::parse($i->updated_at)->format('d M Y') }}
+                            @endforeach
                         </span>
                     </div>
                     <div class="breadcrumb-header d-flex justify-content-center">
-                        <h4 class="page-title">Verdanco Engineering 2023</h4>
+                        <h4 class="page-title">Verdanco Indonesia 2023</h4>
                     </div>
                     <div class="slick-list">
                         <div class="col-md mg-md-t-0">
                             <div class="card" id="card-slide">
                                 <div class="card-body">
+                                    {{-- revenue VI Januari --}}
                                     <div class="my-3">
-                                        <h3
-                                            class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
+                                        <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
                                             style="font-size: 16px">
                                         </h3>
-                                        <h6
-                                            class="card-text bd-t"
-                                            style="font-size: 15px; padding-top:10px"
-                                        >Revenue</h6>
-                                        <br>
-                                        <span class="card-text">Tercapai : {{ 'Rp.' . number_format($valueSum) }}</span><br>
-                                        <span class="">Persentasi: {{ number_format($valuePersent) }}%</span>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue</h6>
+                                        <span class="card-text">Tercapai :{{ number_format($valueSum) }}</span><br>
+                                        <span class="">Persentasi: {{ number_format($valuePersent, 2) }}</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-{{ $valuePersent > 60 ? ($valuePersent > 80 ? 'success' : 'warning') : 'danger' }}" role="progressbar" style="width: {{ number_format($valuePersent) }}%" aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
-                                                            <span>{{ number_format($valuePersent) }}%</span>
+                                                        <div class="progress-bar bg-{{ $valuePersent > 60 ? ($valuePersent > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            role="progressbar"
+                                                            style="width: {{ number_format($valuePersent, 2) }}%"
+                                                            aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ number_format($valuePersent, 2) }}%</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -156,89 +146,61 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                     {{-- end revenue VI januari --}}
                                     {{-- Net Profit VI januari --}}
                                     <div class="my-3">
-                                        <h6
-                                            class="card-text bd-t"
-                                            style="font-size: 15px; padding-top:10px"
-                                        >Net Profit</h6>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit</h6>
                                         <span class="card-text">
-                                            <span class="">Profit/Loss : {{ 'Rp.'. number_format($profitSum) }}</span><br>
+                                            <span class="">Profit/Loss :
+                                            </span><br>
                                             <span class="">Persentasi: %</span>
                                         </span><br>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     {{-- end Net Profit VI januari --}}
-                                    {{-- physical availability VI januari --}}
+                                    {{-- Aging VI januari --}}
                                     <div class="my-3">
-                                        <h6
-                                            class="card-text bd-t"
-                                            style="font-size: 15px; padding-top:10px"
-                                        >Physical Availability</h6>
-                                        <span class="">Persentasi : %</span>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
+                                        <span class="">Persentasi : 0%</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
-                                                    <div class="progress">
-                                                        <div
-                                                            class="progress-bar bg-dabger"
-                                                            role="progressbar"
-                                                            style="width: %"
-                                                            aria-valuenow="42.72"
-                                                            aria-valuemin="0"
-                                                            aria-valuemax="100"
-                                                        >
-                                                            <span>%</span>
-                                                        </div>
-                                                    </div>
+                                                    {{-- <div class="progress-bar bg-{{ $persen > 60 ? $persen > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                                <span>0%</span>
+                                                            </div> --}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- end physical availability VI januari --}}
+                                    {{-- end Aging VI januari --}}
                                 </div>
                             </div>
                         </div>
-                        @foreach ($verevs as $item)
+                        @foreach ($virevs as $item)
                             <div class="col-md mg-md-t-0">
-                                <div
-                                    class="card"
-                                    id="card-slide"
-                                >
+                                <div class="card" id="card-slide">
                                     <div class="card-body">
                                         {{-- revenue VI Januari --}}
                                         <div class="my-3">
-                                            <h3
-                                                class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
-                                                style="font-size: 16px"
-                                            >{{ $item->event }}
+                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
+                                                style="font-size: 16px">{{ $item->event }}
                                                 @if ($loop->last)
                                                     <span class="badge bg-warning">Ongoing</span>
                                                 @else
                                                     <span class="badge bg-success">Data Final</span>
                                                 @endif
                                             </h3>
-                                            <h6
-                                                class="card-text bd-t"
-                                                style="font-size: 15px; padding-top:10px"
-                                            >Revenue</h6>
-                                            <span>
-                                                {{-- @if ($item->latest_updated_at)
-                                                                Update: {{ \Carbon\Carbon::parse($item->latest_updated_at)->format("d/M/Y") }}
-                                                            @else
-                                                                No update information
-                                                            @endif --}}
-
-                                            </span>
-                                            <br>
-                                            <span class="card-text">Tercapai
-                                                :{{ 'Rp.' . number_format($item->total_value) }}</span><br>
+                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue
+                                            </h6>
+                                            {{-- <span class="card-text">Tercapai :Rp.854,563,964</span><br> --}}
+                                            <span class="card-text">Tercapai :Rp.
+                                                {{ number_format($item->total_value) }}</span><br>
                                             @php
                                                 $pendapatan = $item->total_value; //total perbulan
-                                                $target = 3500000000; //target perbulan ve  4,000,000,000  ve  7,000,000,000
+                                                $target = 2000000000; //target perbulan vi  4,000,000,000  ve  7,000,000,000
                                                 $persentase = ceil(($pendapatan / $target) * 100);
                                             @endphp
                                             <span class="">Persentasi: {{ $persentase }}%</span>
@@ -246,14 +208,10 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                 <div class="row mt-3 text-center">
                                                     <div class="col-12">
                                                         <div class="progress">
-                                                            <div
-                                                                class="progress-bar bg-{{ $persentase > 60 ? ($persentase > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            <div class="progress-bar bg-{{ $persentase > 60 ? ($persentase > 80 ? 'success' : 'warning') : 'danger' }}"
                                                                 role="progressbar"
                                                                 style="width: {{ $persentase > 100 ? 100 : $persentase }}%"
-                                                                aria-valuenow="42.72"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            >
+                                                                aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
                                                                 <span>{{ $persentase }}%</span>
                                                             </div>
                                                         </div>
@@ -264,10 +222,8 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                         {{-- end revenue VI januari --}}
                                         {{-- Net Profit VI januari --}}
                                         <div class="my-3">
-                                            <h6
-                                                class="card-text bd-t"
-                                                style="font-size: 15px; padding-top:10px"
-                                            >Net Profit</h6>
+                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit
+                                            </h6>
                                             <span class="card-text">
                                                 <span class="">Profit/Loss :
                                                     {{ 'Rp.' . number_format($item->total_profit) }}</span><br>
@@ -282,64 +238,40 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                 <div class="row mt-3 text-center">
                                                     <div class="col-12">
                                                         @if ($persentase < 6)
-                                                            <progress
-                                                                class="w-100"
-                                                                style="accent-color: red;"
-                                                                value="{{ $persentase }}"
-                                                                max="7"
-                                                            ></progress>
+                                                            <progress class="w-100" style="accent-color: red;"
+                                                                value="{{ $persentase }}" max="7"></progress>
                                                         @elseif ($persentase < 7)
-                                                            <progress
-                                                                class="w-100"
-                                                                style="accent-color: yellow;"
-                                                                value="{{ $persentase }}"
-                                                                max="7"
-                                                            ></progress>
+                                                            <progress class="w-100" style="accent-color: yellow;"
+                                                                value="{{ $persentase }}" max="7"></progress>
                                                         @else
-                                                            <progress
-                                                                class="w-100"
-                                                                style="accent-color: green;"
-                                                                value="{{ $persentase }}"
-                                                                max="7"
-                                                            ></progress>
+                                                            <progress class="w-100" style="accent-color: green;"
+                                                                value="{{ $persentase }}" max="7"></progress>
                                                         @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         {{-- end Net Profit VI januari --}}
-                                        {{-- physical availability VI januari --}}
+                                        {{-- Aging VI januari --}}
                                         <div class="my-3">
-                                            <h6
-                                                class="card-text bd-t"
-                                                style="font-size: 15px; padding-top:10px"
-                                            >Physical Availability</h6>
-                                            <span class="">Persentasi :
-                                                {{ number_format($item->total_physical_availabilities / 100, 2) }}%</span>
+                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
+                                            <span class="">Persentasi : 0%</span>
                                             <div class="container">
                                                 <div class="row mt-3 text-center">
                                                     <div class="col-12">
-                                                        <div class="progress">
-                                                            <div
-                                                                class="progress-bar bg-{{ number_format($item->total_physical_availabilities / 100, 2) > 60 ? (number_format($item->total_physical_availabilities / 100, 2) > 80 ? 'success' : 'warning') : 'danger' }}"
-                                                                role="progressbar"
-                                                                style="width: {{ number_format($item->total_physical_availabilities / 100, 2) > 100 ? 100 : number_format($item->total_physical_availabilities / 100, 2) }}%"
-                                                                aria-valuenow="42.72"
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                            >
-                                                                <span>{{ number_format($item->total_physical_availabilities / 100, 2) }}%</span>
-                                                            </div>
-                                                        </div>
+                                                        {{-- <div class="progress-bar bg-{{ $persen > 60 ? $persen > 80 ? 'success' : 'warning' : 'danger' }}" role="progressbar" style="width: 100%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                                    <span>0%</span>
+                                                                </div> --}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- end physical availability VI januari --}}
+                                        {{-- end Aging VI januari --}}
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                        {{-- @dd($item) --}}
                     </div>
                 </div>
             </div>
@@ -347,13 +279,13 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
             <div class="row mt-5">
                 <div class="rekap">
                     @foreach ($semesterSums as $item)
-                        {{-- @dd($item) --}}
                         @php
                             $totalNilaiAkhir = 0;
                             $bobot = 40;
-                            $target = 21000000000; //target per semester
+                            $target = 12000000000;
                             $revenue = $item['total_value'];
                             $profit = $item['total_profit'];
+                            $aging = $item['total_agings'];
                             $nilai = ($revenue / $target) * 100;
                             $nilai_akhir = ($nilai * $bobot) / 100;
 
@@ -379,8 +311,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                         <div class="table-responsive">
                                             <h4 class="d-flex justify-content-center">KPI Corporate Semester
                                                 {{ $item['semester'] }}</h4>
-                                            <table
-                                                class="table-sm table-striped mg-b-0 text-md-nowrap table table"
+                                            <table class="table-sm table-striped mg-b-0 text-md-nowrap table table"
                                                 style="width:100%">
                                                 <thead>
                                                     <tr>
@@ -394,73 +325,48 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td style="font-size: 13px;">Revenue Perusahaan</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ $bobot . '%' }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ 'Rp' . number_format($target) }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ 'Rp' . number_format($item['total_value']) }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ ceil($nilai) . '%' }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ ceil($nilai_akhir) . '%' }}</td>
+                                                        <td style="font-size: 13px">Revenue Perusahaan</td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ $bobot . '%' }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ 'Rp' . number_format($target) }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ 'Rp' . number_format($item['total_value']) }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ ceil($nilai) . '%' }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ ceil($nilai_akhir) . '%' }}
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="font-size: 13px;">Net Profit</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ $bobot . '%' }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ number_format($target_profit) . '%' }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ 'Rp' . number_format($item['total_profit']) }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ ceil($nilai_profit) . '%' }}</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >{{ ceil($nilai_akhir_profit) . '%' }}</td>
+                                                        <td style="font-size: 13px">Net Profit</td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ $bobot . '%' }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ number_format($target_profit) . '%' }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ 'Rp' . number_format($item['total_profit']) }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ ceil($nilai_profit) . '%' }}
+                                                        </td>
+                                                        <td class="text-center" style="font-size: 13px">
+                                                            {{ ceil($nilai_akhir_profit) . '%' }}
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="font-size: 13px;">Physical Availability</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >30%</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >30%</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        ></td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        >N/A</td>
-                                                        <td
-                                                            class="text-center"
-                                                            style="font-size: 13px;"
-                                                        ></td>
+                                                        <td style="font-size: 13px">Aging</td>
+                                                        <td class="text-center" style="font-size: 13px">30%</td>
+                                                        <td class="text-center" style="font-size: 13px">30%</td>
+                                                        <td class="text-center" style="font-size: 13px"></td>
+                                                        <td class="text-center" style="font-size: 13px">N/A</td>
+                                                        <td class="text-center" style="font-size: 13px"></td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
@@ -508,22 +414,13 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
 
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script
-        type="text/javascript"
-        src="//code.jquery.com/jquery-1.11.0.min.js"
-    ></script>
-    <script
-        type="text/javascript"
-        src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
-    ></script>
-    <script
-        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js"
-    ></script>
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/fc-4.2.2/r-2.4.1/datatables.min.js">
+    </script>
     {{-- <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> --}}
-    <script
-        type="text/javascript"
-        src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"
-    ></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.slick/1.5.0/slick.min.js"></script>
     @foreach ($semesterSums as $item)
         @php
             $totalNilaiAkhir = 0;
@@ -558,7 +455,7 @@ https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
                     plotBorderWidth: 0,
                     plotShadow: false,
                     height: '80%',
-                    backgroundColor:'transparent'
+                    backgroundColor: 'transparent'
                 },
 
                 title: {

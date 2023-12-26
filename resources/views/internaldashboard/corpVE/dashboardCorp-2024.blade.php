@@ -103,13 +103,10 @@
                 <div class="col-lg-12 mt-2">
                     <!-- breadcrumb -->
                     <div class="col-md-3">
-                        <span>
-                            {{-- Last Update: {{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }} --}}
-                        </span>
                         <form method="GET" action="">
                             <div class="d-flex">
                                 <div class="me-2">
-                                    <label for="year" class="form-label">Pilih Tahun:</label>
+                                    <label for="year" class="form-label">Tahun:</label>
                                 </div>
                                 <div class="me-2">
                                     <select name="year" class="form-select" id="year">
@@ -127,241 +124,247 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
-
-                    <div class="breadcrumb-header d-flex justify-content-center">
-                        <h4 class="page-title">Verdanco Engineering 2023</h4>
-                    </div>
-                    <div class="slick-list">
-                        @foreach ($dataSUM as $item)
-                            <div class="col-md mg-md-t-0">
-                                <div class="card" id="card-slide">
-                                    <div class="card-body">
-                                        <div class="my-3">
-                                            <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
-                                                style="font-size: 16px">{{ $item->event['start'] }}
-                                            </h3>
-                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue
-                                            </h6>
-                                            <br>
-                                            @php
-                                                $pendapatan = $item->count; //total perbulan
-                                                $target = 3500000000; //target perbulan ve  4,000,000,000  ve  7,000,000,000
-                                                $persentase = ceil(($pendapatan / $target) * 100);
-                                            @endphp
-                                            {{-- @dd($persentase) --}}
-                                            <span class="card-text">Tercapai :{{ number_format($item->count) }}</span><br>
-                                            <span class="">Persentasi: {{ $persentase }}%</span>
-                                            <div class="container">
-                                                <div class="row mt-3 text-center">
-                                                    <div class="col-12">
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-{{ $persentase > 60 ? ($persentase > 80 ? 'success' : 'warning') : 'danger' }}"
-                                                                role="progressbar"
-                                                                style="width: {{ $persentase > 100 ? 100 : $persentase }}%"
-                                                                aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
-                                                                <span>{{ $persentase }}%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- end revenue VI januari --}}
-                                        {{-- Net Profit VI januari --}}
-                                        <div class="my-3">
-                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit
-                                            </h6>
-                                            <span class="card-text">
-                                                <span class="">Profit/Loss
-                                                    :{{ 'Rp.' . number_format($item->total_profit) }}</span><br>
-
-                                                @php
-                                                    $total_profit = $item->total_profit; //total perbulan
-                                                    $total_revenue = $item->count; //target perbulan vi  4,000,000,000  ve  7,000,000,000
-                                                    $persentase = ceil(($total_profit / $total_revenue) * 100);
-                                                @endphp
-                                                <span class="">Persentasi: {{ $persentase }}%</span>
-                                            </span><br>
-                                            <div class="container">
-                                                <div class="row mt-3 text-center">
-                                                    <div class="col-12">
-                                                        @if ($persentase < 6)
-                                                            <progress class="w-100" style="accent-color: red;"
-                                                                value="{{ $persentase }}" max="7"></progress>
-                                                        @elseif ($persentase < 7)
-                                                            <progress class="w-100" style="accent-color: yellow;"
-                                                                value="{{ $persentase }}" max="7"></progress>
-                                                        @else
-                                                            <progress class="w-100" style="accent-color: green;"
-                                                                value="{{ $persentase }}" max="7"></progress>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- end Net Profit VI januari --}}
-                                        {{-- physical availability VI januari --}}
-                                        <div class="my-3">
-                                            <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical
-                                                Availability</h6>
-                                            <span class="">Persentasi : %</span>
-                                            <div class="container">
-                                                <div class="row mt-3 text-center">
-                                                    <div class="col-12">
-                                                        <div class="progress">
-                                                            <div class="progress-bar bg-dabger" role="progressbar"
-                                                                style="width: %" aria-valuenow="42.72" aria-valuemin="0"
-                                                                aria-valuemax="100">
-                                                                <span>%</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{-- end physical availability VI januari --}}
-                                    </div>
-                                </div>
-                            </div>
+                        <span>
+                            @foreach ($item as $i)
+                                Last Update: {{ \Carbon\Carbon::parse($i->updated_at)->format('d M Y') }}
+                            @break
                         @endforeach
-                    </div>
+                    </span>
                 </div>
-                <div class="row">
-                    <div class="rekap" data-aos="fade-right" data-aos-duration="1000">
-                        @foreach ($semesterSums as $item)
-                            @php
-                                $totalNilaiAkhir = 0;
-                                $bobot = 40;
-                                $target = 21000000000; //target per semester
-                                $revenue = $item['total_value'];
-                                $profit = $item['total_profit'];
-                                $nilai = ($revenue / $target) * 100;
-                                $nilai_akhir = ($nilai * $bobot) / 100;
 
-                                $bobot_profit = 30;
-                                $target_profit = 7;
-                                $pencapaian_profit = $item['total_profit'];
-                                $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-                                if ($nilai_profit < 0) {
-                                    $nilai_profit = 0;
-                                }
-                                $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
-
-                                if ($nilai_akhir_profit < 0) {
-                                    $nilai_akhir_profit = 0;
-                                }
-
-                                $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
-                            @endphp
-                            <div class="card" id="card-rekap">
+                <div class="breadcrumb-header d-flex justify-content-center">
+                    <h4 class="page-title">Verdanco Engineering {{ $selectedYear }}</h4>
+                </div>
+                <div class="slick-list">
+                    @foreach ($dataSUM as $item)
+                        <div class="col-md mg-md-t-0">
+                            <div class="card" id="card-slide">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="table-responsive">
-                                                <h4 class="d-flex justify-content-center">KPI Corporate
-                                                    Semester {{ $item['semester'] }}</h4>
-                                                <table class="table-sm table-striped mg-b-0 text-md-nowrap table table"
-                                                    style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="font-size: 13px;">Item KPI</th>
-                                                            <th style="font-size: 13px;">Bobot</th>
-                                                            <th style="font-size: 13px;">Target</th>
-                                                            <th style="font-size: 13px;">Pencapaian</th>
-                                                            <th style="font-size: 13px;">Nilai</th>
-                                                            <th style="font-size: 13px;">Hasil Akhir</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="font-size: 13px;">Revenue Perusahaan</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ $bobot . '%' }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ 'Rp' . number_format($target) }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ 'Rp' . number_format($item['total_value']) }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ ceil($nilai) . '%' }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ ceil($nilai_akhir) . '%' }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-size: 13px;">Net Profit</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ $bobot . '%' }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ number_format($target_profit) . '%' }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ 'Rp' . number_format($item['total_profit']) }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ ceil($nilai_profit) . '%' }}</td>
-                                                            <td class="text-center" style="font-size: 13px;">
-                                                                {{ ceil($nilai_akhir_profit) . '%' }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-size: 13px;">Physical Availability</td>
-                                                            <td class="text-center" style="font-size: 13px;">30%</td>
-                                                            <td class="text-center" style="font-size: 13px;">30%</td>
-                                                            <td class="text-center" style="font-size: 13px;"></td>
-                                                            <td class="text-center" style="font-size: 13px;">N/A</td>
-                                                            <td class="text-center" style="font-size: 13px;"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th colspan="5">Total</th>
-                                                            <th class="text-center">{{ ceil($totalNilaiAkhir) . '%' }}
-                                                            </th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
+                                    <div class="my-3">
+                                        <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
+                                            style="font-size: 16px">{{ $item->event['start'] }}
+                                        </h3>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue
+                                        </h6>
+                                        <br>
+                                        @php
+                                            $pendapatan = $item->count; //total perbulan
+                                            $target = 3500000000; //target perbulan ve  4,000,000,000  ve  7,000,000,000
+                                            $persentase = ceil(($pendapatan / $target) * 100);
+                                        @endphp
+                                        {{-- @dd($persentase) --}}
+                                        <span class="card-text">Tercapai :{{ number_format($item->count) }}</span><br>
+                                        <span class="">Persentasi: {{ $persentase }}%</span>
+                                        <div class="container">
+                                            <div class="row mt-3 text-center">
+                                                <div class="col-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-{{ $persentase > 60 ? ($persentase > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            role="progressbar"
+                                                            style="width: {{ $persentase > 100 ? 100 : $persentase }}%"
+                                                            aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ $persentase }}%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div>
-                                                <div>
-                                                    <div id="corporate{{ $item['semester'] }}" style="height:300px;">
+                                    </div>
+                                    {{-- end revenue VI januari --}}
+                                    {{-- Net Profit VI januari --}}
+                                    <div class="my-3">
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit
+                                        </h6>
+                                        <span class="card-text">
+                                            <span class="">Profit/Loss
+                                                :{{ 'Rp.' . number_format($item->total_profit) }}</span><br>
+
+                                            @php
+                                                $total_profit = $item->total_profit; //total perbulan
+                                                $total_revenue = $item->count; //target perbulan vi  4,000,000,000  ve  7,000,000,000
+                                                $persentase = ceil(($total_profit / $total_revenue) * 100);
+                                            @endphp
+                                            <span class="">Persentasi: {{ $persentase }}%</span>
+                                        </span><br>
+                                        <div class="container">
+                                            <div class="row mt-3 text-center">
+                                                <div class="col-12">
+                                                    @if ($persentase < 6)
+                                                        <progress class="w-100" style="accent-color: red;"
+                                                            value="{{ $persentase }}" max="7"></progress>
+                                                    @elseif ($persentase < 7)
+                                                        <progress class="w-100" style="accent-color: yellow;"
+                                                            value="{{ $persentase }}" max="7"></progress>
+                                                    @else
+                                                        <progress class="w-100" style="accent-color: green;"
+                                                            value="{{ $persentase }}" max="7"></progress>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- end Net Profit VI januari --}}
+                                    {{-- physical availability VI januari --}}
+                                    <div class="my-3">
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical
+                                            Availability</h6>
+                                        <span class="">Persentasi : %</span>
+                                        <div class="container">
+                                            <div class="row mt-3 text-center">
+                                                <div class="col-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-dabger" role="progressbar"
+                                                            style="width: %" aria-valuenow="42.72" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                            <span>%</span>
+                                                        </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- end physical availability VI januari --}}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            <div class="row">
+                <div class="rekap" data-aos="fade-right" data-aos-duration="1000">
+                    @foreach ($semesterSums as $item)
+                        @php
+                            $totalNilaiAkhir = 0;
+                            $bobot = 40;
+                            $target = 21000000000; //target per semester
+                            $revenue = $item['total_value'];
+                            $profit = $item['total_profit'];
+                            $nilai = ($revenue / $target) * 100;
+                            $nilai_akhir = ($nilai * $bobot) / 100;
+
+                            $bobot_profit = 30;
+                            $target_profit = 7;
+                            $pencapaian_profit = $item['total_profit'];
+                            $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                            if ($nilai_profit < 0) {
+                                $nilai_profit = 0;
+                            }
+                            $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+
+                            if ($nilai_akhir_profit < 0) {
+                                $nilai_akhir_profit = 0;
+                            }
+
+                            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                        @endphp
+                        <div class="card" id="card-rekap">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="table-responsive">
+                                            <h4 class="d-flex justify-content-center">KPI Corporate
+                                                Semester {{ $item['semester'] }}</h4>
+                                            <table class="table-sm table-striped mg-b-0 text-md-nowrap table table"
+                                                style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="font-size: 13px;">Item KPI</th>
+                                                        <th style="font-size: 13px;">Bobot</th>
+                                                        <th style="font-size: 13px;">Target</th>
+                                                        <th style="font-size: 13px;">Pencapaian</th>
+                                                        <th style="font-size: 13px;">Nilai</th>
+                                                        <th style="font-size: 13px;">Hasil Akhir</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Revenue Perusahaan</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ $bobot . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ 'Rp' . number_format($target) }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ 'Rp' . number_format($item['total_value']) }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ ceil($nilai) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ ceil($nilai_akhir) . '%' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Net Profit</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ $bobot . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ number_format($target_profit) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ 'Rp' . number_format($item['total_profit']) }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ ceil($nilai_profit) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">
+                                                            {{ ceil($nilai_akhir_profit) . '%' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="font-size: 13px;">Physical Availability</td>
+                                                        <td class="text-center" style="font-size: 13px;">30%</td>
+                                                        <td class="text-center" style="font-size: 13px;">30%</td>
+                                                        <td class="text-center" style="font-size: 13px;"></td>
+                                                        <td class="text-center" style="font-size: 13px;">N/A</td>
+                                                        <td class="text-center" style="font-size: 13px;"></td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="5">Total</th>
+                                                        <th class="text-center">{{ ceil($totalNilaiAkhir) . '%' }}
+                                                        </th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div>
+                                            <div>
+                                                <div id="corporate{{ $item['semester'] }}" style="height:300px;">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card text-center">
-                        <div class="card-title">
-                            <h4 class="d-flex justify-content-center mt-3">Diagram top 3 Tipe Pekerjaan (Revenue)</h4>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
+                    @endforeach
+                </div>
+            </div>
+            <div class="row">
+                <div class="card text-center">
+                    <div class="card-title">
+                        <h4 class="d-flex justify-content-center mt-3">Diagram top 3 Tipe Pekerjaan (Revenue)</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="top3" style="height:400px;"></div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="col-md-4">
-                                    <div id="top3" style="height:400px;"></div>
+                                    <div id="top3-2" style="width: 300px;height:300px;"></div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="col-md-4">
-                                    <div class="col-md-4">
-                                        <div id="top3-2" style="width: 300px;height:300px;"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-4">
-                                        <div id="top3-3" style="width: 300px;height:300px;"></div>
-                                    </div>
+                                    <div id="top3-3" style="width: 300px;height:300px;"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- coba chart --}}
             </div>
-            <!-- Container closed -->
+            {{-- coba chart --}}
         </div>
-        <!-- main-content closed -->
+        <!-- Container closed -->
+    </div>
+    <!-- main-content closed -->
     @section('script')
         {{-- Echart --}}
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
