@@ -20,9 +20,15 @@ class DashboardDeptVIController extends Controller
     public function index(Request $request)
         {
             // Load the necessary data
-            $events = Event::get(); // Load events data
+            $events = Event::orderBy('id','desc')->get(); // Load events data
             $dept = Departement::get(); // Load departments data
-            $filterEvent = $request->input('event_id', 1); // Get filter event from request
+            // $filterEvent = $request->input('event_id', 1); // Get filter event from request
+
+            $lastFilter = Viitem::orderBy('event_id', 'desc')->value('event_id');
+            $filterEvent = $lastFilter ? $lastFilter : 1;
+            if ($request->has('event_id')) {
+                $filterEvent = $request->input('event_id');
+            }
             
             // Get the user's departments
             $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
