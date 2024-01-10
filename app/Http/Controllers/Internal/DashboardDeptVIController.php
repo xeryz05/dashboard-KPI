@@ -22,7 +22,6 @@ class DashboardDeptVIController extends Controller
             // Load the necessary data
             $events = Event::orderBy('id','desc')->get(); // Load events data
             $dept = Departement::get(); // Load departments data
-            // $filterEvent = $request->input('event_id', 1); // Get filter event from request
 
             $lastFilter = Viitem::orderBy('event_id', 'desc')->value('event_id');
             $filterEvent = $lastFilter ? $lastFilter : 1;
@@ -34,7 +33,7 @@ class DashboardDeptVIController extends Controller
             $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
 
             // Get VE items based on user departments and filter event
-            $viitems = $this->getVeitems($userDepartments, $filterEvent);
+            $viitems = $this->getViitems($userDepartments, $filterEvent);
 
             // Group VE items by department
             $viitemsByDepartment = $viitems->groupBy('departement_id');
@@ -53,7 +52,7 @@ class DashboardDeptVIController extends Controller
         {
             return Auth::user()->departement->pluck('id');
         }
-        private function getVeitems($userDepartments, $filterEvent)
+        private function getViitems($userDepartments, $filterEvent)
         {
             return Viitem::whereHas('departement', function ($query) use ($userDepartments) {
                 $query->whereIn('id', $userDepartments);

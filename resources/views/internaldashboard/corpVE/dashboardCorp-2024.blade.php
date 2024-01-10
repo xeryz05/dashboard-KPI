@@ -1,5 +1,5 @@
 @section('title')
-    Dashboard VE
+    Dashboard Corp VE
 @endsection
 @extends('layouts.app')
 {{-- @extends('admin.dashboard') --}}
@@ -111,7 +111,7 @@
                                 <div class="me-2">
                                     <select name="year" class="form-select" id="year">
                                         <option value="">-- Semua Tahun --</option>
-                                        @foreach (range(date('Y'), 2024, -1) as $year)
+                                        @foreach (range(date('Y'), 2023, -1) as $year)
                                             <option value="{{ $year }}"
                                                 {{ $selectedYear == $year ? 'selected' : '' }}>
                                                 {{ $year }}
@@ -125,10 +125,10 @@
                             </div>
                         </form>
                         <span>
-                            @foreach ($item as $i)
+                            {{-- @foreach ($item as $i)
                                 Last Update: {{ \Carbon\Carbon::parse($i->updated_at)->format('d M Y') }}
                             @break
-                        @endforeach
+                        @endforeach --}}
                     </span>
                 </div>
 

@@ -57,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
     //dashboard departement vi
     Route::get('/deptVI', [DashboardDeptVIController::class, 'index'])->name('deptVI');
     //dashboard departement ve
-    Route::get('/deptVE', [DashboardDeptVEController::class, 'index'])->name('deptVE');
+    Route::get('/deptVE', [DashboardDeptVEController::class, 'index','corp'])->name('deptVE');
+    // Route::get('/deptVE', [DashboardDeptVEController::class, 'corp'])->name('deptVE');
     //dashboard corporate vi
     Route::get('/CorVE', [CorporateveController::class, 'index'])->name('CorVE');
     //dashboard corporate ve

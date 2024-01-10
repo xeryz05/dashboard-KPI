@@ -6,6 +6,12 @@
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     >
+
+    <!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> --}}
 
     {{-- @yield('style') --}}
@@ -13,6 +19,38 @@
     @foreach ($groupVeitems as $departementId => $veitems)
         @foreach ($veitems as $veitem)
             <style>
+                .slick-prev:before,
+        .slick-next:before {
+            color: rgba(99, 97, 97, 0.285);
+        }
+
+        .slick-prev,
+        .slick-next {
+            top: 240px;
+            bottom: 100px;
+            right: 35px;
+            z-index: 10;
+        }
+
+        .slick-prev {
+            left: 5px;
+        }
+
+        .slick-next {
+            right: 5px;
+        }
+
+        < !-- Style the bar as you like -->.my-slider-progress {
+            background: #ccc;
+        }
+
+        .my-slider-progress-bar {
+            background: greenyellow;
+            height: 2px;
+            transition: width 400ms ease;
+            width: 0;
+        }
+
                 #tombolNya {
                     z-index: 99;
                     /* agar tak tersembunyi di balik element lain */
@@ -94,29 +132,17 @@
                         </div>
                         <div class="d-flex">
                             <div class="mb-xl-0 pe-1">
-                                <form
-                                    class="d-flex"
-                                    action=""
-                                    method="GET"
-                                >
-                                    <select
-                                        class="form-select"
-                                        name="event_id"
-                                    >
-                                        {{-- <option value="1">All Data</option> --}}
-                                        {{-- periode --}}
-                                        @foreach ($events as $item)
-                                            <option
-                                                value="{{ $item->id }}"
-                                                {{ $item->id == $filterEvent ? 'selected' : '' }}
-                                            >{{ $item->start }} {{ $item->end }}</option>
+                                <form method="get">
+                                    <label for="event_id">Filter by Event:</label>
+                                    <select name="event_id" id="event_id">
+                                        <option value="">All Events</option>
+                                        @foreach ($events as $event)
+                                            <option value="{{ $event->id }}" {{ $eventFilter == $event->id ? 'selected' : '' }}>
+                                                {{ $event->start }}
+                                            </option>
                                         @endforeach
-                                        {{-- end periode --}}
                                     </select>
-                                    <button
-                                        class="btn btn-outline-secondary ml-2"
-                                        id="apply_filter"
-                                    >Apply</button>
+                                    <button type="submit">Filter</button>
                                 </form>
                             </div>
                         </div>
@@ -130,30 +156,130 @@
                 </div>
                 <!-- End Row -->
                 <!-- Row -->
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div
-                                    id="avg"
-                                    style="height:300px;"
-                                ></div>
-                                <div class="">
-                                    <div>
-                                        {{-- <div id="summary"></div> --}}
-                                        {{-- {{ $persentase }}% --}}
-                                        {{-- @foreach ($veitemsByDepartment as $departmentId => $veitems)
-                                        @if ($loop->first)
-                                            @php $firstVeitem = $veitems[0]; @endphp
-                                            <h4 class="page-title d-flex justify-content-center">{{ $firstVeitem->event['start'] }} {{ $firstVeitem->event['end'] }}</h4>
-                                        @endif
-                                    @endforeach --}}
-                                        {{-- nanti di idupin lagi --}}
-                                    </div>
-                                </div>
+                {{-- <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>@fat</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td colspan="2">Larry the Bird</td>
+                                            <td>@twitter</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
                             </div>
                         </div>
-                        <div class="col-md-8">
+                    </div>
+                </div> --}}
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="card">
+                                @foreach ($semesterSums as $item)
+                                    @php
+                                        $totalNilaiAkhir = 0;
+                                        $bobot = 40;
+                                        $bobot_profit = 30;
+
+                                        // Pilih rentang filter berdasarkan nilai semester
+                                        if ($item['semester'] >= 1 && $item['semester'] <= 6) {
+                                            $target = 21000000000; // target per semester untuk rentang 1-6
+                                            $target_profit = 7; // target profit untuk rentang 1-6
+                                        } elseif ($item['semester'] >= 7 && $item['semester'] <= 12) {
+                                            $target = 21000000000; // target per semester untuk rentang 7-12
+                                            $target_profit = 7; // target profit untuk rentang 7-12
+                                        } elseif ($item['semester'] >= 13 && $item['semester'] <= 18) {
+                                            $target =  21000000000;// target per semester untuk rentang 13-18
+                                            $target_profit = 7; // target profit untuk rentang 13-18
+                                        } else {
+                                            // Handle jika nilai semester di luar dari ketiga rentang di atas
+                                            // Misalnya, set target dan target_profit ke nilai default
+                                            $target = 0;
+                                            $target_profit = 0;
+                                        }
+
+                                        // Lanjutkan dengan perhitungan seperti yang telah Anda lakukan sebelumnya
+                                        $revenue = $item['total_value'];
+                                        $profit = $item['total_profit'];
+                                        $nilai = ($revenue / $target) * 100;
+                                        $nilai_akhir = ($nilai * $bobot) / 100;
+
+                                        $pencapaian_profit = $item['total_profit'];
+                                        $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                                        if ($nilai_profit < 0) {
+                                            $nilai_profit = 0;
+                                        }
+                                        $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+
+                                        if ($nilai_akhir_profit < 0) {
+                                            $nilai_akhir_profit = 0;
+                                        }
+
+                                        $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                                    @endphp
+
+                                    <div id="corporate" style="width: 300px;height:300px;"> {{ ceil($totalNilaiAkhir) }}</div>
+                                @endforeach
+
+                                {{-- @foreach ($semesterSums as $item)
+                                    @php
+                                        $totalNilaiAkhir = 0;
+                                        $bobot = 40;
+                                        $target = 21000000000; //target per semester
+                                        $revenue = $item['total_value'];
+                                        $profit = $item['total_profit'];
+                                        $nilai = ($revenue / $target) * 100;
+                                        $nilai_akhir = ($nilai * $bobot) / 100;
+
+                                        $bobot_profit = 30;
+                                        $target_profit = 7;
+                                        $pencapaian_profit = $item['total_profit'];
+                                        $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                                        if ($nilai_profit < 0) {
+                                            $nilai_profit = 0;
+                                        }
+                                        $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+
+                                        if ($nilai_akhir_profit < 0) {
+                                            $nilai_akhir_profit = 0;
+                                        }
+
+                                        $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                                    @endphp
+                                        <div id="corporate{{ $item['semester'] }}" style="width: 300px;height:300px;"></div>
+                                @endforeach --}}
+                                    {{-- <div class="rekap">
+                                        @foreach ($semesterSums as $item)
+                                        <div id="corporate{{ $item['semester'] }}" style="width: 200px;height:400px;"></div>
+                                        @endforeach
+                                    </div> --}}
+                            </div>
+                        </div>
+                        <div class="col-md-7">
                             <div class="card">
                                 <table class="table">
                                     <thead>
@@ -419,6 +545,18 @@
     </div>
 
     @section('script')
+        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        {{-- <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> --}}
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script>
+            $('.rekap').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear'
+            });
+        </script>
         <script>
             function rotateArrow(id) {
                 var arrow = document.getElementById(id);
@@ -470,105 +608,148 @@
     @endsection
 
     @include('layouts.script')
-    <script type="text/javascript">
-        // Initialize the echarts instance based on the prepared dom
-        var myChart = echarts.init(document.getElementById('avg'));
-
-        // Specify the configuration items and data for the chart
-        option = {
-            title: {
-                text: 'Corporate',
-                left: 'center',
-                // rich: {}
-            },
-            series: [{
-                type: 'gauge',
-                startAngle: 180,
-                endAngle: 0,
-                center: ['50%', '75%'],
-                radius: '90%',
-                min: 0,
-                max: 100,
-                animation: false,
-                splitNumber: 8,
-                axisLine: {
-                    lineStyle: {
-                        width: 6,
-                        color: [
-                            [0.60, '#FF6E76'],
-                            [0.75, '#FDDD60'],
-                            // [0.75, '#58D9F9'],
-                            [1, '#7CFFB2']
-                        ]
-                    }
-                },
-                pointer: {
-                    icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-                    length: '12%',
-                    width: 20,
-                    offsetCenter: [0, '-60%'],
-                    itemStyle: {
-                        color: 'auto'
-                    }
-                },
-                axisTick: {
-                    length: 12,
-                    lineStyle: {
-                        color: 'auto',
-                        width: 2
-                    }
-                },
-                splitLine: {
-                    length: 20,
-                    lineStyle: {
-                        color: 'auto',
-                        width: 5
-                    }
-                },
-                axisLabel: {
-                    color: '#464646',
-                    fontSize: 20,
-                    distance: -60,
-                    rotate: 'tangential',
-                    formatter: function(value) {
-                        if (value === 0.875) {
-                            return 'Grade A';
-                        } else if (value === 0.625) {
-                            return 'Grade B';
-                        } else if (value === 0.375) {
-                            return 'Grade C';
-                        } else if (value === 0.125) {
-                            return 'Grade D';
-                        }
-                        return '';
-                    }
-                },
-                title: {
-                    offsetCenter: [0, '-10%'],
-                    fontSize: 20
-                },
-                detail: {
-                    fontSize: 30,
-                    offsetCenter: [0, '-35%'],
-                    valueAnimation: true,
-                    formatter: function(value) {
-                        return Math.round(value * 1) + '';
-                    },
-                    color: 'inherit'
-                },
-                data: [{
-                    value: 37,
-                    name: 'Grade Rating'
-                }]
-            }]
-        };
-
-        // Display the chart using the configuration items and data just specified.
-        myChart.setOption(option);
-    </script>
-
     {{-- grafik untuk kolom --}}
     {{-- @forelse ($veitemsByDepartment as $departmentId => $veitems) --}}
+    @foreach ($data as $item)
+            {{-- @php
+                $totalNilaiAkhir = 0;
+                $bobot = 40;
+                $bobot_profit = 30;
+
+                // Pilih rentang filter berdasarkan nilai semester
+                if ($item['semester'] >= 1 && $item['semester'] <= 6) {
+                    $target = 21000000000; // target per semester untuk rentang 1-6
+                    $target_profit = 7; // target profit untuk rentang 1-6
+                } elseif ($item['semester'] >= 7 && $item['semester'] <= 12) {
+                    $target = 21000000000; // target per semester untuk rentang 7-12
+                    $target_profit = 7; // target profit untuk rentang 7-12
+                } elseif ($item['semester'] >= 13 && $item['semester'] <= 18) {
+                    $target =  21000000000;// target per semester untuk rentang 13-18
+                    $target_profit = 7; // target profit untuk rentang 13-18
+                } else {
+                    // Handle jika nilai semester di luar dari ketiga rentang di atas
+                    // Misalnya, set target dan target_profit ke nilai default
+                    $target = 0;
+                    $target_profit = 0;
+                }
+
+                // Lanjutkan dengan perhitungan seperti yang telah Anda lakukan sebelumnya
+                $revenue = $item['total_value'];
+                $profit = $item['total_profit'];
+                $nilai = ($revenue / $target) * 100;
+                $nilai_akhir = ($nilai * $bobot) / 100;
+
+                $pencapaian_profit = $item['total_profit'];
+                $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
+                if ($nilai_profit < 0) {
+                    $nilai_profit = 0;
+                }
+                $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
+
+                if ($nilai_akhir_profit < 0) {
+                    $nilai_akhir_profit = 0;
+                }
+
+                $totalNilaiAkhir = $nilai_akhir + $nilai_akhir_profit;
+            @endphp --}}
+
+            <script type="text/javascript">
+                // Initialize the echarts instance based on the prepared dom
+                var myChart = echarts.init(document.getElementById('corporate{{ $item->id }}'));
+
+                // Specify the configuration items and data for the chart
+                option = {
+                    title: {
+                        text: 'Corporate',
+                        left: 'center',
+                        // rich: {}
+                    },
+                    series: [{
+                        type: 'gauge',
+                        startAngle: 180,
+                        endAngle: 0,
+                        center: ['50%', '75%'],
+                        radius: '90%',
+                        min: 0,
+                        max: 100,
+                        animation: false,
+                        splitNumber: 8,
+                        axisLine: {
+                            lineStyle: {
+                                width: 6,
+                                color: [
+                                    [0.60, '#FF6E76'],
+                                    [0.75, '#FDDD60'],
+                                    // [0.75, '#58D9F9'],
+                                    [1, '#7CFFB2']
+                                ]
+                            }
+                        },
+                        pointer: {
+                            icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
+                            length: '12%',
+                            width: 20,
+                            offsetCenter: [0, '-60%'],
+                            itemStyle: {
+                                color: 'auto'
+                            }
+                        },
+                        axisTick: {
+                            length: 12,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 2
+                            }
+                        },
+                        splitLine: {
+                            length: 20,
+                            lineStyle: {
+                                color: 'auto',
+                                width: 5
+                            }
+                        },
+                        axisLabel: {
+                            color: '#464646',
+                            fontSize: 10,
+                            distance: -60,
+                            rotate: 'tangential',
+                            formatter: function(value) {
+                                if (value === 0.875) {
+                                    return 'Grade A';
+                                } else if (value === 0.625) {
+                                    return 'Grade B';
+                                } else if (value === 0.375) {
+                                    return 'Grade C';
+                                } else if (value === 0.125) {
+                                    return 'Grade D';
+                                }
+                                return '';
+                            }
+                        },
+                        title: {
+                            offsetCenter: [0, '-10%'],
+                            fontSize: 20
+                        },
+                        detail: {
+                            fontSize: 30,
+                            offsetCenter: [0, '-35%'],
+                            valueAnimation: true,
+                            formatter: function(value) {
+                                return Math.round(value * 1) + '';
+                            },
+                            color: 'inherit'
+                        },
+                        data: [{
+                            value: [$item->value],
+                            name: 'Grade Rating'
+                        }]
+                    }]
+                };
+
+                // Display the chart using the configuration items and data just specified.
+                myChart.setOption(option);
+            </script>
+        @endforeach
     @forelse($groupVeitems as $departementId => $veitems)
         @foreach ($veitems as $veitem)
             <script type="text/javascript">

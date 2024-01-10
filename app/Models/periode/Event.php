@@ -9,6 +9,7 @@ use App\Models\corporate\Virev;
 use App\Models\Departement\veitem;
 use App\Models\Departement\viitem;
 use App\Models\corporate\PhysicalAvailability;
+use App\Models\Departement\deptSemester;
 
 class Event extends Model
 {
@@ -47,5 +48,9 @@ class Event extends Model
     public function PhysicalAvailability()
     {
         return $this->hasMany(PhysicalAvailability::class);
+    }
+    public function deptSemester()
+    {
+        return $this->belongsTo(deptSemester::class);
     }
 }

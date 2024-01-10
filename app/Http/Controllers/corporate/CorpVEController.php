@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class CorpVEController extends Controller
 {
-    public function index(Request $request)
-    {
+    public function index(Request $request){
+        
         // Ambil tahun dari request, jika tidak ada, gunakan tahun default
         $selectedYear = $request->input('year', date('Y'));
         // Ambil verevs yang sesuai dengan tahun dari tabel events
@@ -22,7 +22,6 @@ class CorpVEController extends Controller
         })->get();
         // Ambil semua events untuk ditampilkan pada dropdown filter
         $events = Event::distinct('year')->pluck('year');
-
         // Menghitung data berdasarkan event_id yang sama
         $dataSUM = Verev::select(
             'verevs.event_id as event_id',
@@ -39,11 +38,7 @@ class CorpVEController extends Controller
             ->groupBy('verevs.event_id')
             ->get();
 
-
         $item = Verev::select('updated_at')->latest()->first();
-        // dd($item);
-
-
         $semesterSums = [];
         $semester = $dataSUM->chunk(6);
 
@@ -58,14 +53,12 @@ class CorpVEController extends Controller
                 // You may add other fields you want to sum here
             ];
         }
-        // dd($semester);
-
-        // Ambil verevs yang sesuai dengan tahun dari tabel events
+        // dd($semesterSums);
         $records = DB::table('verevs')
             ->selectRaw('verevs.job_id as job_id,
                             jobs.name as job_name,
                             SUM(verevs.value) as total_value,
-                            (SUM(verevs.value) / (SELECT SUM(value) FROM verevs)) * 100 as percentage')
+                            (SUM(verevs.value) / (SELECT SUM(value) FROM virevs)) * 100 as percentage')
             ->leftJoin('jobs', 'verevs.job_id', '=', 'jobs.id')
             ->leftJoin('events', 'verevs.event_id', '=', 'events.id') // Adjust the relationship based on your actual database structure
             ->where('events.year', $selectedYear) // Adjust the column name based on your actual database structure
@@ -74,7 +67,7 @@ class CorpVEController extends Controller
             ->take(3)
             ->get();
 
+            return view('internaldashboard.corpVE.dashboardCorp-2024', compact( 'events', 'selectedYear', 'dataSUM', 'semesterSums', 'item','records'));
 
-        return view('internaldashboard.corpVE.dashboardCorp-2024', compact('verevs', 'events', 'selectedYear', 'dataSUM', 'semesterSums', 'item', 'records'));
-    }
+        }
 }
