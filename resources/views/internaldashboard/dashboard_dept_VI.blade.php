@@ -70,10 +70,10 @@
             <div class="row">
                 <div class="breadcrumb-header justify-content-between">
                     <div class="my-auto" >
-                        @foreach ($viitemsByDepartment as $departmentId => $viitems)
+                        @foreach ($groupViitems as $departmentId => $viitems)
                             @if ($loop->first)
                                 @php $firstViitem = $viitems[0]; @endphp
-                                <h4 class="page-title">KPI Corporate {{ $firstViitem->event['start'] }} {{ $firstViitem->event['end'] }}</h4>
+                                <h4 class="page-title">KPI Corporate {{ $firstViitem->event['start'] }}</h4>
                             @endif
                         @endforeach
                         <ol class="breadcrumb">
@@ -87,7 +87,7 @@
                                 <select class="form-select" name="event_id">
                                     {{-- <option value="1">All Data</option> --}}
                                     @foreach ($events as $item)
-                                        <option value="{{ $item->id }}" {{ $item->id == $filterEvent ? 'selected' : '' }}>{{ $item->start }} {{ $item->end }}</option>
+                                        <option value="{{ $item->id }}" {{ $item->id == $filterEvent ? 'selected' : '' }}>{{ $item->start }}</option>
                                     @endforeach
                                 </select>
                                 <button class="btn btn-outline-secondary ml-2" id="apply_filter">Apply</button>
@@ -110,16 +110,8 @@
                         <div class="card">
                             <div class="">
                                 <div>
-                                    <div
-                                        id="summary"
-                                        style="height:300px;"
-                                    ></div>
-                                    {{-- {{ $persentase }}% --}}
-                                    @foreach ($viitemsByDepartment as $departmentId => $viitems)
-                                        @if ($loop->first)
-                                            @php $firstViitem = $viitems[0]; @endphp
-                                            <h4 class="page-title d-flex justify-content-center">{{ $firstViitem->event['start'] }} {{ $firstViitem->event['end'] }}</h4>
-                                        @endif
+                                    @foreach ($deptsems as $item)
+                                        <div id="summary{{ $item->id }}" style="height:300px;"></div>
                                     @endforeach
                                 </div>
                             </div>
@@ -169,7 +161,7 @@
                                                                         @foreach ($sortedDepartments as $departmentId => $totalPercentage)
                                                                             <tr>
                                                                                 <td>{{ $loop->iteration }}</td>
-                                                                                <td><a href="#item{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}">{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}</a></td>
+                                                                                <td><a href="#item{{ $groupViitems[$departmentId]->first()->departement['name'] }}">{{ $groupViitems[$departmentId]->first()->departement['name'] }}</a></td>
                                                                                 <td>{{ number_format($totalPercentage, 2) . '%' }}</td>
                                                                             </tr>
                                                                         @endforeach
@@ -192,8 +184,8 @@
                 </div>
             </div>
             {{-- @forelse ($veitems as  $departmentId => $items) --}}
-            @forelse($viitemsByDepartment as $departmentId => $viitems)
-            <div class="card" id="item{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}">
+            @forelse($groupViitems as $departmentId => $viitems)
+            <div class="card" id="item{{ $groupViitems[$departmentId]->first()->departement['name'] }}">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
@@ -202,7 +194,7 @@
                                 </thead>
                                 <tbody>
                                     <div class="d-flex justify-content-center mt-3">
-                                        <span class="fw-bolder fs-5">{{ $viitemsByDepartment[$departmentId]->first()->departement['name'] }}</span>
+                                        <span class="fw-bolder fs-5">{{ $groupViitems[$departmentId]->first()->departement['name'] }}</span>
                                     </div>
                                     <div id="avg{{ $departmentId }}" style="height:300px;"></div>
                                 </tbody>
@@ -379,9 +371,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
+    @foreach ($deptsems as $item)
+        <script type="text/javascript">
         // Initialize the echarts instance based on the prepared dom
-        var myChart = echarts.init(document.getElementById('summary'));
+        var myChart = echarts.init(document.getElementById('summary{{ $item->id }}'));
 
         // Specify the configuration items and data for the chart
         option = {
@@ -466,7 +459,7 @@
                     color: 'inherit'
                 },
                 data: [{
-                    value: 37,
+                    value: {{ $item->value }},
                     name: 'Grade Rating'
                 }]
             }]
@@ -475,6 +468,8 @@
         // Display the chart using the configuration items and data just specified.
         myChart.setOption(option);
     </script>
+    @endforeach
+    
 
     <script>
 
@@ -499,7 +494,7 @@
     @include('layouts.script')
     
 
-    @forelse ($viitemsByDepartment as $departmentId => $viitems)
+    @forelse ($groupViitems as $departmentId => $viitems)
         @foreach ($viitems as $viitem)
         <script type="text/javascript">
                 // Initialize the echarts instance based on the prepared dom

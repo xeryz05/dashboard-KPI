@@ -30,7 +30,8 @@ class DashboardDeptVEController extends Controller
     public function index(Request $request)
         {
             // Load the necessary data
-            $events = Event::orderBy('id','desc')->get(); // Load events data
+            $periode = Event::orderBy('id')->get(); // Load events data
+            $events = $periode->skip(12);
             $dept = Departement::get(); // Load departments data
 
             $lastFilter = Veitem::orderBy('event_id', 'desc')->value('event_id');
@@ -43,10 +44,12 @@ class DashboardDeptVEController extends Controller
             $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
 
             // Get VE items based on user departments and filter event
-            $viitems = $this->getVeitems($userDepartments, $eventFilter);
+            $veitems = $this->getVeitems($userDepartments, $eventFilter);
 
             // Group VE items by department
-            $groupVeitems = $viitems->groupBy('departement_id');
+            $groupVeitems = $veitems->groupBy('departement_id');
+
+            // dd($groupVeitems);
             // Calculate sum by department
             $sumByDepartment = $this->calculateSumByDepartment($groupVeitems);
             
@@ -54,72 +57,43 @@ class DashboardDeptVEController extends Controller
             $total = $sumByDepartment->sum();
             $totalDepartements = $sumByDepartment->count();
             $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
+
+            $deptsems = deptSemester::where('event_id', $eventFilter)->get();
+
+            // dd($deptsems);
             
 
-            // $data = Verev::selectRaw('events.start as event,
-            //                 SUM(verevs.value) as total_value,
-            //                 SUM(profits.value) as total_profit,
-            //                 SUM(physical_availabilities.value) as total_physical_availabilities')
-            // ->join('events', 'events.id', '=', 'verevs.event_id')
-            // ->leftJoin('profits', 'events.id', '=', 'profits.event_id')
-            // ->leftJoin('physical_availabilities', 'events.id', '=', 'physical_availabilities.event_id')
-            // ->where('events.id', $eventFilter) // Menambahkan kondisi WHERE untuk event_id
-            // ->groupBy('event')
-            // ->get();
-
-            // $semesterSums = [];
-            // $semester = $data->chunk(6);
-
-            // foreach ($semester as $index => $chunk) {
-            //     $chunkSum = $chunk->sum('total_value'); // Menghitung total_value untuk setiap bagian
-            //     $chunkProfitSum = $chunk->sum('total_profit'); // Menghitung total_profit untuk setiap bagian
-            //     $chunkAgingsSum = $chunk->sum('total_agings'); // Menghitung total_agings untuk setiap bagian
-
-            //     $semesterSums[$index] = [
-            //         'semester' => $index + 1, // Menambahkan field "semester" dengan nilai indeks + 1
-            //         'total_value' => $chunkSum,
-            //         'total_profit' => $chunkProfitSum,
-            //         'total_agings' => $chunkAgingsSum,
-            //     ];
-            // }
-
-            $data = Verev::selectRaw('events.id,
-                            events.start as event,
+            $data = Verev::selectRaw('events.start as event,
                             SUM(verevs.value) as total_value,
                             SUM(profits.value) as total_profit,
                             SUM(physical_availabilities.value) as total_physical_availabilities')
             ->join('events', 'events.id', '=', 'verevs.event_id')
             ->leftJoin('profits', 'events.id', '=', 'profits.event_id')
             ->leftJoin('physical_availabilities', 'events.id', '=', 'physical_availabilities.event_id')
-            ->where('events.id', $eventFilter) // Adding filter condition
-            ->groupBy('events.id', 'events.start')
+            ->where('events.id', $eventFilter) // Menambahkan kondisi WHERE untuk event_id
+            ->groupBy('event')
             ->get();
 
-                $semesterSums = [];
-                $semester = $data->chunk(6);
+            $semesterSums = [];
+            $semester = $data->chunk(6);
 
-                foreach ($semester as $index => $chunk) {
-                    $chunkSum = $chunk->sum('total_value');
-                    $chunkProfitSum = $chunk->sum('total_profit');
-                    $chunkPhysicalAvailabilities = $chunk->sum('total_physical_availabilities');
+            foreach ($semester as $index => $chunk) {
+                $chunkSum = $chunk->sum('total_value'); // Menghitung total_value untuk setiap bagian
+                $chunkProfitSum = $chunk->sum('total_profit'); // Menghitung total_profit untuk setiap bagian
+                $chunkAgingsSum = $chunk->sum('total_agings'); // Menghitung total_agings untuk setiap bagian
 
-                    $semesterSums[$index] = [
-                        'semester' => $index + 1,
-                        'total_value' => $chunkSum,
-                        'total_profit' => $chunkProfitSum,
-                        'total_physical_availabilities' => $chunkPhysicalAvailabilities,
-                    ];
-                }
+                $semesterSums[$index] = [
+                    'semester' => $index + 1, // Menambahkan field "semester" dengan nilai indeks + 1
+                    'total_value' => $chunkSum,
+                    'total_profit' => $chunkProfitSum,
+                    'total_agings' => $chunkAgingsSum,
+                ];
+            }
 
-                // dd($semesterSums);
-
-
-
-            
             // dd($data);
 
 
-            return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'groupVeitems','sumByDepartment','total', 'totalDepartements', 'avgsummary','eventFilter','semesterSums','data'));
+            return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'groupVeitems','sumByDepartment','total', 'totalDepartements', 'avgsummary','eventFilter','semesterSums','data','deptsems'));
         }
 
         private function getUserDepartments()

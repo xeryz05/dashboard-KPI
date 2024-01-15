@@ -19,7 +19,7 @@ use App\Http\Controllers\Departement\viitemController;
 use App\Http\Controllers\Departement\veitemController;
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role:admin'])->group(function () {
 
     //universal admin
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin');

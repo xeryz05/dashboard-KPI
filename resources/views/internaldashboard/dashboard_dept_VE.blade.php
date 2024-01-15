@@ -118,8 +118,7 @@
                             @foreach ($groupVeitems as $departmentId => $veitems)
                                 @if ($loop->first)
                                     @php $firstVeitem = $veitems[0]; @endphp
-                                    <h4 class="page-title">KPI Corporate {{ $firstVeitem->event['start'] }}
-                                        {{ $firstVeitem->event['end'] }}</h4>
+                                    <h4 class="page-title">KPI Corporate {{ $firstVeitem->event['start'] }}</h4>
                                 @endif
                             @endforeach
                             <ol class="breadcrumb">
@@ -135,7 +134,6 @@
                                 <form method="get">
                                     <label for="event_id">Filter by Event:</label>
                                     <select name="event_id" id="event_id">
-                                        <option value="">All Events</option>
                                         @foreach ($events as $event)
                                             <option value="{{ $event->id }}" {{ $eventFilter == $event->id ? 'selected' : '' }}>
                                                 {{ $event->start }}
@@ -154,129 +152,13 @@
                     <div class="col-md-6">
                     </div>
                 </div>
-                <!-- End Row -->
-                <!-- Row -->
-                {{-- <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td colspan="2">Larry the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-4">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="card">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="card">
-                                @foreach ($semesterSums as $item)
-                                    @php
-                                        $totalNilaiAkhir = 0;
-                                        $bobot = 40;
-                                        $bobot_profit = 30;
-
-                                        // Pilih rentang filter berdasarkan nilai semester
-                                        if ($item['semester'] >= 1 && $item['semester'] <= 6) {
-                                            $target = 21000000000; // target per semester untuk rentang 1-6
-                                            $target_profit = 7; // target profit untuk rentang 1-6
-                                        } elseif ($item['semester'] >= 7 && $item['semester'] <= 12) {
-                                            $target = 21000000000; // target per semester untuk rentang 7-12
-                                            $target_profit = 7; // target profit untuk rentang 7-12
-                                        } elseif ($item['semester'] >= 13 && $item['semester'] <= 18) {
-                                            $target =  21000000000;// target per semester untuk rentang 13-18
-                                            $target_profit = 7; // target profit untuk rentang 13-18
-                                        } else {
-                                            // Handle jika nilai semester di luar dari ketiga rentang di atas
-                                            // Misalnya, set target dan target_profit ke nilai default
-                                            $target = 0;
-                                            $target_profit = 0;
-                                        }
-
-                                        // Lanjutkan dengan perhitungan seperti yang telah Anda lakukan sebelumnya
-                                        $revenue = $item['total_value'];
-                                        $profit = $item['total_profit'];
-                                        $nilai = ($revenue / $target) * 100;
-                                        $nilai_akhir = ($nilai * $bobot) / 100;
-
-                                        $pencapaian_profit = $item['total_profit'];
-                                        $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-                                        if ($nilai_profit < 0) {
-                                            $nilai_profit = 0;
-                                        }
-                                        $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
-
-                                        if ($nilai_akhir_profit < 0) {
-                                            $nilai_akhir_profit = 0;
-                                        }
-
-                                        $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
-                                    @endphp
-
-                                    <div id="corporate" style="width: 300px;height:300px;"> {{ ceil($totalNilaiAkhir) }}</div>
+                                @foreach ($deptsems as $item)
+                                    <div id="corporate{{ $item->id }}" style="height:300px;"></div>
                                 @endforeach
-
-                                {{-- @foreach ($semesterSums as $item)
-                                    @php
-                                        $totalNilaiAkhir = 0;
-                                        $bobot = 40;
-                                        $target = 21000000000; //target per semester
-                                        $revenue = $item['total_value'];
-                                        $profit = $item['total_profit'];
-                                        $nilai = ($revenue / $target) * 100;
-                                        $nilai_akhir = ($nilai * $bobot) / 100;
-
-                                        $bobot_profit = 30;
-                                        $target_profit = 7;
-                                        $pencapaian_profit = $item['total_profit'];
-                                        $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-                                        if ($nilai_profit < 0) {
-                                            $nilai_profit = 0;
-                                        }
-                                        $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
-
-                                        if ($nilai_akhir_profit < 0) {
-                                            $nilai_akhir_profit = 0;
-                                        }
-
-                                        $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
-                                    @endphp
-                                        <div id="corporate{{ $item['semester'] }}" style="width: 300px;height:300px;"></div>
-                                @endforeach --}}
-                                    {{-- <div class="rekap">
-                                        @foreach ($semesterSums as $item)
-                                        <div id="corporate{{ $item['semester'] }}" style="width: 200px;height:400px;"></div>
-                                        @endforeach
-                                    </div> --}}
                             </div>
                         </div>
                         <div class="col-md-7">
@@ -610,49 +492,7 @@
     @include('layouts.script')
     {{-- grafik untuk kolom --}}
     {{-- @forelse ($veitemsByDepartment as $departmentId => $veitems) --}}
-    @foreach ($data as $item)
-            {{-- @php
-                $totalNilaiAkhir = 0;
-                $bobot = 40;
-                $bobot_profit = 30;
-
-                // Pilih rentang filter berdasarkan nilai semester
-                if ($item['semester'] >= 1 && $item['semester'] <= 6) {
-                    $target = 21000000000; // target per semester untuk rentang 1-6
-                    $target_profit = 7; // target profit untuk rentang 1-6
-                } elseif ($item['semester'] >= 7 && $item['semester'] <= 12) {
-                    $target = 21000000000; // target per semester untuk rentang 7-12
-                    $target_profit = 7; // target profit untuk rentang 7-12
-                } elseif ($item['semester'] >= 13 && $item['semester'] <= 18) {
-                    $target =  21000000000;// target per semester untuk rentang 13-18
-                    $target_profit = 7; // target profit untuk rentang 13-18
-                } else {
-                    // Handle jika nilai semester di luar dari ketiga rentang di atas
-                    // Misalnya, set target dan target_profit ke nilai default
-                    $target = 0;
-                    $target_profit = 0;
-                }
-
-                // Lanjutkan dengan perhitungan seperti yang telah Anda lakukan sebelumnya
-                $revenue = $item['total_value'];
-                $profit = $item['total_profit'];
-                $nilai = ($revenue / $target) * 100;
-                $nilai_akhir = ($nilai * $bobot) / 100;
-
-                $pencapaian_profit = $item['total_profit'];
-                $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
-                if ($nilai_profit < 0) {
-                    $nilai_profit = 0;
-                }
-                $nilai_akhir_profit = ($nilai_profit * $bobot_profit) / 100;
-
-                if ($nilai_akhir_profit < 0) {
-                    $nilai_akhir_profit = 0;
-                }
-
-                $totalNilaiAkhir = $nilai_akhir + $nilai_akhir_profit;
-            @endphp --}}
-
+    @foreach ($deptsems as $item)
             <script type="text/javascript">
                 // Initialize the echarts instance based on the prepared dom
                 var myChart = echarts.init(document.getElementById('corporate{{ $item->id }}'));
@@ -710,7 +550,7 @@
                         },
                         axisLabel: {
                             color: '#464646',
-                            fontSize: 10,
+                            fontSize: 20,
                             distance: -60,
                             rotate: 'tangential',
                             formatter: function(value) {
@@ -740,15 +580,14 @@
                             color: 'inherit'
                         },
                         data: [{
-                            value: [$item->value],
+                            value: {{ $item->value }},
                             name: 'Grade Rating'
                         }]
                     }]
                 };
-
-                // Display the chart using the configuration items and data just specified.
-                myChart.setOption(option);
-            </script>
+        // Display the chart using the configuration items and data just specified.
+        myChart.setOption(option);
+    </script>
         @endforeach
     @forelse($groupVeitems as $departementId => $veitems)
         @foreach ($veitems as $veitem)

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\periode\Event;
 
-class deptSemester extends Model
+class deptViSemester extends Model
 {
     use HasFactory;
 

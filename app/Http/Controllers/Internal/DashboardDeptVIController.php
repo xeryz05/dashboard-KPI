@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\periode\Event;
 use App\Models\Departement\viitem;
 use App\Models\Departement;
+use App\Models\Departement\deptViSemester;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,9 @@ class DashboardDeptVIController extends Controller
     public function index(Request $request)
         {
             // Load the necessary data
-            $events = Event::orderBy('id','desc')->get(); // Load events data
+            $periode = Event::orderBy('id')->get(); // Load events data
+            $events = $periode->skip(12);
+
             $dept = Departement::get(); // Load departments data
 
             $lastFilter = Viitem::orderBy('event_id', 'desc')->value('event_id');
@@ -35,17 +38,21 @@ class DashboardDeptVIController extends Controller
             // Get VE items based on user departments and filter event
             $viitems = $this->getViitems($userDepartments, $filterEvent);
 
+            // dd($viitems);
+
             // Group VE items by department
-            $viitemsByDepartment = $viitems->groupBy('departement_id');
+            $groupViitems = $viitems->groupBy('departement_id');
             // Calculate sum by department
-            $sumByDepartment = $this->calculateSumByDepartment($viitemsByDepartment);
+            $sumByDepartment = $this->calculateSumByDepartment($groupViitems);
             
             // Calculate average summary
             $total = $sumByDepartment->sum();
             $totalDepartements = $sumByDepartment->count();
             $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
 
-            return view('internaldashboard.dashboard_dept_VI', compact('events', 'dept', 'filterEvent', 'viitems', 'viitemsByDepartment', 'sumByDepartment', 'avgsummary',));
+            $deptsems = deptViSemester::where('event_id', $filterEvent)->get();
+
+            return view('internaldashboard.dashboard_dept_VI', compact('events', 'dept', 'filterEvent', 'viitems', 'groupViitems', 'sumByDepartment', 'avgsummary','deptsems',));
         }
 
         private function getUserDepartments()

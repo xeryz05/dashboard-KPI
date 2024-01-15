@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('semester');
             $table->integer('year');
             $table->integer('value');
+
+            $table->unsignedBigInteger('event_id');
+            $table->foreign('event_id')->references('id')->on('events');
             $table->timestamps();
         });
     }
