@@ -131,16 +131,14 @@
                         </div>
                         <div class="d-flex">
                             <div class="mb-xl-0 pe-1">
-                                <form method="get">
-                                    <label for="event_id">Filter by Event:</label>
-                                    <select name="event_id" id="event_id">
-                                        @foreach ($events as $event)
-                                            <option value="{{ $event->id }}" {{ $eventFilter == $event->id ? 'selected' : '' }}>
-                                                {{ $event->start }}
-                                            </option>
+                                <form action="" method="GET" class="d-flex">
+                                    <select class="form-select" name="event_id">
+                                        {{-- <option value="1">All Data</option> --}}
+                                        @foreach ($events as $item)
+                                            <option value="{{ $item->id }}" {{ $item->id == $eventFilter ? 'selected' : '' }}>{{ $item->start }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="submit">Filter</button>
+                                    <button class="btn btn-outline-secondary ml-2" id="apply_filter">Apply</button>
                                 </form>
                             </div>
                         </div>
