@@ -15,7 +15,7 @@ class CorpVEController extends Controller
     public function index(Request $request){
         
         // Ambil tahun dari request, jika tidak ada, gunakan tahun default
-        $selectedYear = $request->input('year', date('Y'));
+        $selectedYear = $request->input('year', 2023);
         // Ambil verevs yang sesuai dengan tahun dari tabel events
         $verevs = Verev::whereHas('event', function ($query) use ($selectedYear) {
             $query->where('year', $selectedYear);
@@ -38,6 +38,8 @@ class CorpVEController extends Controller
             ->groupBy('verevs.event_id')
             ->get();
 
+            // dd($dataSUM);
+
         $item = Verev::select('updated_at')->latest()->first();
         $semesterSums = [];
         $semester = $dataSUM->chunk(6);
@@ -45,11 +47,13 @@ class CorpVEController extends Controller
         foreach ($semester as $index => $item) {
             $chunkSum = $item->sum('count');
             $chunkMax = $item->sum('total_profit');
+            $chunkAvarage = $item->average('total_physical_availabilities');
 
             $semesterSums[$index] = [
                 'semester' => $index + 1,
                 'total_value' => $chunkSum,
                 'total_profit' => $chunkMax,
+                'total_physical_availabilities' => $chunkAvarage
                 // You may add other fields you want to sum here
             ];
         }

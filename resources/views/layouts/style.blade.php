@@ -369,7 +369,7 @@
             backdrop-filter: blur(6.8px);
             -webkit-backdrop-filter: blur(6.8px);
             border: 1px solid rgba(255, 255, 255, 0.85);
-            height: 450px;
+            height: auto;
             transition: top 1s;
             
         }

@@ -50,6 +50,8 @@ class DashboardDeptVEController extends Controller
             $groupVeitems = $veitems->groupBy('departement_id');
 
             // dd($groupVeitems);
+
+            // dd($groupVeitems);
             // Calculate sum by department
             $sumByDepartment = $this->calculateSumByDepartment($groupVeitems);
             
@@ -96,6 +98,46 @@ class DashboardDeptVEController extends Controller
             return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'groupVeitems','sumByDepartment','total', 'totalDepartements', 'avgsummary','eventFilter','semesterSums','data','deptsems'));
         }
 
+        // public function index(Request $request)
+        // {
+        //     // Load the necessary data
+        //     $periode = Event::orderBy('id')->get(); // Load events data
+        //     $events = $periode->skip(12);
+
+        //     $dept = Departement::get(); // Load departments data
+
+        //     $lastFilter = Veitem::orderBy('event_id', 'desc')->value('event_id');
+        //     $eventFilter = $lastFilter ? $lastFilter : 1;
+        //     if ($request->has('event_id')) {
+        //         $eventFilter = $request->input('event_id');
+        //     }
+            
+        //     // Get the user's departments
+        //     $userDepartments = $this->getUserDepartments(); // Ambil seluruh departement_id yang dimiliki oleh user
+
+        //     // Get VE items based on user departments and filter event
+        //     $veitems = $this->getVeitems($userDepartments, $eventFilter);
+
+        //     // dd($viitems);
+
+        //     // Group VE items by department
+        //     $groupVeitems = $veitems->groupBy('departement_id');
+
+        //     // dd($groupVeitems);
+        //     // Calculate sum by department
+        //     $sumByDepartment = $this->calculateSumByDepartment($groupVeitems);
+            
+        //     // Calculate average summary
+        //     $total = $sumByDepartment->sum();
+        //     $totalDepartements = $sumByDepartment->count();
+        //     $avgsummary = $this->calculateAvgSummary($total, $totalDepartements);
+
+        //     $deptsems = deptSemester::where('event_id', $eventFilter)->get();
+
+        //     return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'eventFilter', 'veitems', 'groupVeitems', 'sumByDepartment', 'avgsummary','deptsems',));
+        //     // return view('internaldashboard.dashboard_dept_VE', compact('events', 'dept', 'groupVeitems','sumByDepartment','total', 'totalDepartements', 'avgsummary','eventFilter','semesterSums','data','deptsems'));
+        // }
+
         private function getUserDepartments()
         {
             return Auth::user()->departement->pluck('id');
@@ -110,9 +152,9 @@ class DashboardDeptVEController extends Controller
                 ->get();
         }
 
-        private function calculateSumByDepartment($viitemsByDepartment)
+        private function calculateSumByDepartment($veitemsByDepartment)
         {
-            return $viitemsByDepartment->map(function ($items) {
+            return $veitemsByDepartment->map(function ($items) {
                  return $items->sum('weight_percentage');
              })->sortByDesc('sumPercentage');
         }
@@ -121,6 +163,8 @@ class DashboardDeptVEController extends Controller
         {
             return $totalDepartements > 0 ? $total / $totalDepartements : 0;
         }
+
+        
 
     // public function index(Request $request)
     // {

@@ -151,8 +151,62 @@
                                             $pendapatan = $item->count; //total perbulan
                                             $target = 3500000000; //target perbulan ve  4,000,000,000  ve  7,000,000,000
                                             $persentase = ceil(($pendapatan / $target) * 100);
+
+                                            $bobot_revenue = ceil(40);
+                                            $pencapaian_revenue = $item->count;
+                                            $nilai_revenue = ($pencapaian_revenue / $target) * 100;
+                                            if ($nilai_revenue < 0) {
+                                                $nilai_revenue = 0;
+                                            }else if($nilai_revenue > 100) {
+                                                $nilai_revenue = 100;
+                                            }
+
+                                            $nilai_akhir_revenue = ($nilai_revenue * $bobot_revenue) / 100;
+                                            if ($nilai_akhir_revenue < 0) {
+                                                $nilai_akhir_revenue = 0;
+                                            }
+
+                                            //profit
+
+                                            $bobot_profits = 40;
+                                            $revenues = $pencapaian_revenue;
+                                            $nilai_profits = ($item->total_profit / $revenues) * 100;
+                                            if ($nilai_profits < 0) {
+                                                $nilai_profits = 0;
+                                            }
+                                            
+                                            $nilai_akhir_profits = ($nilai_profits / 100 * $bobot_profits);
+                                            if ($nilai_akhir_profits < 0) {
+                                                $nilai_akhir_profits = 0;
+                                            }
+
+                                            //end profit
+
+                                            $PA_bobot= 30;
+                                            $PA_target = 85;
+                                            $PA_pencapaian = $item->total_physical_availabilities;
+                                            $PA_nilai = ($PA_pencapaian / $PA_target) * 100;
+                                            if ($PA_nilai < 0) {
+                                                $PA_nilai = 0;
+                                            } 
+
+                                            $nilai_akhir_PA = ($PA_nilai * (30 /100)); 
+                                        
+                                        $event_id = $item->event_id;
+                                        if ($event_id == 1 || $event_id == 2) {
+                                            $totalNilai_Akhir = 0;
+                                        }else {
+                                            $totalNilai_Akhir = $nilai_akhir_revenue + $nilai_akhir_profits + $nilai_akhir_PA;
+                                            if ($totalNilai_Akhir > 100) {
+                                                $totalNilai_Akhir = 100;
+                                            }
+                                        }
+                                        // $totalNilai_Akhir = $nilai_akhir_revenue + $nilai_akhir_profits + $nilai_akhir_PA;
+                                        // if ($totalNilai_Akhir > 100) {
+                                        //     $totalNilai_Akhir = 100;
+                                        // }
                                         @endphp
-                                        {{-- @dd($persentase) --}}
+                                        {{-- @dd($nilai_profits) --}}
                                         <span class="card-text">Tercapai :{{ number_format($item->count) }}</span><br>
                                         <span class="">Persentasi: {{ $persentase }}%</span>
                                         <div class="container">
@@ -208,22 +262,46 @@
                                     <div class="my-3">
                                         <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Physical
                                             Availability</h6>
-                                        <span class="">Persentasi : %</span>
+                                        <span class="">Persentasi : {{ $item->total_physical_availabilities .'%' }}</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-dabger" role="progressbar"
-                                                            style="width: %" aria-valuenow="42.72" aria-valuemin="0"
-                                                            aria-valuemax="100">
-                                                            <span>%</span>
+                                                        <div class="progress-bar bg-{{ $item->total_physical_availabilities > 60 ? ($item->total_physical_availabilities > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            role="progressbar"
+                                                            style="width: {{ $item->total_physical_availabilities > 100 ? 100 : $item->total_physical_availabilities }}%"
+                                                            aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ $item->total_physical_availabilities }}%</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @if (!in_array($event_id, [1, 2]))
+                                    <div class="my-3">
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Hasil Akhir</h6>
+                                        <span class="">Persentasi : {{ round($totalNilai_Akhir) .'%' }}</span>
+                                        <div class="container">
+                                            <div class="row mt-3 text-center">
+                                                <div class="col-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-{{ ceil($totalNilai_Akhir) > 60 ? (ceil($totalNilai_Akhir) > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            role="progressbar"
+                                                            style="width: {{ ceil($totalNilai_Akhir) > 100 ? 100 : ceil($totalNilai_Akhir) }}%"
+                                                            aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ round($totalNilai_Akhir) }}%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     {{-- end physical availability VI januari --}}
+                                    {{-- <span>revenue : {{ round($nilai_revenue) }}</span><br>
+                                    <span>Profit :{{ round($nilai_profits) }}</span><br>
+                                    <span>PA :{{ round($PA_nilai) }}</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -242,7 +320,7 @@
                             $nilai = ($revenue / $target) * 100;
                             $nilai_akhir = ($nilai * $bobot) / 100;
 
-                            $bobot_profit = 30;
+                            $bobot_profit = 40;
                             $target_profit = 7;
                             $pencapaian_profit = $item['total_profit'];
                             $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
@@ -255,7 +333,20 @@
                                 $nilai_akhir_profit = 0;
                             }
 
-                            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                            $bobot_PA = 30;
+                            $target_PA = 85;
+                            $pencapaian_PA = $item['total_physical_availabilities'];
+                            $nilai_PA = ($pencapaian_PA / $target_PA) * 100;
+                            if ($nilai_PA < 0) {
+                                $nilai_PA = 0;
+                            }
+                            $nilai_akhir_PA = ($nilai_PA * $bobot_PA) / 100;
+
+                            if ($nilai_akhir_PA < 0) {
+                                $nilai_akhir_PA = 0;
+                            }
+
+                            $totalNilaiAkhir = $nilai_akhir + $nilai_akhir_profit + $nilai_akhir_PA;
                         @endphp
                         <div class="card" id="card-rekap">
                             <div class="card-body">
@@ -296,20 +387,17 @@
                                                             {{ $bobot . '%' }}</td>
                                                         <td class="text-center" style="font-size: 13px;">
                                                             {{ number_format($target_profit) . '%' }}</td>
-                                                        <td class="text-center" style="font-size: 13px;">
-                                                            {{ 'Rp' . number_format($item['total_profit']) }}</td>
-                                                        <td class="text-center" style="font-size: 13px;">
-                                                            {{ ceil($nilai_profit) . '%' }}</td>
-                                                        <td class="text-center" style="font-size: 13px;">
-                                                            {{ ceil($nilai_akhir_profit) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ 'Rp' . number_format($item['total_profit']) }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_profit) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_akhir_profit) . '%' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="font-size: 13px;">Physical Availability</td>
                                                         <td class="text-center" style="font-size: 13px;">30%</td>
-                                                        <td class="text-center" style="font-size: 13px;">30%</td>
-                                                        <td class="text-center" style="font-size: 13px;"></td>
-                                                        <td class="text-center" style="font-size: 13px;">N/A</td>
-                                                        <td class="text-center" style="font-size: 13px;"></td>
+                                                        <td class="text-center" style="font-size: 13px;">85%</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ $item['total_physical_availabilities'] }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_PA) . '%' }}</td>
+                                                        <td class="text-center" style="font-size: 13px;">{{ ceil($nilai_akhir_PA) . '%' }}</td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot>
@@ -428,7 +516,7 @@
                 $nilai = ($revenue / $target) * 100;
                 $nilai_akhir = ($nilai * $bobot) / 100;
 
-                $bobot_profit = 30;
+                $bobot_profit = 40;
                 $target_profit = 7;
                 $pencapaian_profit = $item['total_profit'];
                 $nilai_profit = ($pencapaian_profit / $target_profit) * 100;
@@ -441,7 +529,20 @@
                     $nilai_akhir_profit = 0;
                 }
 
-                $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                $bobot_PA = 30;
+                $target_PA = 85;
+                $pencapaian_PA = $item['total_physical_availabilities'];
+                $nilai_PA = ($pencapaian_PA / $target_PA) * 100;
+                if ($nilai_PA < 0) {
+                    $nilai_PA = 0;
+                }
+                $nilai_akhir_PA = ($nilai_PA * $bobot_PA) / 100;
+
+                if ($nilai_akhir_PA < 0) {
+                    $nilai_akhir_PA = 0;
+                }
+
+                $totalNilaiAkhir = $nilai_akhir + $nilai_akhir_profit + $nilai_akhir_PA;
             @endphp
 
             <script type="text/javascript">

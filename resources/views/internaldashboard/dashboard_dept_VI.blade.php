@@ -47,7 +47,6 @@
         <img class="loader-img" src="{{ asset('assets/img/gif/vg2.gif') }}" alt="Loader">
     </div>
     <!-- /Loader -->
-
     <!-- Page -->
     <div class="page custom-index">
         <div>
@@ -349,7 +348,7 @@
 
     </div>
     <!-- End Page -->
-
+    
     @section('script')
         <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 
@@ -470,7 +469,10 @@
     </script>
     @endforeach
     
-
+    <script>
+        document.querySelector(".scrollbar").style.width = "100px";
+        document.querySelector(".scrollbar").style.height = "100px";
+    </script>
     <script>
 
         window.onscroll = function() {fungsiScrollnya()};
@@ -649,7 +651,7 @@
     @empty
     @endforelse
 
-
+        
 </body>
 
 </html>

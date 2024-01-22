@@ -110,7 +110,6 @@
                                 </div>
                                 <div class="me-2">
                                     <select name="year" class="form-select" id="year">
-                                        <option value="">-- Semua Tahun --</option>
                                         @foreach (range(date('Y'), 2023, -1) as $year)
                                             <option value="{{ $year }}"
                                                 {{ $selectedYear == $year ? 'selected' : '' }}>
@@ -149,21 +148,74 @@
                                         <br>
                                         @php
                                             $pendapatan = $item->count; //total perbulan
-                                            $target = 3500000000; //target perbulan ve  4,000,000,000  ve  7,000,000,000
-                                            $persentase = ceil(($pendapatan / $target) * 100);
+                                            $target = 2000000000; //target perbulan ve  3,500,000,000  vi  2,000,000,000
+                                            $persentase = ($pendapatan / $target) * 100;
+
+                                            $bobot_revenue = 40;
+                                            $pencapaian_revenue = $item->count;
+                                            $nilai_revenue = ($pencapaian_revenue / $target) * 100;
+                                            if ($nilai_revenue < 0) {
+                                                $nilai_revenue = 0;
+                                            } elseif ($nilai_revenue > 100) {
+                                                $nilai_revenue = 100;
+                                            }
+
+                                            $nilai_akhir_revenue = ($nilai_revenue * $bobot_revenue) / 100;
+                                            if ($nilai_akhir_revenue < 0) {
+                                                $nilai_akhir_revenue = 0;
+                                            }
+
+                                            //profit
+
+                                            $bobot_profits = 40;
+                                            $revenues = $pencapaian_revenue;
+                                            $nilai_profits = ($item->total_profit / $revenues) * 100;
+                                            if ($nilai_profits < 0) {
+                                                $nilai_profits = 0;
+                                            }elseif ($nilai_profits > 7) {
+                                                $nilai_profits = 7;
+                                            }
+                                            
+                                            $nilai_akhir_profits = ($nilai_profits / 100 * $bobot_profits);
+                                            if ($nilai_akhir_profits < 0) {
+                                                $nilai_akhir_profits = 0;
+                                            }
+
+                                            //end profit
+
+                                            // $agingBobot= 30;
+                                            // $agingTarget = 85;
+                                            // $agingPencapaian = $item->total_agings;
+                                            // $agingNilai = ($agingPencapaian / $agingTarget) * 100;
+                                            // if ($agingNilai < 0) {
+                                            //     $agingNilai = 0;
+                                            // } 
+
+                                            // $nilai_akhir_aging = ($agingNilai * (30 /100)); 
+
+                                        // $totalNilai_Akhir = $nilai_akhir_PA;
+                                        $event_id = $item->event_id;
+                                        if ($event_id == 1 || $event_id == 2) {
+                                            $totalNilai_Akhir = null;
+                                        }else {
+                                            $totalNilai_Akhir = $nilai_akhir_revenue + $nilai_akhir_profits;
+                                            if ($totalNilai_Akhir > 100) {
+                                                $totalNilai_Akhir = 100;
+                                            }
+                                        }
                                         @endphp
                                         {{-- @dd($persentase) --}}
                                         <span class="card-text">Tercapai :{{ number_format($item->count) }}</span><br>
-                                        <span class="">Persentasi: {{ $persentase }}%</span>
+                                        <span class="">Persentasi: {{ round($nilai_revenue) }}%</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
                                                     <div class="progress">
-                                                        <div class="progress-bar bg-{{ $persentase > 60 ? ($persentase > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                        <div class="progress-bar bg-{{ $nilai_revenue > 60 ? ($nilai_revenue > 80 ? 'success' : 'warning') : 'danger' }}"
                                                             role="progressbar"
-                                                            style="width: {{ $persentase > 100 ? 100 : $persentase }}%"
+                                                            style="width: {{ $nilai_revenue > 100 ? 100 : $nilai_revenue }}%"
                                                             aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
-                                                            <span>{{ $persentase }}%</span>
+                                                            <span>{{ round($nilai_revenue) }}%</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -177,27 +229,21 @@
                                         </h6>
                                         <span class="card-text">
                                             <span class="">Profit/Loss
-                                                :{{ 'Rp.' . number_format($item->total_aging) }}</span><br>
-
-                                            @php
-                                                $total_aging = $item->total_aging; //total perbulan
-                                                $total_revenue = $item->count; //target perbulan vi  4,000,000,000  ve  7,000,000,000
-                                                $persentase = ceil(($total_aging / $total_revenue) * 100);
-                                            @endphp
-                                            <span class="">Persentasi: {{ $persentase }}%</span>
+                                                :{{ 'Rp.' . number_format($item->$nilai_profits) }}</span><br>
+                                            <span class="">Persentasi: {{ $nilai_profits }}%</span>
                                         </span><br>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
                                                 <div class="col-12">
-                                                    @if ($persentase < 6)
+                                                    @if ($nilai_profits < 6)
                                                         <progress class="w-100" style="accent-color: red;"
-                                                            value="{{ $persentase }}" max="7"></progress>
-                                                    @elseif ($persentase < 7)
+                                                            value="{{ $nilai_profits }}" max="7"></progress>
+                                                    @elseif ($nilai_profits < 7)
                                                         <progress class="w-100" style="accent-color: yellow;"
-                                                            value="{{ $persentase }}" max="7"></progress>
+                                                            value="{{ $nilai_profits }}" max="7"></progress>
                                                     @else
                                                         <progress class="w-100" style="accent-color: green;"
-                                                            value="{{ $persentase }}" max="7"></progress>
+                                                            value="{{ $nilai_profits }}" max="7"></progress>
                                                     @endif
                                                 </div>
                                             </div>
@@ -222,6 +268,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if (!in_array($event_id, [1, 2]))
+                                    <div class="my-3">
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Hasil Akhir</h6>
+                                        <span class="">Persentasi : {{ round($totalNilai_Akhir) .'%' }}</span>
+                                        <div class="container">
+                                            <div class="row mt-3 text-center">
+                                                <div class="col-12">
+                                                    <div class="progress">
+                                                        <div class="progress-bar bg-{{ ceil($totalNilai_Akhir) > 60 ? (ceil($totalNilai_Akhir) > 80 ? 'success' : 'warning') : 'danger' }}"
+                                                            role="progressbar"
+                                                            style="width: {{ ceil($totalNilai_Akhir) > 100 ? 100 : ceil($totalNilai_Akhir) }}%"
+                                                            aria-valuenow="42.72" aria-valuemin="0" aria-valuemax="100">
+                                                            <span>{{ round($totalNilai_Akhir) }}%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
                                     {{-- end Aging VI januari --}}
                                 </div>
                             </div>
@@ -235,7 +301,7 @@
                         @php
                             $totalNilaiAkhir = 0;
                             $bobot = 40;
-                            $target = 21000000000; //target per semester
+                            $target = 12000000000; //target per semester
                             $revenue = $item['total_value'];
                             $profit = $item['total_aging'];
                             $nilai = ($revenue / $target) * 100;
@@ -254,7 +320,7 @@
                                 $nilai_akhir_profit = 0;
                             }
 
-                            $totalNilaiAkhir += $nilai_akhir + $nilai_akhir_profit;
+                            $totalNilaiAkhir = $nilai_akhir + $nilai_akhir_profit;
                         @endphp
                         <div class="card" id="card-rekap">
                             <div class="card-body">
@@ -421,7 +487,7 @@
             @php
                 $totalNilaiAkhir = 0;
                 $bobot = 40;
-                $target = 21000000000; //target per semester
+                $target = 12000000000; //target per semester
                 $revenue = $item['total_value'];
                 $profit = $item['total_aging'];
                 $nilai = ($revenue / $target) * 100;

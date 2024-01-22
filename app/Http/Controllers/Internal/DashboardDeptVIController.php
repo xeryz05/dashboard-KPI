@@ -42,6 +42,8 @@ class DashboardDeptVIController extends Controller
 
             // Group VE items by department
             $groupViitems = $viitems->groupBy('departement_id');
+
+            // dd($groupViitems);
             // Calculate sum by department
             $sumByDepartment = $this->calculateSumByDepartment($groupViitems);
             

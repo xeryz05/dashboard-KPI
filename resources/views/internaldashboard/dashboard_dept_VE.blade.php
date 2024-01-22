@@ -245,6 +245,7 @@
                     </div>
                 </div>
                 @foreach ($groupVeitems as $departementId => $veitems)
+                <div class="card" id="item{{ $groupVeitems[$departmentId]->first()->departement['name'] }}">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -397,6 +398,7 @@
 
                         </div>
                     </div>
+                </div>
                 @endforeach
                 {{-- <ul class="pagination">
                 <li class="page-item"><a href="{{ route('deptVE').'
