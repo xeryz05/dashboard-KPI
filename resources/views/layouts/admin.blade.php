@@ -303,13 +303,19 @@
                                     </a>
                                 </li>
                                 <li class="slide">
+                                    <a class="side-menu__item" href="{{ route('physicalavailability.index') }}">
+                                        <i class="fas fa-columns" style="color: #000000;"></i>
+                                        <span class="side-menu__label" style="margin-left: 20px">Utilisasi Asset</span>
+                                    </a>
+                                </li>
+                                <li class="slide">
                                     <a class="side-menu__item" href="{{ route('veitem.index') }}">
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">KPI Departement VE</span>
                                     </a>
                                 </li>
                             @endrole
-                            @can('Uji Coba')
+                            {{-- @can('Uji Coba')
                                 <li class="side-item side-item-category text-dark">Dashboard KPI Uji Coba</li>
                                 <li class="slide">
                                     <a class="{{ Request::routeIs('verevs') ? 'active' : '' }} side-menu__item" href="{{ route('verevs.index') }}">
@@ -321,7 +327,7 @@
                                         <i class="fas fa-columns" style="color: #000000;"></i>
                                         <span class="side-menu__label" style="margin-left: 20px">Verdanco Engineering</span></a>
                                 </li>
-                            @endcan
+                            @endcan --}}
                             
                         </ul>
                         <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg"

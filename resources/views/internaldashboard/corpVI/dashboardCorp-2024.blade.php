@@ -143,7 +143,7 @@
                                         <h3 class="card-title tx-dark tx-medium mg-b-10 font-weight-bold text-center"
                                             style="font-size: 16px">{{ $item->event['start'] }}
                                         </h3>
-                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Revenue
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px"><i class="fa-solid fa-hand-holding-dollar fs-6 mx-2"></i>Revenue
                                         </h6>
                                         <br>
                                         @php
@@ -225,7 +225,7 @@
                                     {{-- end revenue VI januari --}}
                                     {{-- Net Profit VI januari --}}
                                     <div class="my-3">
-                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Net Profit
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px"><i class="fas fa-chart-line mx-2 fs-6"></i>Net Profit
                                         </h6>
                                         <span class="card-text">
                                             <span class="">Profit/Loss
@@ -252,7 +252,7 @@
                                     {{-- end Net Profit VI januari --}}
                                     {{-- Aging VI januari --}}
                                     <div class="my-3">
-                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Aging</h6>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px"><i class="fa-solid fa-truck-monster mx-2 fa-6"></i>Aging</h6>
                                         <span class="">Persentasi : %</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">
@@ -270,7 +270,7 @@
                                     </div>
                                     @if (!in_array($event_id, [1, 2]))
                                     <div class="my-3">
-                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px">Hasil Akhir</h6>
+                                        <h6 class="card-text bd-t" style="font-size: 15px; padding-top:10px"><i class="fa-solid fa-file-invoice-dollar fa-bounce mx-2 fa-6"></i>Hasil Akhir</h6>
                                         <span class="">Persentasi : {{ round($totalNilai_Akhir) .'%' }}</span>
                                         <div class="container">
                                             <div class="row mt-3 text-center">

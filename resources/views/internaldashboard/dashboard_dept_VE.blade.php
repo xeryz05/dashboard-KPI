@@ -245,6 +245,8 @@
                     </div>
                 </div>
                 @foreach ($groupVeitems as $departementId => $veitems)
+                {{-- @dd($groupVeitems) --}}
+                {{-- <div class="card" id="item"> --}}
                 <div class="card" id="item{{ $groupVeitems[$departmentId]->first()->departement['name'] }}">
                     <div class="row">
                         <div class="col-md-12">
@@ -256,7 +258,7 @@
                                                 <table>
                                                     <thead class="">
                                                         <div class="d-flex justify-content-center">
-                                                            <span class="fw-bolder fs-5">{{ $veitem->departement['name'] }}</span>
+                                                            <span class="fw-bolder fs-5">{{ $veitems->first()->departement['name'] }}</span>
                                                         </div>
                                                     </thead>
                                                     <tbody>
@@ -264,7 +266,6 @@
                                                             <div id="main{{ $departementId }}" style="height:300px;"></div>
                                                         </div>
                                                     </tbody>
-                                                    <tfoot></tfoot>
                                                 </table>
                                             </div>
                                         </div>
